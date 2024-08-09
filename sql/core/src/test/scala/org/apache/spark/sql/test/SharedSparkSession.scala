@@ -69,6 +69,16 @@ trait SharedSparkSessionBase
       .set(UNSAFE_EXCEPTION_ON_MEMORY_LEAK, true)
       .set(SQLConf.CODEGEN_FALLBACK.key, "false")
       .set(SQLConf.CODEGEN_FACTORY_MODE.key, CodegenObjectFactoryMode.CODEGEN_ONLY.toString)
+      .set("spark.kryo.unsafe", "true")
+      .set("spark.memory.offHeap.size", "5g")
+      .set("spark.plugins", "org.pacman.chukonu.ChukonuPlugin")
+      .set("spark.chukonu.root", "/opt/chukonu")
+      .set("spark.chukonu.stagingdir", "/tmp/staging")
+      .set("spark.chukonu.compileCacheDir", "/tmp/cache")
+      .set("spark.chukonu.cxx", "/usr/bin/g++")
+      .set("spark.chukonu.enableNativeCodegen", "true")
+      .set("spark.memory.offHeap.enabled", "true")
+      .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
       // Disable ConvertToLocalRelation for better test coverage. Test cases built on
       // LocalRelation will exercise the optimization rules better by disabling it as
       // this rule may potentially block testing of other optimization rules such as
