@@ -166,7 +166,7 @@ abstract class AccumulatorV2[IN, OUT] extends Serializable {
     if (atDriverSide) {
       if (!isRegistered) {
         throw new UnsupportedOperationException(
-          "Accumulator must be registered before send to executor")
+          s"Accumulator must be registered before send to executor (name: ${name.getOrElse("<None>")})")
       }
       val copyAcc = copyAndReset()
       assert(copyAcc.isZero, "copyAndReset must return a zero value copy")
