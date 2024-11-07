@@ -165,8 +165,9 @@ abstract class AccumulatorV2[IN, OUT] extends Serializable {
   final protected def writeReplace(): Any = {
     if (atDriverSide) {
       if (!isRegistered) {
+        val x = name.getOrElse("<None>")
         throw new UnsupportedOperationException(
-          "Accumulator must be registered before send to executor")
+          s"Accumulator must be registered before send to executor (name: ${x})")
       }
       val copyAcc = copyAndReset()
       assert(copyAcc.isZero, "copyAndReset must return a zero value copy")
@@ -287,7 +288,16 @@ private[spark] object AccumulatorContext extends Logging {
    * Clears all registered [[AccumulatorV2]]s. For testing only.
    */
   def clear(): Unit = {
+    import scala.collection.JavaConverters._
+    val accsToRecover = originals.elements().asIterator()
+      .asScala
+        .map(_.get())
+              .filter(_ != null)
+      .filter(_.name.isDefined)
+      .filter(x => x.name.get.contains("NsAcc") || x.name.get == "nativeComputationTime")
+      .toArray
     originals.clear()
+    accsToRecover.foreach(register)
   }
 
   /** Naive way to reduce the duplicate Some objects for values 0 and -1
