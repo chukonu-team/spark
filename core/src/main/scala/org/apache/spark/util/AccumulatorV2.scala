@@ -291,7 +291,8 @@ private[spark] object AccumulatorContext extends Logging {
     import scala.collection.JavaConverters._
     val accsToRecover = originals.elements().asIterator()
       .asScala
-      .flatMap(xRef => Option(xRef.get()))
+        .map(_.get())
+              .filter(_ != null)
       .filter(_.name.isDefined)
       .filter(x => x.name.get.contains("NsAcc") || x.name.get == "nativeComputationTime")
       .toArray
