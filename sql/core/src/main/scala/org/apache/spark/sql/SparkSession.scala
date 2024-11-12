@@ -628,6 +628,8 @@ class SparkSession private(
    */
   @Experimental
   def sql(sqlText: String, args: Map[String, Any]): DataFrame = withActive {
+    println(s"Executing SQL ${sqlText}")
+    logInfo(s"[FROm LOG] Executing SQL ${sqlText}")
     val tracker = new QueryPlanningTracker
     val plan = tracker.measurePhase(QueryPlanningTracker.PARSING) {
       val parsedPlan = sessionState.sqlParser.parsePlan(sqlText)
