@@ -17,12 +17,12 @@
 
 package org.apache.spark.sql
 
-import scala.collection.mutable.ArrayBuffer
+// import scala.collection.mutable.ArrayBuffer
 
-import org.apache.spark.sql.catalyst.expressions.SubqueryExpression
-import org.apache.spark.sql.catalyst.plans.logical.{Aggregate, Join, LogicalPlan, Project, Sort, Union}
+// import org.apache.spark.sql.catalyst.expressions.SubqueryExpression
+import org.apache.spark.sql.catalyst.plans.logical.{Join, LogicalPlan}
 import org.apache.spark.sql.execution._
-import org.apache.spark.sql.execution.adaptive.{AdaptiveSparkPlanHelper, DisableAdaptiveExecution}
+import org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanHelper
 import org.apache.spark.sql.execution.datasources.FileScanRDD
 import org.apache.spark.sql.execution.exchange.ShuffleExchangeExec
 import org.apache.spark.sql.execution.joins.{BaseJoinExec, BroadcastHashJoinExec, BroadcastNestedLoopJoinExec}
@@ -2049,46 +2049,6 @@ class SubquerySuite extends QueryTest
 //    }
 //  }
 //
-//  test("Subquery reuse across the whole plan") {
-//    withSQLConf(SQLConf.ADAPTIVE_EXECUTION_ENABLED.key -> "false",
-//      SQLConf.OPTIMIZE_ONE_ROW_RELATION_SUBQUERY.key -> "false") {
-//      val df = sql(
-//        """
-//          |SELECT (SELECT avg(key) FROM testData), (SELECT (SELECT avg(key) FROM testData))
-//          |FROM testData
-//          |LIMIT 1
-//      """.stripMargin)
-//
-//      // scalastyle:off
-//      // CollectLimit 1
-//      // +- *(1) Project [Subquery scalar-subquery#240, [id=#112] AS scalarsubquery()#248, Subquery scalar-subquery#242, [id=#183] AS scalarsubquery()#249]
-//      //    :  :- Subquery scalar-subquery#240, [id=#112]
-//      //    :  :  +- *(2) HashAggregate(keys=[], functions=[avg(cast(key#13 as bigint))])
-//      //    :  :     +- Exchange SinglePartition, true, [id=#108]
-//      //    :  :        +- *(1) HashAggregate(keys=[], functions=[partial_avg(cast(key#13 as bigint))])
-//      //    :  :           +- *(1) SerializeFromObject [knownnotnull(assertnotnull(input[0, org.apache.spark.sql.test.SQLTestData$TestData, true])).key AS key#13]
-//      //    :  :              +- Scan[obj#12]
-//      //    :  +- Subquery scalar-subquery#242, [id=#183]
-//      //    :     +- *(1) Project [ReusedSubquery Subquery scalar-subquery#240, [id=#112] AS scalarsubquery()#247]
-//      //    :        :  +- ReusedSubquery Subquery scalar-subquery#240, [id=#112]
-//      //    :        +- *(1) Scan OneRowRelation[]
-//      //    +- *(1) SerializeFromObject
-//      //      +- Scan[obj#12]
-//      // scalastyle:on
-//
-//      val plan = df.queryExecution.executedPlan
-//
-//      val subqueryIds = plan.collectWithSubqueries { case s: SubqueryExec => s.id }
-//      val reusedSubqueryIds = plan.collectWithSubqueries {
-//        case rs: ReusedSubqueryExec => rs.child.id
-//      }
-//
-//      assert(subqueryIds.size == 2, "Whole plan subquery reusing not working correctly")
-//      assert(reusedSubqueryIds.size == 1, "Whole plan subquery reusing not working correctly")
-//      assert(reusedSubqueryIds.forall(subqueryIds.contains(_)),
-//        "ReusedSubqueryExec should reuse an existing subquery")
-//    }
-//  }
 //
   test("SPARK-36280: Remove redundant aliases after RewritePredicateSubquery") {
     withTable("t1", "t2") {
@@ -2203,59 +2163,6 @@ class SubquerySuite extends QueryTest
 //    }
 //  }
 //
-//  test("SPARK-38180, SPARK-36114: allow safe cast expressions in correlated equality conditions") {
-//    withTempView("t1", "t2") {
-//      Seq((0, 1), (1, 2)).toDF("c1", "c2").createOrReplaceTempView("t1")
-//      Seq((0, 2), (0, 3)).toDF("c1", "c2").createOrReplaceTempView("t2")
-//      checkAnswer(sql(
-//        """
-//          |SELECT (SELECT SUM(c2) FROM t2 WHERE c1 = a)
-//          |FROM (SELECT CAST(c1 AS DOUBLE) a FROM t1)
-//          |""".stripMargin),
-//        Row(5) :: Row(null) :: Nil)
-//      checkAnswer(sql(
-//        """
-//          |SELECT (SELECT SUM(c2) FROM t2 WHERE CAST(c1 AS STRING) = a)
-//          |FROM (SELECT CAST(c1 AS STRING) a FROM t1)
-//          |""".stripMargin),
-//        Row(5) :: Row(null) :: Nil)
-//      // SPARK-36114: we now allow non-safe cast expressions in correlated predicates.
-//      val df = sql(
-//        """SELECT (SELECT SUM(c2) FROM t2 WHERE CAST(c1 AS SHORT) = a)
-//          |FROM (SELECT CAST(c1 AS SHORT) a FROM t1)
-//          |""".stripMargin)
-//      checkAnswer(df, Row(5) :: Row(null) :: Nil)
-//      // The optimized plan should have one left outer join and one domain (inner) join.
-//      checkNumJoins(df.queryExecution.optimizedPlan, 2)
-//    }
-//  }
-//
-//  test("Merge non-correlated scalar subqueries") {
-//    Seq(false, true).foreach { enableAQE =>
-//      withSQLConf(
-//        SQLConf.ADAPTIVE_EXECUTION_ENABLED.key -> enableAQE.toString) {
-//        val df = sql(
-//          """
-//            |SELECT
-//            |  (SELECT avg(key) FROM testData),
-//            |  (SELECT sum(key) FROM testData),
-//            |  (SELECT count(distinct key) FROM testData)
-//          """.stripMargin)
-//
-//        checkAnswer(df, Row(50.5, 5050, 100) :: Nil)
-//
-//        val plan = df.queryExecution.executedPlan
-//        val subqueryIds = collectWithSubqueries(plan) { case s: SubqueryExec => s.id }
-//        val reusedSubqueryIds = collectWithSubqueries(plan) {
-//          case rs: ReusedSubqueryExec => rs.child.id
-//        }
-//
-//        assert(subqueryIds.size == 1, "Missing or unexpected SubqueryExec in the plan")
-//        assert(reusedSubqueryIds.size == 2,
-//          "Missing or unexpected reused ReusedSubqueryExec in the plan")
-//      }
-//    }
-//  }
 //
 //  test("Merge non-correlated scalar subqueries in a subquery") {
 //    Seq(false, true).foreach { enableAQE =>
@@ -2623,8 +2530,6 @@ class SubquerySuite extends QueryTest
 //          |""".stripMargin),
 //        Row(2, 2))
 //
-//      // In this case we don't merge the subqueries as `RewriteDistinctAggregates` kicks off for the
-//      // 2 subqueries first but `MergeScalarSubqueries` is not prepared for the `Expand` nodes that
 //      // are inserted by the rewrite.
 //      checkAnswer(sql(
 //        """
