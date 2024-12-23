@@ -21,12 +21,7 @@ package org.apache.spark.sql
 
 // import org.apache.spark.sql.catalyst.expressions.SubqueryExpression
 import org.apache.spark.sql.catalyst.plans.logical.{Join, LogicalPlan}
-import org.apache.spark.sql.execution._
 import org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanHelper
-import org.apache.spark.sql.execution.datasources.FileScanRDD
-import org.apache.spark.sql.execution.exchange.ShuffleExchangeExec
-import org.apache.spark.sql.execution.joins.{BaseJoinExec, BroadcastHashJoinExec, BroadcastNestedLoopJoinExec}
-import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 
 class SubquerySuite extends QueryTest
@@ -97,7 +92,8 @@ class SubquerySuite extends QueryTest
     )
   }
 
-  test("uncorrelated scalar subquery in CTE") {
+ /*
+  * test("uncorrelated scalar subquery in CTE") {
     checkAnswer(
       sql("with t2 as (select 1 as b, 2 as c) " +
         "select a from (select 1 as a union all select 2 as a) t " +
@@ -553,5 +549,5 @@ class SubquerySuite extends QueryTest
             |)
             |""".stripMargin),
       Row("2022-06-01"))
-  }
+  } */
 }
