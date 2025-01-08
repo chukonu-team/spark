@@ -21,12 +21,14 @@ package org.apache.spark.sql
 
 // import org.apache.spark.sql.catalyst.expressions.SubqueryExpression
 import org.apache.spark.sql.catalyst.plans.logical.{Join, LogicalPlan}
-import org.apache.spark.sql.execution._
+// import org.apache.spark.sql.execution._
 import org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanHelper
-import org.apache.spark.sql.execution.datasources.FileScanRDD
-import org.apache.spark.sql.execution.exchange.ShuffleExchangeExec
-import org.apache.spark.sql.execution.joins.{BaseJoinExec, BroadcastHashJoinExec, BroadcastNestedLoopJoinExec}
-import org.apache.spark.sql.internal.SQLConf
+// import org.apache.spark.sql.execution.datasources.FileScanRDD
+// import org.apache.spark.sql.execution.exchange.ShuffleExchangeExec
+// import org.apache.spark.sql.execution.joins.BaseJoinExec
+// import org.apache.spark.sql.execution.joins.BroadcastHashJoinExec
+// import org.apache.spark.sql.execution.joins.BroadcastNestedLoopJoinExec
+// import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 
 class SubquerySuite extends QueryTest
@@ -76,19 +78,19 @@ class SubquerySuite extends QueryTest
       sql("select * from l where a not in (select c from r)"),
       Nil)
 
-    // checkAnswer(
-    //   sql("select * from l where a not in (select c from r where c is not null)"),
-    //   Row(1, 2.0) :: Row(1, 2.0) :: Nil)
+    checkAnswer(
+    sql("select * from l where a not in (select c from r where c is not null)"),
+    Row(1, 2.0) :: Row(1, 2.0) :: Nil)
 
-    // checkAnswer(
-    //   sql("select * from l where (a, b) not in (select c, d from t) and a < 4"),
-    //   Row(1, 2.0) :: Row(1, 2.0) :: Row(2, 1.0) :: Row(2, 1.0) :: Row(3, 3.0) :: Nil)
+    checkAnswer(
+    sql("select * from l where (a, b) not in (select c, d from t) and a < 4"),
+    Row(1, 2.0) :: Row(1, 2.0) :: Row(2, 1.0) :: Row(2, 1.0) :: Row(3, 3.0) :: Nil)
 
-    // // Empty sub-query
-    // checkAnswer(
-    //   sql("select * from l where (a, b) not in (select c, d from r where c > 10)"),
-    //   Row(1, 2.0) :: Row(1, 2.0) :: Row(2, 1.0) :: Row(2, 1.0) ::
-    //   Row(3, 3.0) :: Row(null, null) :: Row(null, 5.0) :: Row(6, null) :: Nil)
+    // Empty sub-query
+    checkAnswer(
+    sql("select * from l where (a, b) not in (select c, d from r where c > 10)"),
+    Row(1, 2.0) :: Row(1, 2.0) :: Row(2, 1.0) :: Row(2, 1.0) ::
+    Row(3, 3.0) :: Row(null, null) :: Row(null, 5.0) :: Row(6, null) :: Nil)
 
   }
 
