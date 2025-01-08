@@ -94,7 +94,7 @@ class SubquerySuite extends QueryTest
 
   }
 
-  /* test("SPARK-15832: Test embedded existential predicate sub-queries") {
+  test("SPARK-15832: Test embedded existential predicate sub-queries") {
     withTempView("t1", "t2", "t3", "t4", "t5") {
       Seq((1, 1), (2, 2)).toDF("c1", "c2").createOrReplaceTempView("t1")
       Seq((1, 1), (2, 2)).toDF("c1", "c2").createOrReplaceTempView("t2")
@@ -276,7 +276,7 @@ class SubquerySuite extends QueryTest
      }
    }
 
-  test("SPARK-23316: AnalysisException after max iteration reached for IN query") {
+  /* test("SPARK-23316: AnalysisException after max iteration reached for IN query") {
     // before the fix this would throw AnalysisException
     spark.range(10).where("(id,id) in (select id, null from range(3))").count
   }
