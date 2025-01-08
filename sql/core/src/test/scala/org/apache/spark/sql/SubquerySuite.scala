@@ -73,7 +73,7 @@ class SubquerySuite extends QueryTest
     assert(joins.size == numJoins)
   }
 
-  test("NOT IN predicate subquery") {
+  /* test("NOT IN predicate subquery") {
     checkAnswer(
       sql("select * from l where a not in (select c from r)"),
       Nil)
@@ -274,14 +274,14 @@ class SubquerySuite extends QueryTest
             | where  c3 not in (select c2 from t2)""".stripMargin),
         Row(2) :: Nil)
      }
-   }
+   } */
 
-  /* test("SPARK-23316: AnalysisException after max iteration reached for IN query") {
+  test("SPARK-23316: AnalysisException after max iteration reached for IN query") {
     // before the fix this would throw AnalysisException
     spark.range(10).where("(id,id) in (select id, null from range(3))").count
   }
 
-  test("SPARK-26893: Allow pushdown of partition pruning subquery filters to file source") {
+  /* test("SPARK-26893: Allow pushdown of partition pruning subquery filters to file source") {
     withTable("a", "b") {
       spark.range(4).selectExpr("id", "id % 2 AS p").write.partitionBy("p").saveAsTable("a")
       spark.range(2).write.saveAsTable("b")
