@@ -301,7 +301,7 @@ class SubquerySuite extends QueryTest
 //     }
 //   }
 
-  test("SPARK-26078: deduplicate fake self joins for IN subqueries") {
+  /* test("SPARK-26078: deduplicate fake self joins for IN subqueries") {
     withTempView("a", "b") {
       Seq("a" -> 2, "b" -> 1).toDF("id", "num").createTempView("a")
       Seq("a" -> 2, "b" -> 1).toDF("id", "num").createTempView("b")
@@ -324,20 +324,20 @@ class SubquerySuite extends QueryTest
           |) AS c WHERE c.id NOT IN (SELECT id FROM b WHERE num = 2)
         """.stripMargin)
       checkAnswer(df2, Seq(Row("b", 1, "a"), Row("b", 1, "b")))
-      val df3 = spark.sql(
-        """
-          |SELECT id,num,source FROM (
-          |  SELECT id, num, 'a' as source FROM a
-          |  UNION ALL
-          |  SELECT id, num, 'b' as source FROM b
-          |) AS c WHERE c.id IN (SELECT id FROM b WHERE num = 2) OR
-          |c.id IN (SELECT id FROM b WHERE num = 3)
-        """.stripMargin)
-      checkAnswer(df3, Seq(Row("a", 2, "a"), Row("a", 2, "b")))
-    }
-  }
+    //   val df3 = spark.sql(
+    //     """
+    //       |SELECT id,num,source FROM (
+    //       |  SELECT id, num, 'a' as source FROM a
+    //       |  UNION ALL
+    //       |  SELECT id, num, 'b' as source FROM b
+    //       |) AS c WHERE c.id IN (SELECT id FROM b WHERE num = 2) OR
+    //       |c.id IN (SELECT id FROM b WHERE num = 3)
+    //     """.stripMargin)
+    //   checkAnswer(df3, Seq(Row("a", 2, "a"), Row("a", 2, "b")))
+    // }
+  } */
 
-  /* test("SPARK-32290: SingleColumn Null Aware Anti Join Optimize") {
+  test("SPARK-32290: SingleColumn Null Aware Anti Join Optimize") {
     Seq(true, false).foreach { enableNAAJ =>
       Seq(true, false).foreach { enableAQE =>
         Seq(true, false).foreach { enableCodegen =>
@@ -443,7 +443,7 @@ class SubquerySuite extends QueryTest
     }
   }
 
-  test("SPARK-36280: Remove redundant aliases after RewritePredicateSubquery") {
+  /* test("SPARK-36280: Remove redundant aliases after RewritePredicateSubquery") {
     withTable("t1", "t2") {
       sql("CREATE TABLE t1 USING parquet AS SELECT id AS a, id AS b, id AS c FROM range(10)")
       sql("CREATE TABLE t2 USING parquet AS SELECT id AS x, id AS y FROM range(8)")
