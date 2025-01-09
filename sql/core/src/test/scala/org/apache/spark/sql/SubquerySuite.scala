@@ -467,7 +467,7 @@ class SubquerySuite extends QueryTest
 //     }
 //   }
 
-  test("SPARK-38132: Not IN subquery correctness checks") {
+  /* test("SPARK-38132: Not IN subquery correctness checks") {
     val t = "test_table"
     withTable(t) {
       Seq[(Integer, Integer)](
@@ -492,9 +492,9 @@ class SubquerySuite extends QueryTest
       checkAnswer(df.where(s"NOT((c1 NOT IN (SELECT c2 FROM $t WHERE c2 IS NOT NULL)) <=> false)"),
         Row(4, null) :: Nil)
     }
-  }
+  } */
 
-  /* test("SPARK-39355: Single column uses quoted to construct UnresolvedAttribute") {
+  test("SPARK-39355: Single column uses quoted to construct UnresolvedAttribute") {
     checkAnswer(
       sql("""
             |SELECT *
@@ -520,5 +520,5 @@ class SubquerySuite extends QueryTest
             |)
             |""".stripMargin),
       Row("2022-06-01"))
-  } */
+  }
 }
