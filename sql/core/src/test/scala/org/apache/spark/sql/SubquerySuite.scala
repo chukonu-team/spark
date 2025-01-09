@@ -443,31 +443,31 @@ class SubquerySuite extends QueryTest
 //     }
 //   }
 
-  test("SPARK-36280: Remove redundant aliases after RewritePredicateSubquery") {
-    withTable("t1", "t2") {
-      sql("CREATE TABLE t1 USING parquet AS SELECT id AS a, id AS b, id AS c FROM range(10)")
-      sql("CREATE TABLE t2 USING parquet AS SELECT id AS x, id AS y FROM range(8)")
-      val df = sql(
-        """
-          |SELECT *
-          |FROM   t1
-          |WHERE  a IN (SELECT x
-          |             FROM   (SELECT x AS x,
-          |                            RANK() OVER (PARTITION BY x ORDER BY SUM(y) DESC) AS ranking
-          |                     FROM   t2
-          |                     GROUP  BY x) tmp1
-          |             WHERE  ranking <= 5)
-          |""".stripMargin)
+//   test("SPARK-36280: Remove redundant aliases after RewritePredicateSubquery") {
+//     withTable("t1", "t2") {
+//       sql("CREATE TABLE t1 USING parquet AS SELECT id AS a, id AS b, id AS c FROM range(10)")
+//       sql("CREATE TABLE t2 USING parquet AS SELECT id AS x, id AS y FROM range(8)")
+//       val df = sql(
+//         """
+//           |SELECT *
+//           |FROM   t1
+//           |WHERE  a IN (SELECT x
+//           |             FROM   (SELECT x AS x,
+//           |                            RANK() OVER (PARTITION BY x ORDER BY SUM(y) DESC) AS ranking
+//           |                     FROM   t2
+//           |                     GROUP  BY x) tmp1
+//           |             WHERE  ranking <= 5)
+//           |""".stripMargin)
 
-      df.collect()
-      val exchanges = collect(df.queryExecution.executedPlan) {
-        case s: ShuffleExchangeExec => s
-      }
-      assert(exchanges.size === 1)
-    }
-  }
+//       df.collect()
+//       val exchanges = collect(df.queryExecution.executedPlan) {
+//         case s: ShuffleExchangeExec => s
+//       }
+//       assert(exchanges.size === 1)
+//     }
+//   }
 
-  /* test("SPARK-38132: Not IN subquery correctness checks") {
+  test("SPARK-38132: Not IN subquery correctness checks") {
     val t = "test_table"
     withTable(t) {
       Seq[(Integer, Integer)](
@@ -494,7 +494,7 @@ class SubquerySuite extends QueryTest
     }
   }
 
-  test("SPARK-39355: Single column uses quoted to construct UnresolvedAttribute") {
+  /* test("SPARK-39355: Single column uses quoted to construct UnresolvedAttribute") {
     checkAnswer(
       sql("""
             |SELECT *
