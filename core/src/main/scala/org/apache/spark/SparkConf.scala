@@ -88,6 +88,7 @@ class SparkConf(loadDefaults: Boolean) extends Cloneable with Logging with Seria
     set("spark.chukonu.enableNativeCodegen", "true")
     set("spark.memory.offHeap.enabled", "true")
     set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+    set("spark.chukonu.dumpPlan", "true")
     this
   }
 
