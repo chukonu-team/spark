@@ -864,10 +864,15 @@ abstract class SchemaPruningSuite
   }
 
   protected def checkScanSchemata(df: DataFrame, expectedSchemaCatalogStrings: String*): Unit = {
-    //CHUKONU IGNORE: 检查是否启用了向量化读取器,如果是向量化就暂时忽略schema 断言
-    val isVectorizedReaderEnabled = spark.conf.get("spark.sql.parquet.enableVectorizedReader").toBoolean
+    // CHUKONU IGNORE: ignore schema assert if vectorizedReaderEnabledKey enabled
+    val isVectorizedReaderEnabled = spark
+      .conf
+      .get("spark.sql.parquet.enableVectorizedReader")
+      .toBoolean
     if (isVectorizedReaderEnabled) {
+      // scalastyle:off println
       println("Vectorized reader is enabled. Skipping schema assertion.")
+      // scalastyle:on println
       return // 提前退出函数
     }
     val fileSourceScanSchemata =
