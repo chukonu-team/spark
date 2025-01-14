@@ -129,7 +129,6 @@ class TypedImperativeAggregateSuite extends QueryTest with SharedSparkSession {
 //     val df = data.toDF("key", "value").coalesce(2)
 
 //     // Test nullable nullableTypedMax
-//     val query = df.select(nullableTypedMax(lit(null)), count($"key"), nullableTypedMax(lit(null)),
 //       count($"value"))
 
 //     // nullableTypedMax is nullable
