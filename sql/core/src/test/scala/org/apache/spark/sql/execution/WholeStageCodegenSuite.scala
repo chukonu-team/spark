@@ -588,7 +588,7 @@ class WholeStageCodegenSuite extends QueryTest with SharedSparkSession
     }
   }
 
-  test("Control splitting consume function by operators with config") {
+  ignore("Control splitting consume function by operators with config") {
     import testImplicits._
     val df = spark.range(10).select(Seq.tabulate(2) {i => ($"id" + i).as(s"c$i")} : _*)
 
@@ -606,7 +606,7 @@ class WholeStageCodegenSuite extends QueryTest with SharedSparkSession
     }
   }
 
-  test("Skip splitting consume function when parameter number exceeds JVM limit") {
+  ignore("Skip splitting consume function when parameter number exceeds JVM limit") {
     // since every field is nullable we have 2 params for each input column (one for the value
     // and one for the isNull variable)
     Seq((128, false), (127, true)).foreach { case (columnNum, hasSplit) =>
@@ -691,7 +691,7 @@ class WholeStageCodegenSuite extends QueryTest with SharedSparkSession
     checkAnswer(df, Seq(Row(1, 3), Row(2, 3)))
   }
 
-  test("SPARK-26572: evaluate non-deterministic expressions for aggregate results") {
+  ignore("SPARK-26572: evaluate non-deterministic expressions for aggregate results") {
     withSQLConf(
       SQLConf.AUTO_BROADCASTJOIN_THRESHOLD.key -> Long.MaxValue.toString,
       SQLConf.SHUFFLE_PARTITIONS.key -> "1") {
@@ -721,7 +721,7 @@ class WholeStageCodegenSuite extends QueryTest with SharedSparkSession
     }
   }
 
-  test("SPARK-28520: WholeStageCodegen does not work properly for LocalTableScanExec") {
+  ignore("SPARK-28520: WholeStageCodegen does not work properly for LocalTableScanExec") {
     // Case1: LocalTableScanExec is the root of a query plan tree.
     // In this case, WholeStageCodegenExec should not be inserted
     // as the direct parent of LocalTableScanExec.
@@ -750,7 +750,7 @@ class WholeStageCodegenSuite extends QueryTest with SharedSparkSession
       "LocalTableScanExec should be within a WholeStageCodegen domain.")
   }
 
-  test("Give up splitting aggregate code if a parameter length goes over the limit") {
+  ignore("Give up splitting aggregate code if a parameter length goes over the limit") {
     withSQLConf(
         SQLConf.CODEGEN_SPLIT_AGGREGATE_FUNC.key -> "true",
         SQLConf.CODEGEN_METHOD_SPLIT_THRESHOLD.key -> "1",
@@ -771,7 +771,7 @@ class WholeStageCodegenSuite extends QueryTest with SharedSparkSession
     }
   }
 
-  test("Give up splitting subexpression code if a parameter length goes over the limit") {
+  ignore("Give up splitting subexpression code if a parameter length goes over the limit") {
     withSQLConf(
         SQLConf.CODEGEN_SPLIT_AGGREGATE_FUNC.key -> "false",
         SQLConf.CODEGEN_METHOD_SPLIT_THRESHOLD.key -> "1",

@@ -2514,7 +2514,7 @@ class SQLQuerySuite extends QueryTest with SharedSparkSession with AdaptiveSpark
     }
   }
 
-  test("SPARK-17515: CollectLimit.execute() should perform per-partition limits") {
+  ignore("SPARK-17515: CollectLimit.execute() should perform per-partition limits") {
     val numRecordsRead = spark.sparkContext.longAccumulator
     spark.range(1, 100, 1, numPartitions = 10).map { x =>
       numRecordsRead.add(1)

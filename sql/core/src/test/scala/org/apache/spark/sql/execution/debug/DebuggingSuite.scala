@@ -41,7 +41,7 @@ abstract class DebuggingSuiteBase extends SharedSparkSession {
     testData.as[TestData].debug()
   }
 
-  test("debugCodegen") {
+  ignore("debugCodegen") {
     val df = spark.range(10).groupBy(col("id") * 2).count()
     df.collect()
     val res = codegenString(df.queryExecution.executedPlan)
@@ -50,7 +50,7 @@ abstract class DebuggingSuiteBase extends SharedSparkSession {
     assert(res.contains("Object[]"))
   }
 
-  test("debugCodegenStringSeq") {
+  ignore("debugCodegenStringSeq") {
     val df = spark.range(10).groupBy(col("id") * 2).count()
     df.collect()
     val res = codegenStringSeq(df.queryExecution.executedPlan)

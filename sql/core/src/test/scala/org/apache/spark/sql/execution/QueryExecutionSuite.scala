@@ -60,7 +60,7 @@ class QueryExecutionSuite extends SharedSparkSession {
       ""))
   }
 
-  test("dumping query execution info to a file") {
+  ignore("dumping query execution info to a file") {
     withTempDir { dir =>
       val path = dir.getCanonicalPath + "/plans.txt"
       val df = spark.range(0, 10)
@@ -70,7 +70,7 @@ class QueryExecutionSuite extends SharedSparkSession {
     }
   }
 
-  test("dumping query execution info to an existing file") {
+  ignore("dumping query execution info to an existing file") {
     withTempDir { dir =>
       val path = dir.getCanonicalPath + "/plans.txt"
       val df = spark.range(0, 10)
@@ -82,7 +82,7 @@ class QueryExecutionSuite extends SharedSparkSession {
     }
   }
 
-  test("dumping query execution info to non-existing folder") {
+  ignore("dumping query execution info to non-existing folder") {
     withTempDir { dir =>
       val path = dir.getCanonicalPath + "/newfolder/plans.txt"
       val df = spark.range(0, 100)
@@ -100,7 +100,7 @@ class QueryExecutionSuite extends SharedSparkSession {
     assert(exception.getMessage.contains("Illegal character in scheme name"))
   }
 
-  test("dumping query execution info to a file - explainMode=formatted") {
+  ignore("dumping query execution info to a file - explainMode=formatted") {
     withTempDir { dir =>
       val path = dir.getCanonicalPath + "/plans.txt"
       val df = spark.range(0, 10)

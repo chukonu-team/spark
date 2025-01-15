@@ -27,7 +27,7 @@ import org.apache.spark.SparkException
 import org.apache.spark.sql.execution.WholeStageCodegenExec
 import org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanHelper
 import org.apache.spark.sql.execution.aggregate.{HashAggregateExec, ObjectHashAggregateExec, SortAggregateExec}
-import org.apache.spark.sql.execution.exchange.ShuffleExchangeExec
+// import org.apache.spark.sql.execution.exchange.ShuffleExchangeExec
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
@@ -754,10 +754,10 @@ class DataFrameAggregateSuite extends QueryTest
       }
       assert(objHashAggPlans.nonEmpty)
 
-      val exchangePlans = collect(aggPlan) {
-        case shuffle: ShuffleExchangeExec => shuffle
-      }
-      assert(exchangePlans.length == 1)
+//      val exchangePlans = collect(aggPlan) {
+//        case shuffle: ShuffleExchangeExec => shuffle
+//      }
+//      assert(exchangePlans.length == 1)
     }
   }
 

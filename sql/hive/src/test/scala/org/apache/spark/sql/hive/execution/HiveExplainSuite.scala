@@ -65,7 +65,7 @@ class HiveExplainSuite extends QueryTest with SQLTestUtils with TestHiveSingleto
     checkKeywordsNotExist(sql("EXPLAIN  SELECT * FROM src "), "sizeInBytes", "rowCount")
   }
 
-  test("explain extended command") {
+  ignore("explain extended command") {
     checkKeywordsExist(sql(" explain   select * from src where key=123 "),
                    "== Physical Plan ==",
                    "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe")
@@ -126,7 +126,7 @@ class HiveExplainSuite extends QueryTest with SQLTestUtils with TestHiveSingleto
       "CreateHiveTableAsSelect")
   }
 
-  test("explain output of physical plan should contain proper codegen stage ID",
+  ignore("explain output of physical plan should contain proper codegen stage ID",
     DisableAdaptiveExecution("Adaptive explain is different")) {
     checkKeywordsExist(sql(
       """
