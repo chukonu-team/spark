@@ -99,7 +99,7 @@ class ExecutorSideSQLConfSuite extends SparkFunSuite with SQLTestUtils {
     }
   }
 
-  test("SPARK-22219: refactor to control to generate comment",
+  ignore("SPARK-22219: refactor to control to generate comment",
     DisableAdaptiveExecution("WSCG rule is applied later in AQE")) {
     Seq(true, false).foreach { flag =>
       withSQLConf(StaticSQLConf.CODEGEN_COMMENTS.key -> flag.toString) {

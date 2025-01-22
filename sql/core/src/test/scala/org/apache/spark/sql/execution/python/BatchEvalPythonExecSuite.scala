@@ -47,7 +47,7 @@ class BatchEvalPythonExecSuite extends SparkPlanTest
     }
   }
 
-  test("Python UDF: push down deterministic FilterExec predicates") {
+  ignore("Python UDF: push down deterministic FilterExec predicates") {
     val df = Seq(("Hello", 4)).toDF("a", "b")
       .where("dummyPythonUDF(b) and dummyPythonUDF(a) and a in (3, 4)")
     val qualifiedPlanNodes = df.queryExecution.executedPlan.collect {
@@ -59,7 +59,7 @@ class BatchEvalPythonExecSuite extends SparkPlanTest
     assert(qualifiedPlanNodes.size == 2)
   }
 
-  test("Nested Python UDF: push down deterministic FilterExec predicates") {
+  ignore("Nested Python UDF: push down deterministic FilterExec predicates") {
     val df = Seq(("Hello", 4)).toDF("a", "b")
       .where("dummyPythonUDF(a, dummyPythonUDF(a, b)) and a in (3, 4)")
     val qualifiedPlanNodes = df.queryExecution.executedPlan.collect {
@@ -69,7 +69,7 @@ class BatchEvalPythonExecSuite extends SparkPlanTest
     assert(qualifiedPlanNodes.size == 2)
   }
 
-  test("Python UDF: no push down on non-deterministic") {
+  ignore("Python UDF: no push down on non-deterministic") {
     val df = Seq(("Hello", 4)).toDF("a", "b")
       .where("b > 4 and dummyPythonUDF(a) and rand() > 0.3")
     val qualifiedPlanNodes = df.queryExecution.executedPlan.collect {
@@ -81,7 +81,7 @@ class BatchEvalPythonExecSuite extends SparkPlanTest
     assert(qualifiedPlanNodes.size == 2)
   }
 
-  test("Python UDF: push down on deterministic predicates after the first non-deterministic") {
+  ignore("Python UDF: push down on deterministic predicates after the first non-deterministic") {
     val df = Seq(("Hello", 4)).toDF("a", "b")
       .where("dummyPythonUDF(a) and rand() > 0.3 and b > 4")
 

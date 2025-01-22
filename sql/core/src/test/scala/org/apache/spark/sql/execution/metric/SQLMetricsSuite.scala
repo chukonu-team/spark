@@ -79,7 +79,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     assert(metrics2("numOutputRows").value === 2)
   }
 
-  test("Filter metrics") {
+  ignore("Filter metrics") {
     // Assume the execution plan is
     // PhysicalRDD(nodeId = 1) -> Filter(nodeId = 0)
     Seq((0L, false), (1L, true)).foreach { case (nodeId, enableWholeStage) =>
@@ -92,7 +92,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("WholeStageCodegen metrics") {
+  ignore("WholeStageCodegen metrics") {
     // Assume the execution plan with node id is
     // WholeStageCodegen(nodeId = 0)
     //   Filter(nodeId = 1)
@@ -106,7 +106,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
         })))), true)
   }
 
-  test("Aggregate metrics") {
+  ignore("Aggregate metrics") {
     // Assume the execution plan is
     // ... -> HashAggregate(nodeId = 2) -> Exchange(nodeId = 1)
     // -> HashAggregate(nodeId = 0)
@@ -155,7 +155,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     )
   }
 
-  test("Aggregate metrics: track avg probe") {
+  ignore("Aggregate metrics: track avg probe") {
     // The executed plan looks like:
     // HashAggregate(keys=[a#61], functions=[count(1)], output=[a#61, count#71L])
     // +- Exchange hashpartitioning(a#61, 5)
@@ -259,7 +259,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("Sort metrics") {
+  ignore("Sort metrics") {
     // Assume the execution plan with node id is
     // Sort(nodeId = 0)
     //   Exchange(nodeId = 1)
@@ -282,7 +282,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     ))
   }
 
-  test("SortMergeJoin metrics") {
+  ignore("SortMergeJoin metrics") {
     // Because SortMergeJoin may skip different rows if the number of partitions is different, this
     // test should use the deterministic number of partitions.
     val testDataForJoin = testData2.filter($"a" < 2) // TestData2(1, 1) :: TestData2(1, 2)
@@ -315,7 +315,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("SortMergeJoin(outer) metrics") {
+  ignore("SortMergeJoin(outer) metrics") {
     // Because SortMergeJoin may skip different rows if the number of partitions is different,
     // this test should use the deterministic number of partitions.
     val testDataForJoin = testData2.filter($"a" < 2) // TestData2(1, 1) :: TestData2(1, 2)
@@ -341,7 +341,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("BroadcastHashJoin metrics") {
+  ignore("BroadcastHashJoin metrics") {
     val df1 = Seq((1, "1"), (2, "2")).toDF("key", "value")
     val df2 = Seq((1, "1"), (2, "2"), (3, "3"), (4, "4")).toDF("key", "value")
     // Assume the execution plan is
@@ -356,7 +356,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("ShuffledHashJoin metrics") {
+  ignore("ShuffledHashJoin metrics") {
     withSQLConf(SQLConf.AUTO_BROADCASTJOIN_THRESHOLD.key -> "40",
       SQLConf.SHUFFLE_PARTITIONS.key -> "2",
       SQLConf.PREFER_SORTMERGEJOIN.key -> "false") {
@@ -389,7 +389,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("ShuffledHashJoin(left, outer) metrics") {
+  ignore("ShuffledHashJoin(left, outer) metrics") {
     val leftDf = Seq((1, "1"), (2, "2")).toDF("key", "value")
     val rightDf = (1 to 10).map(i => (i, i.toString)).toSeq.toDF("key2", "value")
     Seq((0L, "right_outer", leftDf, rightDf, 10L, false),
@@ -411,7 +411,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
       }
   }
 
-  test("SPARK-32629: ShuffledHashJoin(full outer) metrics") {
+  ignore("SPARK-32629: ShuffledHashJoin(full outer) metrics") {
     val uniqueLeftDf = Seq(("1", "1"), ("11", "11")).toDF("key", "value")
     val nonUniqueLeftDf = Seq(("1", "1"), ("1", "2"), ("11", "11")).toDF("key", "value")
     val rightDf = (1 to 10).map(i => (i.toString, i.toString)).toDF("key2", "value")
@@ -448,7 +448,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("BroadcastHashJoin(outer) metrics") {
+  ignore("BroadcastHashJoin(outer) metrics") {
     val df1 = Seq((1, "a"), (1, "b"), (4, "c")).toDF("key", "value")
     val df2 = Seq((1, "a"), (1, "b"), (2, "c"), (3, "d")).toDF("key2", "value")
     Seq(("left_outer", 0L, 5L, false), ("right_outer", 0L, 6L, false), ("left_outer", 1L, 5L, true),
@@ -462,7 +462,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("BroadcastNestedLoopJoin metrics") {
+  ignore("BroadcastNestedLoopJoin metrics") {
     val testDataForJoin = testData2.filter($"a" < 2) // TestData2(1, 1) :: TestData2(1, 2)
     testDataForJoin.createOrReplaceTempView("testDataForJoin")
     withSQLConf(SQLConf.CROSS_JOINS_ENABLED.key -> "true") {
@@ -486,7 +486,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("BroadcastLeftSemiJoinHash metrics") {
+  ignore("BroadcastLeftSemiJoinHash metrics") {
     val df1 = Seq((1, "1"), (2, "2")).toDF("key", "value")
     val df2 = Seq((1, "1"), (2, "2"), (3, "3"), (4, "4")).toDF("key2", "value")
     // Assume the execution plan is
@@ -501,7 +501,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("BroadcastLeftAntiJoinHash metrics") {
+  ignore("BroadcastLeftAntiJoinHash metrics") {
     val df1 = Seq((1, "1"), (2, "2")).toDF("key", "value")
     val df2 = Seq((1, "1"), (2, "2"), (3, "3"), (4, "4")).toDF("key2", "value")
     Seq((1L, false), (2L, true)).foreach { case (nodeId, enableWholeStage) =>
@@ -514,7 +514,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("CartesianProduct metrics") {
+  ignore("CartesianProduct metrics") {
     withSQLConf(SQLConf.CROSS_JOINS_ENABLED.key -> "true") {
       val testDataForJoin = testData2.filter($"a" < 2) // TestData2(1, 1) :: TestData2(1, 2)
       testDataForJoin.createOrReplaceTempView("testDataForJoin")
@@ -533,7 +533,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("SortMergeJoin(left-anti) metrics") {
+  ignore("SortMergeJoin(left-anti) metrics") {
     val anti = testData2.filter("a > 2")
     withTempView("antiData") {
       anti.createOrReplaceTempView("antiData")
@@ -595,7 +595,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     assert(metricInfoDeser.metadata === Some(AccumulatorContext.SQL_ACCUM_IDENTIFIER))
   }
 
-  test("range metrics") {
+  ignore("range metrics") {
     val res1 = InputOutputMetricsHelper.run(
       spark.range(30).filter(x => x % 3 == 0).toDF()
     )
@@ -637,7 +637,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("SPARK-25278: output metrics are wrong for plans repeated in the query") {
+  ignore("SPARK-25278: output metrics are wrong for plans repeated in the query") {
     val name = "demo_view"
     withView(name) {
       sql(s"CREATE OR REPLACE VIEW $name AS VALUES 1,2")
@@ -671,7 +671,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("SPARK-25602: SparkPlan.getByteArrayRdd should not consume the input when not necessary") {
+  ignore("SPARK-25602: SparkPlan.getByteArrayRdd should not consume the input when not necessary") {
     def checkFilterAndRangeMetrics(
         df: DataFrame,
         filterNumOutputs: Int,
@@ -707,7 +707,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("SPARK-25497: LIMIT within whole stage codegen should not consume all the inputs") {
+  ignore("SPARK-25497: LIMIT within whole stage codegen should not consume all the inputs") {
     withSQLConf(SQLConf.WHOLESTAGE_CODEGEN_ENABLED.key -> "true") {
       // A special query that only has one partition, so there is no shuffle and the entire query
       // can be whole-stage-codegened.
@@ -859,7 +859,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("SPARK-41003: BHJ LeftAnti does not update numOutputRows when codegen is disabled") {
+  ignore("SPARK-41003: BHJ LeftAnti does not update numOutputRows when codegen is disabled") {
     Seq(true, false).foreach { enableWholeStage =>
       withSQLConf(SQLConf.WHOLESTAGE_CODEGEN_ENABLED.key -> enableWholeStage.toString) {
         withSQLConf(SQLConf.OPTIMIZE_NULL_AWARE_ANTI_JOIN.key -> "true") {

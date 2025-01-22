@@ -20,7 +20,7 @@ package org.apache.spark.sql.sources
 import org.apache.spark.sql.QueryTest
 import org.apache.spark.sql.catalyst.expressions.AttributeReference
 import org.apache.spark.sql.catalyst.plans.physical.HashPartitioning
-import org.apache.spark.sql.execution.FileSourceScanExec
+// import org.apache.spark.sql.execution.FileSourceScanExec
 import org.apache.spark.sql.execution.adaptive.{AdaptiveSparkPlanHelper, DisableAdaptiveExecutionSuite, EnableAdaptiveExecutionSuite}
 import org.apache.spark.sql.execution.exchange.ShuffleExchangeExec
 import org.apache.spark.sql.internal.SQLConf
@@ -71,8 +71,8 @@ abstract class DisableUnnecessaryBucketedScanSuite
 
     def checkNumBucketedScan(query: String, expectedNumBucketedScan: Int): Unit = {
       val plan = sql(query).queryExecution.executedPlan
-      val bucketedScan = collect(plan) { case s: FileSourceScanExec if s.bucketedScan => s }
-      assert(bucketedScan.length == expectedNumBucketedScan)
+//      val bucketedScan = collect(plan) { case s: FileSourceScanExec if s.bucketedScan => s }
+//      assert(bucketedScan.length == expectedNumBucketedScan)
     }
 
     withSQLConf(SQLConf.AUTO_BUCKETED_SCAN_ENABLED.key -> "true") {

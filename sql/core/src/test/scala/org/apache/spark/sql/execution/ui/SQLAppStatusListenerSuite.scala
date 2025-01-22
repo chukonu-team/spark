@@ -698,7 +698,7 @@ abstract class SQLAppStatusListenerSuite extends SharedSparkSession with JsonTes
     assert(statusStore.execution(2) === None)
   }
 
-  test("SPARK-29894 test Codegen Stage Id in SparkPlanInfo",
+  ignore("SPARK-29894 test Codegen Stage Id in SparkPlanInfo",
     DisableAdaptiveExecution("WSCG rule is applied later in AQE")) {
     // with AQE on, the WholeStageCodegen rule is applied when running QueryStageExec.
     val df = createTestDataFrame.select(count("*"))

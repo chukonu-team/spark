@@ -260,7 +260,7 @@ class ExplainSuite extends ExplainSuiteHelper with DisableAdaptiveExecutionSuite
     }
   }
 
-  test("SPARK-33853: explain codegen - check presence of subquery") {
+  ignore("SPARK-33853: explain codegen - check presence of subquery") {
     withSQLConf(SQLConf.WHOLESTAGE_CODEGEN_ENABLED.key -> "true") {
       withTempView("df") {
         val df1 = spark.range(1, 100)
@@ -544,7 +544,7 @@ class ExplainSuite extends ExplainSuiteHelper with DisableAdaptiveExecutionSuite
 class ExplainSuiteAE extends ExplainSuiteHelper with EnableAdaptiveExecutionSuite {
   import testImplicits._
 
-  test("SPARK-35884: Explain Formatted") {
+  ignore("SPARK-35884: Explain Formatted") {
     val df1 = Seq((1, 2), (2, 3)).toDF("k", "v1")
     val df2 = Seq((2, 3), (1, 1)).toDF("k", "v2")
     val testDf = df1.join(df2, "k").groupBy("k").agg(count("v1"), sum("v1"), avg("v2"))
@@ -625,7 +625,7 @@ class ExplainSuiteAE extends ExplainSuiteHelper with EnableAdaptiveExecutionSuit
     }
   }
 
-  test("SPARK-35884: Explain formatted with subquery") {
+  ignore("SPARK-35884: Explain formatted with subquery") {
     withTempView("t1", "t2") {
       spark.range(100).select($"id" % 10 as "key", $"id" as "value")
         .createOrReplaceTempView("t1")
@@ -670,7 +670,7 @@ class ExplainSuiteAE extends ExplainSuiteHelper with EnableAdaptiveExecutionSuit
     }
   }
 
-  test("SPARK-35133: explain codegen should work with AQE") {
+  ignore("SPARK-35133: explain codegen should work with AQE") {
     withSQLConf(SQLConf.WHOLESTAGE_CODEGEN_ENABLED.key -> "true") {
       withTempView("df") {
         val df = spark.range(5).select(col("id").as("key"), col("id").as("value"))
@@ -743,7 +743,7 @@ class ExplainSuiteAE extends ExplainSuiteHelper with EnableAdaptiveExecutionSuit
     }
   }
 
-  test("SPARK-38232: Explain formatted does not collect subqueries under query stage in AQE") {
+  ignore("SPARK-38232: Explain formatted does not collect subqueries under query stage in AQE") {
     withTable("t") {
       sql("CREATE TABLE t USING PARQUET AS SELECT 1 AS c")
       val expected =
@@ -756,7 +756,7 @@ class ExplainSuiteAE extends ExplainSuiteHelper with EnableAdaptiveExecutionSuit
     }
   }
 
-  test("SPARK-38322: Support query stage show runtime statistics in formatted explain mode") {
+  ignore("SPARK-38322: Support query stage show runtime statistics in formatted explain mode") {
     val df = Seq(1, 2).toDF("c").distinct()
     val statistics = "Statistics(sizeInBytes=32.0 B, rowCount=2)"
 

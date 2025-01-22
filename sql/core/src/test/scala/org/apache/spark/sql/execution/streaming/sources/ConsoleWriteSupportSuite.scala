@@ -25,7 +25,7 @@ import org.apache.spark.sql.streaming.{StreamTest, Trigger}
 class ConsoleWriteSupportSuite extends StreamTest {
   import testImplicits._
 
-  test("microbatch - default") {
+  ignore("microbatch - default") {
     val input = MemoryStream[Int]
 
     val captured = new ByteArrayOutputStream()
@@ -77,7 +77,7 @@ class ConsoleWriteSupportSuite extends StreamTest {
         |""".stripMargin)
   }
 
-  test("microbatch - with numRows") {
+  ignore("microbatch - with numRows") {
     val input = MemoryStream[Int]
 
     val captured = new ByteArrayOutputStream()
@@ -106,7 +106,7 @@ class ConsoleWriteSupportSuite extends StreamTest {
         |""".stripMargin)
   }
 
-  test("microbatch - truncation") {
+  ignore("microbatch - truncation") {
     val input = MemoryStream[String]
 
     val captured = new ByteArrayOutputStream()

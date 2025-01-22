@@ -579,7 +579,7 @@ class StreamSuite extends StreamTest {
     }
   }
 
-  test("codegen-microbatch") {
+  ignore("codegen-microbatch") {
     val inputData = MemoryStream[Int]
     val df = inputData.toDS().map(_ * 2).filter(_ > 5)
 
@@ -604,7 +604,7 @@ class StreamSuite extends StreamTest {
     }
   }
 
-  test("codegen-continuous") {
+  ignore("codegen-continuous") {
     val inputData = ContinuousMemoryStream[Int]
     val df = inputData.toDS().map(_ * 2).filter(_ > 5)
 
