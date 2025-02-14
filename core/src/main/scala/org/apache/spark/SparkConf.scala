@@ -83,7 +83,7 @@ class SparkConf(loadDefaults: Boolean) extends Cloneable with Logging with Seria
     set("spark.chukonu.stagingdir", s"${chukonuTemp.getOrElse("/tmp")}/staging")
     set("spark.chukonu.compileCacheDir", s"${chukonuTemp.getOrElse("/tmp")}/cache")
     set("spark.chukonu.cxx", "/usr/bin/g++")
-    set("spark.chukonu.buildType", "Debug")
+    set("spark.chukonu.buildType", "ReleaseWithAssert")
     // set("spark.chukonu.buildOptionEx", "-fsanitize=address")
     set("spark.chukonu.enableNativeCodegen", "true")
     set("spark.memory.offHeap.enabled", "true")
