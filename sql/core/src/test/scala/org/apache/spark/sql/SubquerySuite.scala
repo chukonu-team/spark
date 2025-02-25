@@ -2210,26 +2210,26 @@ class SubquerySuite extends QueryTest
     withTempView("t1", "t2") {
       Seq((0, 1), (1, 2)).toDF("c1", "c2").createOrReplaceTempView("t1")
       Seq((0, 2), (0, 3)).toDF("c1", "c2").createOrReplaceTempView("t2")
-//      checkAnswer(sql(
-//        """
-//          |SELECT (SELECT SUM(c2) FROM t2 WHERE c1 = a)
-//          |FROM (SELECT CAST(c1 AS DOUBLE) a FROM t1)
-//          |""".stripMargin),
-//        Row(5) :: Row(null) :: Nil)
+     checkAnswer(sql(
+       """
+         |SELECT (SELECT SUM(c2) FROM t2 WHERE c1 = a)
+         |FROM (SELECT CAST(c1 AS DOUBLE) a FROM t1)
+         |""".stripMargin),
+       Row(5) :: Row(null) :: Nil)
       checkAnswer(sql(
         """
           |SELECT (SELECT SUM(c2) FROM t2 WHERE CAST(c1 AS STRING) = a)
           |FROM (SELECT CAST(c1 AS STRING) a FROM t1)
           |""".stripMargin),
         Row(5) :: Row(null) :: Nil)
-//      // SPARK-36114: we now allow non-safe cast expressions in correlated predicates.
-//      val df = sql(
-//        """SELECT (SELECT SUM(c2) FROM t2 WHERE CAST(c1 AS SHORT) = a)
-//          |FROM (SELECT CAST(c1 AS SHORT) a FROM t1)
-//          |""".stripMargin)
-//      checkAnswer(df, Row(5) :: Row(null) :: Nil)
-//      // The optimized plan should have one left outer join and one domain (inner) join.
-//      checkNumJoins(df.queryExecution.optimizedPlan, 2)
+     // SPARK-36114: we now allow non-safe cast expressions in correlated predicates.
+     val df = sql(
+       """SELECT (SELECT SUM(c2) FROM t2 WHERE CAST(c1 AS SHORT) = a)
+         |FROM (SELECT CAST(c1 AS SHORT) a FROM t1)
+         |""".stripMargin)
+     checkAnswer(df, Row(5) :: Row(null) :: Nil)
+     // The optimized plan should have one left outer join and one domain (inner) join.
+     checkNumJoins(df.queryExecution.optimizedPlan, 2)
     }
   }
 
