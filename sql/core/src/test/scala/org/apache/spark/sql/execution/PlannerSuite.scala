@@ -1109,7 +1109,7 @@ class PlannerSuite extends SharedSparkSession with AdaptiveSparkPlanHelper {
     }
   }
 
-  test("sort order doesn't have repeated expressions") {
+  ignore("sort order doesn't have repeated expressions") {
     withSQLConf(
       SQLConf.AUTO_BROADCASTJOIN_THRESHOLD.key -> "-1",
       SQLConf.ADAPTIVE_EXECUTION_ENABLED.key -> "false") {

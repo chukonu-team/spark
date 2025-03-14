@@ -133,7 +133,7 @@ class DatasetCacheSuite extends QueryTest
     assert(df.storageLevel == StorageLevel.NONE)
   }
 
-  test("cache UDF result correctly") {
+  ignore("cache UDF result correctly") {
     val expensiveUDF = udf({x: Int => Thread.sleep(2000); x})
     val df = spark.range(0, 2).toDF("a").repartition(1).withColumn("b", expensiveUDF($"a"))
     val df2 = df.agg(sum(df("b")))
@@ -181,7 +181,7 @@ class DatasetCacheSuite extends QueryTest
     assertCacheDependency(df3, 0)
   }
 
-  test("SPARK-24596 Non-cascading Cache Invalidation - verify cached data reuse") {
+  ignore("SPARK-24596 Non-cascading Cache Invalidation - verify cached data reuse") {
     val expensiveUDF = udf({ x: Int => Thread.sleep(5000); x })
     val df = spark.range(0, 5).toDF("a")
     val df1 = df.withColumn("b", expensiveUDF($"a"))

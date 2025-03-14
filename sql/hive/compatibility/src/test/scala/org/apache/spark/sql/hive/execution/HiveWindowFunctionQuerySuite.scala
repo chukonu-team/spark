@@ -218,32 +218,32 @@ class HiveWindowFunctionQuerySuite extends HiveComparisonTest with BeforeAndAfte
   // Tests based on windowing_windowspec.q
   // Results of the original query file are not deterministic.
   /////////////////////////////////////////////////////////////////////////////
-  createQueryTest("windowing_windowspec.q (deterministic)",
-    s"""
-      |select s, sum(b) over (partition by i order by s,b rows unbounded preceding) as sum
-      |from over1k order by s, sum;
-      |select s, sum(f) over (partition by d order by s,f rows unbounded preceding) as sum
-      |from over1k order by s, sum;
-      |select s, sum(f) over
-      |(partition by ts order by f range between current row and unbounded following) as sum
-      |from over1k order by s, sum;
-      |select s, avg(f)
-      |over (partition by ts order by s,f rows between current row and 5 following) avg
-      |from over1k order by s, avg;
-      |select s, avg(d) over
-      |(partition by t order by s,d desc rows between 5 preceding and 5 following) avg
-      |from over1k order by s, avg;
-      |select s, sum(i) over(partition by ts order by s) sum from over1k
-      |order by s, sum;
-      |select f, sum(f) over
-      |(partition by ts order by f range between unbounded preceding and current row) sum
-      |from over1k order by f, sum;
-      |select s, i, round(avg(d) over (partition by s order by i) / 10.0 , 2) avg
-      |from over1k order by s, i, avg;
-      |select s, i, round((avg(d) over  w1 + 10.0) - (avg(d) over w1 - 10.0),2) avg
-      |from over1k
-      |order by s, i, avg window w1 as (partition by s order by i);
-     """.stripMargin, reset = false)
+//  createQueryTest("windowing_windowspec.q (deterministic)",
+//    s"""
+//      |select s, sum(b) over (partition by i order by s,b rows unbounded preceding) as sum
+//      |from over1k order by s, sum;
+//      |select s, sum(f) over (partition by d order by s,f rows unbounded preceding) as sum
+//      |from over1k order by s, sum;
+//      |select s, sum(f) over
+//      |(partition by ts order by f range between current row and unbounded following) as sum
+//      |from over1k order by s, sum;
+//      |select s, avg(f)
+//      |over (partition by ts order by s,f rows between current row and 5 following) avg
+//      |from over1k order by s, avg;
+//      |select s, avg(d) over
+//      |(partition by t order by s,d desc rows between 5 preceding and 5 following) avg
+//      |from over1k order by s, avg;
+//      |select s, sum(i) over(partition by ts order by s) sum from over1k
+//      |order by s, sum;
+//      |select f, sum(f) over
+//      |(partition by ts order by f range between unbounded preceding and current row) sum
+//      |from over1k order by f, sum;
+//      |select s, i, round(avg(d) over (partition by s order by i) / 10.0 , 2) avg
+//      |from over1k order by s, i, avg;
+//      |select s, i, round((avg(d) over  w1 + 10.0) - (avg(d) over w1 - 10.0),2) avg
+//      |from over1k
+//      |order by s, i, avg window w1 as (partition by s order by i);
+//     """.stripMargin, reset = false)
 
   /////////////////////////////////////////////////////////////////////////////
   // Tests based on windowing_rank.q

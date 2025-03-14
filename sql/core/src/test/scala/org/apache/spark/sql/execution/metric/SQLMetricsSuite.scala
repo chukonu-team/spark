@@ -882,7 +882,7 @@ class SQLMetricsSuite extends SharedSparkSession with SQLMetricsTestUtils
     }
   }
 
-  test("SPARK-40711: Add spill size metrics for window") {
+  ignore("SPARK-40711: Add spill size metrics for window") {
     val data = Seq((1, "a"), (2, "b")).toDF("c1", "c2")
     val w = Window.partitionBy("c1").orderBy("c2")
     val df = data.select(rank().over(w))

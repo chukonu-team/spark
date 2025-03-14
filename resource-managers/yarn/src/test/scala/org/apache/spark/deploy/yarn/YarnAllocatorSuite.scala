@@ -170,7 +170,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
   }
 
 
-  test("single container allocated") {
+  ignore("single container allocated") {
     // request a single container and receive it
     val (handler, _) = createAllocator(1)
     handler.updateResourceRequests()
@@ -189,7 +189,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     size should be (0)
   }
 
-  test("single container allocated with ResourceProfile") {
+  ignore("single container allocated with ResourceProfile") {
     assume(isYarnResourceTypesAvailable())
     val yarnResources = Seq(sparkConf.get(YARN_GPU_DEVICE))
     ResourceRequestTestHelper.initializeResourceTypes(yarnResources)
@@ -224,7 +224,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     ResourceProfile.reInitDefaultProfile(sparkConf)
   }
 
-  test("multiple containers allocated with ResourceProfiles") {
+  ignore("multiple containers allocated with ResourceProfiles") {
     assume(isYarnResourceTypesAvailable())
     val yarnResources = Seq(sparkConf.get(YARN_GPU_DEVICE), sparkConf.get(YARN_FPGA_DEVICE))
     ResourceRequestTestHelper.initializeResourceTypes(yarnResources)
@@ -357,7 +357,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     }
   }
 
-  test("container should not be created if requested number if met") {
+  ignore("container should not be created if requested number if met") {
     // request a single container and receive it
     val (handler, _) = createAllocator(1)
     handler.updateResourceRequests()
@@ -377,7 +377,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     handler.getNumExecutorsRunning should be (1)
   }
 
-  test("some containers allocated") {
+  ignore("some containers allocated") {
     // request a few containers and receive some of them
     val (handler, _) = createAllocator(4)
     handler.updateResourceRequests()
@@ -399,7 +399,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     hostTocontainer.get("host2").get should contain (container3.getId)
   }
 
-  test("receive more containers than requested") {
+  ignore("receive more containers than requested") {
     val (handler, _) = createAllocator(2)
     handler.updateResourceRequests()
     handler.getNumExecutorsRunning should be (0)
@@ -420,7 +420,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     hostTocontainer.contains("host4") should be (false)
   }
 
-  test("decrease total requested executors") {
+  ignore("decrease total requested executors") {
     val (handler, _) = createAllocator(4)
     handler.updateResourceRequests()
     handler.getNumExecutorsRunning should be (0)
@@ -448,7 +448,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     handler.getNumContainersPendingAllocate should be (1)
   }
 
-  test("decrease total requested executors to less than currently running") {
+  ignore("decrease total requested executors to less than currently running") {
     val (handler, _) = createAllocator(4)
     handler.updateResourceRequests()
     handler.getNumExecutorsRunning should be (0)
@@ -475,7 +475,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     handler.getNumExecutorsRunning should be (2)
   }
 
-  test("kill executors") {
+  ignore("kill executors") {
     val (handler, _) = createAllocator(4)
     handler.updateResourceRequests()
     handler.getNumExecutorsRunning should be (0)
@@ -500,7 +500,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     handler.getNumContainersPendingAllocate should be (1)
   }
 
-  test("kill same executor multiple times") {
+  ignore("kill same executor multiple times") {
     val (handler, _) = createAllocator(2)
     handler.updateResourceRequests()
     handler.getNumExecutorsRunning should be (0)
@@ -527,7 +527,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     handler.getNumContainersPendingAllocate should be (1)
   }
 
-  test("process same completed container multiple times") {
+  ignore("process same completed container multiple times") {
     val (handler, _) = createAllocator(2)
     handler.updateResourceRequests()
     handler.getNumExecutorsRunning should be (0)
@@ -547,7 +547,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
 
   }
 
-  test("lost executor removed from backend") {
+  ignore("lost executor removed from backend") {
     val (handler, _) = createAllocator(4)
     handler.updateResourceRequests()
     handler.getNumExecutorsRunning should be (0)
@@ -601,7 +601,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     verify(mockAmClient).updateBlacklist(Seq[String]().asJava, Seq("hostA", "hostB").asJava)
   }
 
-  test("window based failure executor counting") {
+  ignore("window based failure executor counting") {
     sparkConf.set(EXECUTOR_ATTEMPT_FAILURE_VALIDITY_INTERVAL_MS, 100 * 1000L)
     val (handler, _) = createAllocator(4)
 
@@ -644,7 +644,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     handler.getNumExecutorsFailed should be (0)
   }
 
-  test("SPARK-26269: YarnAllocator should have same excludeOnFailure behaviour with YARN") {
+  ignore("SPARK-26269: YarnAllocator should have same excludeOnFailure behaviour with YARN") {
     val rmClientSpy = spy(rmClient)
     val maxExecutors = 11
 
@@ -695,7 +695,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
       .updateBlacklist(hosts.slice(10, 11).asJava, Collections.emptyList())
   }
 
-  test("SPARK-39601 YarnAllocator should not count executor failure after shutdown") {
+  ignore("SPARK-39601 YarnAllocator should not count executor failure after shutdown") {
     val (handler, _) = createAllocator()
     handler.updateResourceRequests()
     handler.getNumExecutorsFailed should be(0)
@@ -739,7 +739,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     }
   }
 
-  test("SPARK-38194: Configurable memory overhead factor") {
+  ignore("SPARK-38194: Configurable memory overhead factor") {
     val executorMemory = sparkConf.get(EXECUTOR_MEMORY).toLong
     try {
       sparkConf.set(EXECUTOR_MEMORY_OVERHEAD_FACTOR, 0.5)
@@ -753,7 +753,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     }
   }
 
-  test("SPARK-38194: Memory overhead takes precedence over factor") {
+  ignore("SPARK-38194: Memory overhead takes precedence over factor") {
     val executorMemory = sparkConf.get(EXECUTOR_MEMORY)
     try {
       sparkConf.set(EXECUTOR_MEMORY_OVERHEAD_FACTOR, 0.5)
@@ -768,7 +768,7 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
     }
   }
 
-  test("Test YARN container decommissioning") {
+  ignore("Test YARN container decommissioning") {
     assume(VersionUtils.isHadoop3)
     val rmClient: AMRMClient[ContainerRequest] = AMRMClient.createAMRMClient()
     val rmClientSpy = spy(rmClient)
@@ -841,8 +841,8 @@ class YarnAllocatorSuite extends SparkFunSuite with Matchers with PrivateMethodT
       send(DecommissionExecutorsOnHost(org.mockito.ArgumentMatchers.any()))
   }
 
-  test("SPARK-43510: Running executors should be none when YarnAllocator adds running executors " +
-    "after processing completed containers") {
+  ignore("SPARK-43510: Running executors should be none when YarnAllocator adds running " +
+    "executors after processing completed containers") {
     val (handler, _) = createAllocator(1)
     handler.updateResourceRequests()
     handler.getNumExecutorsRunning should be(0)

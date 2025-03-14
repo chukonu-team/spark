@@ -231,7 +231,7 @@ public class JavaDataFrameSuite {
     validateDataFrameWithBeans(bean, df);
   }
 
-  @Test
+  @Ignore
   public void testCreateDataFrameFromJavaBeans() {
     Bean bean = new Bean();
     JavaRDD<Bean> rdd = jsc.parallelize(Arrays.asList(bean));

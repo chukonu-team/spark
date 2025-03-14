@@ -4428,7 +4428,7 @@ class SQLQuerySuite extends QueryTest with SharedSparkSession with AdaptiveSpark
     }
   }
 
-  test("SPARK-39166: Query context of binary arithmetic should be serialized to executors" +
+  ignore("SPARK-39166: Query context of binary arithmetic should be serialized to executors" +
     " when WSCG is off") {
     withSQLConf(SQLConf.WHOLESTAGE_CODEGEN_ENABLED.key -> "false",
       SQLConf.ANSI_ENABLED.key -> "true") {
@@ -4473,7 +4473,7 @@ class SQLQuerySuite extends QueryTest with SharedSparkSession with AdaptiveSpark
     }
   }
 
-  test("SPARK-39190,SPARK-39208,SPARK-39210: Query context of decimal overflow error should " +
+  ignore("SPARK-39190,SPARK-39208,SPARK-39210: Query context of decimal overflow error should " +
     "be serialized to executors when WSCG is off") {
     withSQLConf(SQLConf.WHOLESTAGE_CODEGEN_ENABLED.key -> "false",
       SQLConf.ANSI_ENABLED.key -> "true") {

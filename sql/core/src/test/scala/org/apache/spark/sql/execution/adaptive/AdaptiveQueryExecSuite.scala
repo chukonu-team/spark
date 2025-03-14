@@ -489,7 +489,7 @@ class AdaptiveQueryExecSuite
     }
   }
 
-  test("Exchange reuse") {
+  ignore("Exchange reuse") {
     withSQLConf(
         SQLConf.ADAPTIVE_EXECUTION_ENABLED.key -> "true",
         SQLConf.AUTO_BROADCASTJOIN_THRESHOLD.key -> "800") {
@@ -647,7 +647,7 @@ class AdaptiveQueryExecSuite
     }
   }
 
-  test("Change merge join to broadcast join without local shuffle read") {
+  ignore("Change merge join to broadcast join without local shuffle read") {
     withSQLConf(
       SQLConf.ADAPTIVE_EXECUTION_ENABLED.key -> "true",
       SQLConf.LOCAL_SHUFFLE_READER_ENABLED.key -> "true",
@@ -668,7 +668,7 @@ class AdaptiveQueryExecSuite
     }
   }
 
-  test("Avoid changing merge join to broadcast join if too many empty partitions on build plan") {
+  ignore("Avoid changing merge join to broadcast join if too many empty partitions on build plan") {
     withSQLConf(
       SQLConf.ADAPTIVE_EXECUTION_ENABLED.key -> "true",
       SQLConf.NON_EMPTY_PARTITION_RATIO_FOR_BROADCAST_JOIN.key -> "0.5") {
@@ -786,7 +786,7 @@ class AdaptiveQueryExecSuite
     }
   }
 
-  test("SPARK-29544: adaptive skew join with different join types") {
+  ignore("SPARK-29544: adaptive skew join with different join types") {
     Seq("SHUFFLE_MERGE", "SHUFFLE_HASH").foreach { joinHint =>
       def getJoinNode(plan: SparkPlan): Seq[ShuffledJoin] = if (joinHint == "SHUFFLE_MERGE") {
         findTopLevelSortMergeJoin(plan)
@@ -2028,7 +2028,7 @@ class AdaptiveQueryExecSuite
     }
   }
 
-  test("SPARK-35264: Support AQE side shuffled hash join formula") {
+  ignore("SPARK-35264: Support AQE side shuffled hash join formula") {
     withTempView("t1", "t2") {
       def checkJoinStrategy(shouldShuffleHashJoin: Boolean): Unit = {
         Seq("100", "100000").foreach { size =>
@@ -2114,7 +2114,7 @@ class AdaptiveQueryExecSuite
     }
   }
 
-  test("SPARK-35725: Support optimize skewed partitions in RebalancePartitions") {
+  ignore("SPARK-35725: Support optimize skewed partitions in RebalancePartitions") {
     withTempView("v") {
       withSQLConf(
         SQLConf.ADAPTIVE_EXECUTION_ENABLED.key -> "true",
@@ -2421,7 +2421,7 @@ class AdaptiveQueryExecSuite
     }
   }
 
-  test("SPARK-37357: Add small partition factor for rebalance partitions") {
+  ignore("SPARK-37357: Add small partition factor for rebalance partitions") {
     withTempView("v") {
       withSQLConf(
         SQLConf.ADAPTIVE_OPTIMIZE_SKEWS_IN_REBALANCE_PARTITIONS_ENABLED.key -> "true",

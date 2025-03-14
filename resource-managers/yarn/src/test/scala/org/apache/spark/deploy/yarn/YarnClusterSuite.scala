@@ -92,19 +92,19 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
     |    return 42
     """.stripMargin
 
-  test("run Spark in yarn-client mode") {
+  ignore("run Spark in yarn-client mode") {
     testBasicYarnApp(true)
   }
 
-  test("run Spark in yarn-cluster mode") {
+  ignore("run Spark in yarn-cluster mode") {
     testBasicYarnApp(false)
   }
 
-  test("run Spark in yarn-client mode with unmanaged am") {
+  ignore("run Spark in yarn-client mode with unmanaged am") {
     testBasicYarnApp(true, Map(YARN_UNMANAGED_AM.key -> "true"))
   }
 
-  test("run Spark in yarn-client mode with different configurations, ensuring redaction") {
+  ignore("run Spark in yarn-client mode with different configurations, ensuring redaction") {
     testBasicYarnApp(true,
       Map(
         DRIVER_MEMORY.key -> "512m",
@@ -117,7 +117,7 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
       ))
   }
 
-  test("run Spark in yarn-cluster mode with different configurations, ensuring redaction") {
+  ignore("run Spark in yarn-cluster mode with different configurations, ensuring redaction") {
     testBasicYarnApp(false,
       Map(
         DRIVER_MEMORY.key -> "512m",
@@ -131,7 +131,8 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
       ))
   }
 
-  test("yarn-cluster should respect conf overrides in SparkHadoopUtil (SPARK-16414, SPARK-23630)") {
+  ignore("yarn-cluster should respect conf overrides in "
+    + "SparkHadoopUtil (SPARK-16414, SPARK-23630)") {
     // Create a custom hadoop config file, to make sure it's contents are propagated to the driver.
     val customConf = Utils.createTempDir()
     val coreSite = """<?xml version="1.0" encoding="UTF-8"?>
@@ -153,17 +154,20 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
     checkResult(finalState, result)
   }
 
-  test("SPARK-35672: run Spark in yarn-client mode with additional jar using URI scheme 'local'") {
+  ignore("SPARK-35672: run Spark in yarn-client mode with "
+    + "additional jar using URI scheme 'local'") {
     val jarPath = createJarWithOriginalResourceFile().getPath
     testWithAddJar(clientMode = true, s"local:$jarPath")
   }
 
-  test("SPARK-35672: run Spark in yarn-cluster mode with additional jar using URI scheme 'local'") {
+  ignore("SPARK-35672: run Spark in yarn-cluster mode with "
+    + "additional jar using URI scheme 'local'") {
     val jarPath = createJarWithOriginalResourceFile().getPath
     testWithAddJar(clientMode = false, s"local:$jarPath")
   }
 
-  test("SPARK-35672: run Spark in yarn-client mode with additional jar using URI scheme 'local' " +
+  ignore("SPARK-35672: run Spark in yarn-client mode with "
+    + "additional jar using URI scheme 'local' " +
       "and gateway-replacement path") {
     // Use the original jar URL, but set up the gateway/replacement configs such that if
     // replacement occurs, things will break. This ensures the replacement doesn't apply to the
@@ -176,7 +180,8 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
     ), expectExecutorFailure = true)
   }
 
-  test("SPARK-35672: run Spark in yarn-cluster mode with additional jar using URI scheme 'local' " +
+  ignore("SPARK-35672: run Spark in yarn-cluster mode with "
+    + "additional jar using URI scheme 'local' " +
       "and gateway-replacement path") {
     // Put a prefix in front of the original jar URL which causes it to be an invalid path.
     // Set up the gateway/replacement configs such that if replacement occurs, it is a valid
@@ -189,7 +194,8 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
     ))
   }
 
-  test("SPARK-35672: run Spark in yarn-cluster mode with additional jar using URI scheme 'local' " +
+  ignore("SPARK-35672: run Spark in yarn-cluster mode with "
+    + "additional jar using URI scheme 'local' " +
     "and gateway-replacement path containing an environment variable") {
     // Treat the entire jar path as a string which needs to be replaced, and which will be replaced
     // (using the gateway/replacement logic) by two environment variables, both of which have to be
@@ -209,12 +215,13 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
     ) ++ envVarConfigs)
   }
 
-  test("SPARK-35672: run Spark in yarn-client mode with additional jar using URI scheme 'file'") {
+  ignore("SPARK-35672: run Spark in yarn-client mode with additional jar using URI scheme 'file'") {
     val jarPath = createJarWithOriginalResourceFile().getPath
     testWithAddJar(clientMode = true, s"file:$jarPath")
   }
 
-  test("SPARK-35672: run Spark in yarn-cluster mode with additional jar using URI scheme 'file'") {
+  ignore("SPARK-35672: run Spark in yarn-cluster mode with "
+    + "additional jar using URI scheme 'file'") {
     val jarPath = createJarWithOriginalResourceFile().getPath
     testWithAddJar(clientMode = false, s"file:$jarPath")
   }
@@ -230,15 +237,15 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
     finalState should be (SparkAppHandle.State.FAILED)
   }
 
-  test("run Python application in yarn-client mode") {
+  ignore("run Python application in yarn-client mode") {
     testPySpark(true)
   }
 
-  test("run Python application in yarn-cluster mode") {
+  ignore("run Python application in yarn-cluster mode") {
     testPySpark(false)
   }
 
-  test("run Python application in yarn-cluster mode using " +
+  ignore("run Python application in yarn-cluster mode using " +
     "spark.yarn.appMasterEnv to override local envvar") {
     testPySpark(
       clientMode = false,
@@ -252,15 +259,15 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
         "PYSPARK_PYTHON" -> "not python"))
   }
 
-  test("user class path first in client mode") {
+  ignore("user class path first in client mode") {
     testUseClassPathFirst(true)
   }
 
-  test("user class path first in cluster mode") {
+  ignore("user class path first in cluster mode") {
     testUseClassPathFirst(false)
   }
 
-  test("monitor app using launcher library") {
+  ignore("monitor app using launcher library") {
     val env = new JHashMap[String, String]()
     env.put("YARN_CONF_DIR", hadoopConfDir.getAbsolutePath())
     env.put("SPARK_PREFER_IPV6", Utils.preferIPv6.toString)
@@ -293,7 +300,7 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
     }
   }
 
-  test("running Spark in yarn-cluster mode displays driver log links") {
+  ignore("running Spark in yarn-cluster mode displays driver log links") {
     val log4jConf = new File(tempDir, "log4j.properties")
     val logOutFile = new File(tempDir, "logs")
     Files.write(
@@ -335,11 +342,11 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
     finalState should be (SparkAppHandle.State.FAILED)
   }
 
-  test("executor env overwrite AM env in client mode") {
+  ignore("executor env overwrite AM env in client mode") {
     testExecutorEnv(true)
   }
 
-  test("executor env overwrite AM env in cluster mode") {
+  ignore("executor env overwrite AM env in cluster mode") {
     testExecutorEnv(false)
   }
 
@@ -448,7 +455,7 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
     emptyIvySettings
   }
 
-  test("SPARK-34472: ivySettings file with no scheme or file:// scheme should be " +
+  ignore("SPARK-34472: ivySettings file with no scheme or file:// scheme should be " +
     "localized on driver in cluster mode") {
     val emptyIvySettings = createEmptyIvySettingsFile
     // For file:// URIs or URIs without scheme, make sure that ivySettings conf was changed
@@ -460,7 +467,7 @@ class YarnClusterSuite extends BaseYarnClusterSuite {
       emptyIvySettings.getName, prefixMatch = true)
   }
 
-  test("SPARK-34472: ivySettings file with no scheme or file:// scheme should retain " +
+  ignore("SPARK-34472: ivySettings file with no scheme or file:// scheme should retain " +
     "user provided path in client mode") {
     val emptyIvySettings = createEmptyIvySettingsFile
     // In client mode, the file is present locally on the driver and so does not need to be

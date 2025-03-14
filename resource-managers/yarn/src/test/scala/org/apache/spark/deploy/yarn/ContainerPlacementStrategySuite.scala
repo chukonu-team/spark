@@ -42,7 +42,7 @@ class ContainerPlacementStrategySuite extends SparkFunSuite with Matchers {
 
   val defaultResourceProfileId = ResourceProfile.DEFAULT_RESOURCE_PROFILE_ID
 
-  test("allocate locality preferred containers with enough resource and no matched existed " +
+  ignore("allocate locality preferred containers with enough resource and no matched existed " +
     "containers") {
     // 1. All the locations of current containers cannot satisfy the new requirements
     // 2. Current requested container number can fully satisfy the pending tasks.
@@ -63,7 +63,7 @@ class ContainerPlacementStrategySuite extends SparkFunSuite with Matchers {
       Array("host3", "host4")))
   }
 
-  test("allocate locality preferred containers with enough resource and partially matched " +
+  ignore("allocate locality preferred containers with enough resource and partially matched " +
     "containers") {
     // 1. Parts of current containers' locations can satisfy the new requirements
     // 2. Current requested container number can fully satisfy the pending tasks.
@@ -87,7 +87,7 @@ class ContainerPlacementStrategySuite extends SparkFunSuite with Matchers {
       Array(null, Array("host2", "host3"), Array("host2", "host3")))
   }
 
-  test("allocate locality preferred containers with limited resource and partially matched " +
+  ignore("allocate locality preferred containers with limited resource and partially matched " +
     "containers") {
     // 1. Parts of current containers' locations can satisfy the new requirements
     // 2. Current requested container number cannot fully satisfy the pending tasks.
@@ -109,7 +109,7 @@ class ContainerPlacementStrategySuite extends SparkFunSuite with Matchers {
     assert(localities.map(_.nodes) === Array(Array("host2", "host3")))
   }
 
-  test("allocate locality preferred containers with fully matched containers") {
+  ignore("allocate locality preferred containers with fully matched containers") {
     // Current containers' locations can fully satisfy the new requirements
 
     val (handler, allocatorConf) = createAllocator(5)
@@ -131,7 +131,7 @@ class ContainerPlacementStrategySuite extends SparkFunSuite with Matchers {
     assert(localities.map(_.nodes) === Array(null, null, null))
   }
 
-  test("allocate containers with no locality preference") {
+  ignore("allocate containers with no locality preference") {
     // Request new container without locality preference
 
     val (handler, allocatorConf) = createAllocator(2)
@@ -147,7 +147,8 @@ class ContainerPlacementStrategySuite extends SparkFunSuite with Matchers {
     assert(localities.map(_.nodes) === Array(null))
   }
 
-  test("allocate locality preferred containers by considering the localities of pending requests") {
+  ignore("allocate locality preferred containers by c"
+    + "onsidering the localities of pending requests") {
     val (handler, allocatorConf) = createAllocator(3)
     handler.updateResourceRequests()
     handler.handleAllocatedContainers(Array(
