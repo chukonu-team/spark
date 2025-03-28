@@ -39,7 +39,9 @@ import org.apache.spark.sql.types.{IntegerType, LongType, StringType, StructType
 import org.apache.spark.sql.util.QueryExecutionListener
 import org.apache.spark.unsafe.types.UTF8String
 import org.apache.spark.util.Utils
+import org.apache.spark.tags.DataFrameSQLTest
 
+@DataFrameSQLTest
 class DataFrameWriterV2Suite extends QueryTest with SharedSparkSession with BeforeAndAfter {
   import org.apache.spark.sql.connector.catalog.CatalogV2Implicits._
   import org.apache.spark.sql.functions._

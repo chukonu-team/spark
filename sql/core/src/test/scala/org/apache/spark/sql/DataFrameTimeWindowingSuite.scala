@@ -25,7 +25,9 @@ import org.apache.spark.sql.catalyst.plans.logical.{Aggregate, Expand, Filter}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.DataFrameSQLTest
 
+@DataFrameSQLTest
 class DataFrameTimeWindowingSuite extends QueryTest with SharedSparkSession {
 
   import testImplicits._
