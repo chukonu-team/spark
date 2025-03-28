@@ -24,9 +24,9 @@ import org.apache.spark.sql.execution.datasources.SchemaPruningSuite
 import org.apache.spark.sql.execution.datasources.v2.BatchScanExec
 import org.apache.spark.sql.execution.datasources.v2.orc.OrcScan
 import org.apache.spark.sql.internal.SQLConf
-import org.apache.spark.tags.ExtendedSQLTest
+import org.apache.spark.tags.ExtendedSQLPartFourTest
 
-@ExtendedSQLTest
+@ExtendedSQLPartFourTest
 class OrcV2SchemaPruningSuite extends SchemaPruningSuite with AdaptiveSparkPlanHelper {
   override protected val dataSourceName: String = "orc"
   override protected val vectorizedReaderEnabledKey: String =

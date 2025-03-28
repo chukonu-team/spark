@@ -26,7 +26,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.catalyst.util.{fileToString, resourceToString, stringToFile}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.TestSparkSession
-import org.apache.spark.tags.ExtendedSQLTest
+import org.apache.spark.tags.ExtendedSQLPartTwoTest
 
 /**
  * End-to-end tests to check TPCDS query results.
@@ -54,7 +54,7 @@ import org.apache.spark.tags.ExtendedSQLTest
  *     build/sbt "sql/testOnly *TPCDSQueryTestSuite -- -z q79"
  * }}}
  */
-@ExtendedSQLTest
+@ExtendedSQLPartTwoTest
 class TPCDSQueryTestSuite extends QueryTest with TPCDSBase with SQLQueryTestHelper {
 
   private val tpcdsDataPath = sys.env.get("SPARK_TPCDS_DATA")

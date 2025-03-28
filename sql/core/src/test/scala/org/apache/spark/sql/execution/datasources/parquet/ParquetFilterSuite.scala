@@ -55,7 +55,7 @@ import org.apache.spark.sql.internal.SQLConf.LegacyBehaviorPolicy.{CORRECTED, LE
 import org.apache.spark.sql.internal.SQLConf.ParquetOutputTimestampType.{INT96, TIMESTAMP_MICROS, TIMESTAMP_MILLIS}
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.ExtendedSQLTest
+import org.apache.spark.tags.ExtendedSQLPartFiveTest
 import org.apache.spark.util.{AccumulatorContext, AccumulatorV2, Utils}
 
 /**
@@ -2206,7 +2206,7 @@ abstract class ParquetFilterSuite extends QueryTest with ParquetTest with Shared
   }
 }
 
-@ExtendedSQLTest
+@ExtendedSQLPartFiveTest
 class ParquetV1FilterSuite extends ParquetFilterSuite {
   override protected def sparkConf: SparkConf =
     super
@@ -2286,7 +2286,7 @@ class ParquetV1FilterSuite extends ParquetFilterSuite {
   }
 }
 
-@ExtendedSQLTest
+@ExtendedSQLPartFiveTest
 class ParquetV2FilterSuite extends ParquetFilterSuite {
   // TODO: enable Parquet V2 write path after file source V2 writers are workable.
   override protected def sparkConf: SparkConf =

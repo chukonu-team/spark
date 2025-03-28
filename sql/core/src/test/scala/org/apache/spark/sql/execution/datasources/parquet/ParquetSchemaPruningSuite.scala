@@ -25,7 +25,7 @@ import org.apache.spark.sql.execution.datasources.SchemaPruningSuite
 import org.apache.spark.sql.execution.datasources.v2.BatchScanExec
 import org.apache.spark.sql.execution.datasources.v2.parquet.ParquetScan
 import org.apache.spark.sql.internal.SQLConf
-import org.apache.spark.tags.ExtendedSQLTest
+import org.apache.spark.tags.ExtendedSQLPartFiveTest
 
 abstract class ParquetSchemaPruningSuite extends SchemaPruningSuite with AdaptiveSparkPlanHelper {
   override protected val dataSourceName: String = "parquet"
@@ -36,7 +36,7 @@ abstract class ParquetSchemaPruningSuite extends SchemaPruningSuite with Adaptiv
 
 }
 
-@ExtendedSQLTest
+@ExtendedSQLPartFiveTest
 class ParquetV1SchemaPruningSuite extends ParquetSchemaPruningSuite {
   override protected def sparkConf: SparkConf =
     super
@@ -44,7 +44,7 @@ class ParquetV1SchemaPruningSuite extends ParquetSchemaPruningSuite {
       .set(SQLConf.USE_V1_SOURCE_LIST, "parquet")
 }
 
-@ExtendedSQLTest
+@ExtendedSQLPartFiveTest
 class ParquetV2SchemaPruningSuite extends ParquetSchemaPruningSuite {
   // TODO: enable Parquet V2 write path after file source V2 writers are workable.
   override protected def sparkConf: SparkConf =
