@@ -38,9 +38,9 @@ import org.apache.spark.sql.execution.python.BatchEvalPythonExec
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, TestSparkSession}
 import org.apache.spark.sql.types.StructType
-import org.apache.spark.tags.SlowSQLTest
+import org.apache.spark.tags.SlowSQLPartOneTest
 
-@SlowSQLTest
+@SlowSQLPartOneTest
 class JoinSuite extends QueryTest with SharedSparkSession with AdaptiveSparkPlanHelper {
   import testImplicits._
 

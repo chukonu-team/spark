@@ -35,10 +35,10 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.streaming.StreamingQueryListener._
 import org.apache.spark.sql.streaming.ui.StreamingQueryStatusListener
 import org.apache.spark.sql.streaming.util.StreamManualClock
-import org.apache.spark.tags.SlowSQLTest
+import org.apache.spark.tags.SlowSQLPartTwoTest
 import org.apache.spark.util.JsonProtocol
 
-@SlowSQLTest
+@SlowSQLPartTwoTest
 class StreamingQueryListenerSuite extends StreamTest with BeforeAndAfter {
 
   import testImplicits._

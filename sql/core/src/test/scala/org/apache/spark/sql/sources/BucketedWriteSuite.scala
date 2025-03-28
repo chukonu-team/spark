@@ -29,9 +29,9 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.StaticSQLConf.CATALOG_IMPLEMENTATION
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
-import org.apache.spark.tags.SlowSQLTest
+import org.apache.spark.tags.SlowSQLPartOneTest
 
-@SlowSQLTest
+@SlowSQLPartOneTest
 class BucketedWriteWithoutHiveSupportSuite extends BucketedWriteSuite with SharedSparkSession {
   protected override def beforeAll(): Unit = {
     super.beforeAll()

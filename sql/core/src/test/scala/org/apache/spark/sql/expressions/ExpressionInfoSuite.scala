@@ -25,10 +25,10 @@ import org.apache.spark.sql.catalyst.expressions._
 import org.apache.spark.sql.execution.HiveResult.hiveResultString
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.SlowSQLTest
+import org.apache.spark.tags.SlowSQLPartOneTest
 import org.apache.spark.util.Utils
 
-@SlowSQLTest
+@SlowSQLPartOneTest
 class ExpressionInfoSuite extends SparkFunSuite with SharedSparkSession {
 
   test("Replace _FUNC_ in ExpressionInfo") {
