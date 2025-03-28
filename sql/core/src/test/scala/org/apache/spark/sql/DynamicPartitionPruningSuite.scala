@@ -32,10 +32,12 @@ import org.apache.spark.sql.execution.streaming.{MemoryStream, StreamingQueryWra
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
-
+import org.apache.spark.tags.DatasetSQLTest
 /**
  * Test suite for the filtering ratio policy used to trigger dynamic partition pruning (DPP).
  */
+ 
+@DatasetSQLTest
 abstract class DynamicPartitionPruningSuiteBase
     extends QueryTest
     with SQLTestUtils

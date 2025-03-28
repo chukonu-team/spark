@@ -31,7 +31,9 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.DoubleType
 import org.apache.spark.unsafe.types.CalendarInterval
+import org.apache.spark.tags.DatasetSQLTest
 
+@DatasetSQLTest
 class DateFunctionsSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

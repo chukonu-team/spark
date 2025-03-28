@@ -45,6 +45,8 @@ object TestStrategy extends Strategy {
   }
 }
 
+import org.apache.spark.tags.DatasetSQLTest
+@DatasetSQLTest
 class ExtraStrategiesSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
