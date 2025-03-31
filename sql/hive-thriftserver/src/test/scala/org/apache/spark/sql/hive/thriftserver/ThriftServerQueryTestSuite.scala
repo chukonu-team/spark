@@ -33,6 +33,7 @@ import org.apache.spark.sql.execution.HiveResult.{getTimeFormatters, toHiveStrin
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf.TimestampTypes
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.HiveThriftServerPartOneTest
 
 // scalastyle:off line.size.limit
 /**
@@ -68,6 +69,7 @@ import org.apache.spark.sql.types._
  *   4. Support UDAF testing.
  */
 // scalastyle:on line.size.limit
+@HiveThriftServerPartOneTest
 class ThriftServerQueryTestSuite extends SQLQueryTestSuite with SharedThriftServer {
 
 
