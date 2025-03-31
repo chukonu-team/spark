@@ -24,12 +24,12 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.ArrayType
-
+import org.apache.spark.tags.DataFrameSQLTest
 
 /**
  * A test suite to test DataFrame/SQL functionalities with complex types (i.e. array, struct, map).
  */
-
+@DataFrameSQLTest
 class DataFrameComplexTypeSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
