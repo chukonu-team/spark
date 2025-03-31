@@ -24,10 +24,12 @@ import org.apache.spark.SparkConf
 import org.apache.spark.internal.config.Kryo._
 import org.apache.spark.serializer.KryoRegistrator
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.DatasetSQLTest
 
 /**
  * Test suite to test Kryo custom registrators.
  */
+@DatasetSQLTest
 class DatasetSerializerRegistratorSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
