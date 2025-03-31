@@ -22,8 +22,8 @@ import java.time.{Duration, Period}
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{DayTimeIntervalType => DT, YearMonthIntervalType => YM}
 import org.apache.spark.sql.types.DataTypeTestUtils._
-
 import org.apache.spark.tags.DatasetSQLTest
+
 @DatasetSQLTest
 class IntervalFunctionsSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
