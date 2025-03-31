@@ -35,7 +35,6 @@ import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
 /**
  * Test suite for the filtering ratio policy used to trigger dynamic partition pruning (DPP).
  */
- 
 abstract class DynamicPartitionPruningSuiteBase
     extends QueryTest
     with SQLTestUtils
