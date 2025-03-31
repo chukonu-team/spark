@@ -34,9 +34,9 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.DataFrameSQLTest
 
-@DataFrameSQLTest
+
+
 class DataFrameJoinSuite extends QueryTest
   with SharedSparkSession
   with AdaptiveSparkPlanHelper {

@@ -22,7 +22,7 @@ import org.apache.spark.sql.expressions.Aggregator
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{BooleanType, IntegerType, StringType, StructType}
-import org.apache.spark.tags.DatasetSQLTest
+
 object ComplexResultAgg extends Aggregator[(String, Int), (Long, Long), (Long, Long)] {
   override def zero: (Long, Long) = (0, 0)
   override def reduce(countAndSum: (Long, Long), input: (String, Int)): (Long, Long) = {
@@ -228,7 +228,6 @@ case class FooAgg(s: Int) extends Aggregator[Row, Int, Int] {
   def outputEncoder: Encoder[Int] = Encoders.scalaInt
 }
 
-@DatasetSQLTest
 class DatasetAggregatorSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

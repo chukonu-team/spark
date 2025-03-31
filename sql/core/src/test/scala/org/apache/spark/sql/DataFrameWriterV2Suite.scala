@@ -37,11 +37,11 @@ import org.apache.spark.sql.sources.FakeSourceOne
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, LongType, StringType, StructType, TimestampType}
 import org.apache.spark.sql.util.QueryExecutionListener
-import org.apache.spark.tags.DataFrameSQLTest
+
 import org.apache.spark.unsafe.types.UTF8String
 import org.apache.spark.util.Utils
 
-@DataFrameSQLTest
+
 class DataFrameWriterV2Suite extends QueryTest with SharedSparkSession with BeforeAndAfter {
   import org.apache.spark.sql.connector.catalog.CatalogV2Implicits._
   import org.apache.spark.sql.functions._

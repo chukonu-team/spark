@@ -27,9 +27,7 @@ import org.apache.spark.sql.execution.adaptive.{AdaptiveSparkPlanHelper, AQEProp
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
 import org.apache.spark.sql.types.{IntegerType, StructType}
-import org.apache.spark.tags.DatasetSQLTest
 
-@DatasetSQLTest
 class InjectRuntimeFilterSuite extends QueryTest with SQLTestUtils with SharedSparkSession
   with AdaptiveSparkPlanHelper {
 

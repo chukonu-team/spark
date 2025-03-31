@@ -46,7 +46,6 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.DatasetSQLTest
 
 case class TestDataPoint(x: Int, y: Double, s: String, t: TestDataPoint2)
 case class TestDataPoint2(x: Int, s: String)
@@ -63,7 +62,6 @@ object TestForTypeAlias {
   def aliasedArrayInTuple: (Int, IntArray) = (1, Array(1))
 }
 
-@DatasetSQLTest
 class DatasetSuite extends QueryTest
   with SharedSparkSession
   with AdaptiveSparkPlanHelper {
@@ -2512,7 +2510,6 @@ class DatasetSuite extends QueryTest
   }
 }
 
-@DatasetSQLTest
 class DatasetLargeResultCollectingSuite extends QueryTest
   with SharedSparkSession {
 

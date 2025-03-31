@@ -28,9 +28,9 @@ import org.apache.spark.scheduler.{SparkListener, SparkListenerTaskStart}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.DataFrameSQLTest
 
-@DataFrameSQLTest
+
+
 class DataFrameRangeSuite extends QueryTest with SharedSparkSession with Eventually {
 
   test("SPARK-7150 range api") {

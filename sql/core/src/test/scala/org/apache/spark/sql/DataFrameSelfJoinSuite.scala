@@ -26,9 +26,9 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.test.SQLTestData.TestData
 import org.apache.spark.sql.types.{IntegerType, LongType, StructField, StructType}
-import org.apache.spark.tags.DataFrameSQLTest
 
-@DataFrameSQLTest
+
+
 class DataFrameSelfJoinSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
