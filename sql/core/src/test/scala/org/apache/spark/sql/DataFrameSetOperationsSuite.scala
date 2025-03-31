@@ -29,9 +29,9 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{ExamplePoint, ExamplePointUDT, SharedSparkSession, SQLTestData}
 import org.apache.spark.sql.test.SQLTestData.NullStrings
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.DataFrameSQLTest
 
-
-
+@DataFrameSQLTest
 class DataFrameSetOperationsSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
