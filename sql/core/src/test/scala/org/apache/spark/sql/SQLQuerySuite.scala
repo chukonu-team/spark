@@ -53,11 +53,11 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.test.SQLTestData._
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.ExtendedSQLPartTwoTest
+import org.apache.spark.tags.ExtendedSQLPartThreeTest
 import org.apache.spark.unsafe.types.{CalendarInterval, UTF8String}
 import org.apache.spark.util.ResetSystemProperties
 
-@ExtendedSQLPartTwoTest
+@ExtendedSQLPartThreeTest
 class SQLQuerySuite extends QueryTest with SharedSparkSession with AdaptiveSparkPlanHelper
     with ResetSystemProperties {
   import testImplicits._

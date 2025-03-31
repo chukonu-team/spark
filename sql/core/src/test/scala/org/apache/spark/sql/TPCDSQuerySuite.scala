@@ -20,13 +20,13 @@ package org.apache.spark.sql
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.catalyst.util.resourceToString
 import org.apache.spark.sql.internal.SQLConf
-import org.apache.spark.tags.ExtendedSQLPartThreeTest
+import org.apache.spark.tags.ExtendedSQLPartOneTest
 
 /**
  * This test suite ensures all the TPC-DS queries can be successfully analyzed, optimized
  * and compiled without hitting the max iteration threshold.
  */
-@ExtendedSQLPartThreeTest
+@ExtendedSQLPartOneTest
 class TPCDSQuerySuite extends BenchmarkQueryTest with TPCDSBase {
 
   override protected def sparkConf: SparkConf =
@@ -72,12 +72,12 @@ class TPCDSQuerySuite extends BenchmarkQueryTest with TPCDSBase {
   }
 }
 
-@ExtendedSQLPartThreeTest
+@ExtendedSQLPartOneTest
 class TPCDSQueryWithStatsSuite extends TPCDSQuerySuite {
   override def injectStats: Boolean = true
 }
 
-@ExtendedSQLPartThreeTest
+@ExtendedSQLPartOneTest
 class TPCDSQueryANSISuite extends TPCDSQuerySuite {
   override protected def sparkConf: SparkConf =
     super.sparkConf.set(SQLConf.ANSI_ENABLED, true)
