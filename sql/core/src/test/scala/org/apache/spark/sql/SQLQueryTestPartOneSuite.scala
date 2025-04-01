@@ -45,22 +45,22 @@ import org.apache.spark.util.Utils
  *
  * To run the entire test suite:
  * {{{
- *   build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestSuite"
+ *   build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestPartOneSuite"
  * }}}
  *
  * To run a single test file upon change:
  * {{{
- *   build/sbt "~sql/testOnly org.apache.spark.sql.SQLQueryTestSuite -- -z inline-table.sql"
+ *   build/sbt "~sql/testOnly org.apache.spark.sql.SQLQueryTestPartOneSuite -- -z inline-table.sql"
  * }}}
  *
  * To re-generate golden files for entire suite, run:
  * {{{
- *   SPARK_GENERATE_GOLDEN_FILES=1 build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestSuite"
+ *   SPARK_GENERATE_GOLDEN_FILES=1 build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestPartOneSuite"
  * }}}
  *
  * To re-generate golden file for a single test, run:
  * {{{
- *   SPARK_GENERATE_GOLDEN_FILES=1 build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestSuite -- -z describe.sql"
+ *   SPARK_GENERATE_GOLDEN_FILES=1 build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestPartOneSuite -- -z describe.sql"
  * }}}
  *
  * The format for input files is simple:
@@ -123,7 +123,7 @@ import org.apache.spark.util.Utils
  */
 // scalastyle:on line.size.limit
 @ExtendedSQLPartTwoTest
-class SQLQueryTestSuite extends QueryTest with SharedSparkSession with SQLHelper
+class SQLQueryTestPartOneSuite extends QueryTest with SharedSparkSession with SQLHelper
     with SQLQueryTestHelper {
 
   import IntegratedUDFTestUtils._
@@ -266,11 +266,13 @@ class SQLQueryTestSuite extends QueryTest with SharedSparkSession with SQLHelper
           s"pandas and/or pyarrow were not available in [$pythonExec].") {
           /* Do nothing */
         }
-      case _ =>
-        // Create a test case to run this case.
+      case udfTestCase: UDFTest =>
         test(testCase.name) {
           runTest(testCase)
         }
+      case _ =>
+        // Create a test case to run this case.
+       
     }
   }
 
