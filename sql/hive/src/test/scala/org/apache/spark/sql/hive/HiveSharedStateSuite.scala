@@ -27,9 +27,9 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.internal.StaticSQLConf
 import org.apache.spark.sql.internal.StaticSQLConf._
 import org.apache.spark.util.Utils
-import org.apache.spark.tags.HivePartTwoTest
 
-@HivePartTwoTest
+
+
 class HiveSharedStateSuite extends SparkFunSuite {
 
   override def beforeEach(): Unit = {

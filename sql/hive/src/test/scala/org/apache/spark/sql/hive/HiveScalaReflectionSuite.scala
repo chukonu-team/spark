@@ -19,13 +19,13 @@ package org.apache.spark.sql.hive
 
 import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.ScalaReflection
-import org.apache.spark.tags.HivePartTwoTest
+
 /**
  * This test suite prefers to have its own JVM as the error for cyclic annotation references may
  * not be thrown if the annotation class is previously loaded by some other test and so may be
  * dependent on test execution order
  */
-@HivePartTwoTest
+
 class HiveScalaReflectionSuite extends SparkFunSuite {
 
   test("SPARK-38510: ScalaReflection.getConstructorParameterNames should work for classes with " +
