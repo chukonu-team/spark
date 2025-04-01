@@ -18,9 +18,9 @@
 package org.apache.spark.sql.hive
 
 import org.apache.spark.{SparkConf, SparkContext, SparkFunSuite}
-import org.apache.spark.tags.HivePartOneTest
 
-@HivePartOneTest
+
+
 class HiveContextCompatibilitySuite extends SparkFunSuite {
 
   override protected val enableAutoThreadAudit = false

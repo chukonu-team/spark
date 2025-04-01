@@ -24,9 +24,9 @@ import org.scalatest.BeforeAndAfterEach
 import org.apache.spark.sql.{AnalysisException, QueryTest}
 import org.apache.spark.sql.catalyst.util.quietly
 import org.apache.spark.sql.hive.test.TestHiveSingleton
-import org.apache.spark.tags.HivePartOneTest
 
-@HivePartOneTest
+
+
 class ErrorPositionSuite extends QueryTest with TestHiveSingleton with BeforeAndAfterEach {
   import spark.implicits._
 
