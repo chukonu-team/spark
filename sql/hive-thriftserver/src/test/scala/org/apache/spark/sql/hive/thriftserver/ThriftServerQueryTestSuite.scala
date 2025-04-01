@@ -26,7 +26,7 @@ import scala.util.control.NonFatal
 import org.apache.commons.lang3.exception.ExceptionUtils
 
 import org.apache.spark.SparkException
-import org.apache.spark.sql.SQLQueryTestSuite
+import org.apache.spark.sql.SQLQueryTestPartOneSuite
 import org.apache.spark.sql.catalyst.analysis.NoSuchTableException
 import org.apache.spark.sql.catalyst.util.fileToString
 import org.apache.spark.sql.execution.HiveResult.{getTimeFormatters, toHiveString, TimeFormatters}
@@ -70,7 +70,7 @@ import org.apache.spark.tags.HiveThriftServerPartOneTest
  */
 // scalastyle:on line.size.limit
 @HiveThriftServerPartOneTest
-class ThriftServerQueryTestSuite extends SQLQueryTestSuite with SharedThriftServer {
+class ThriftServerQueryTestSuite extends SQLQueryTestPartOneSuite with SharedThriftServer {
 
 
   override def mode: ServerMode.Value = ServerMode.binary
