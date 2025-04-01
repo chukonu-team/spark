@@ -246,13 +246,12 @@ class SQLQueryTestPartThreeSuite extends QueryTest with SharedSparkSession with 
         testCase.name.toLowerCase(Locale.ROOT).contains(t.toLowerCase(Locale.ROOT)))) {
     } else testCase match {
       case udfTestCase: UDFTest =>
-      case regularTestCase: RegularTestCase=>
+      case regularTestCase: RegularTestCase =>
       case _ =>
         test(testCase.name) {
           runTest(testCase)
         }
         // Create a test case to run this case.
-       
     }
   }
 

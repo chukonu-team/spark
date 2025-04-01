@@ -271,8 +271,6 @@ class SQLQueryTestPartOneSuite extends QueryTest with SharedSparkSession with SQ
           runTest(testCase)
         }
       case _ =>
-        // Create a test case to run this case.
-       
     }
   }
 

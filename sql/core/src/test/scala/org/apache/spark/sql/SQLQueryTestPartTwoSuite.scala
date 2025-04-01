@@ -247,13 +247,12 @@ class SQLQueryTestPartTwoSuite extends QueryTest with SharedSparkSession with SQ
       // Create a test case to ignore this case.
       ignore(testCase.name) { /* Do nothing */ }
     } else testCase match {
-      case regularTestCase: RegularTestCase=>
+      case regularTestCase: RegularTestCase =>
         test(testCase.name) {
           runTest(testCase)
         }
       case _ =>
         // Create a test case to run this case.
-       
     }
   }
 
