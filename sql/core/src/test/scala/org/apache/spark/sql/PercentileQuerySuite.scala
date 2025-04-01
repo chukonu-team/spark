@@ -20,10 +20,12 @@ package org.apache.spark.sql
 import java.time.{Duration, Period}
 
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.DatasetSQLTest
 
 /**
  * End-to-end tests for percentile aggregate function.
  */
+@DatasetSQLTest
 class PercentileQuerySuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

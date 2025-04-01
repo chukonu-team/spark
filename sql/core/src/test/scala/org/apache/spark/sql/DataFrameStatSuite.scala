@@ -541,6 +541,7 @@ class DataFrameStatSuite extends QueryTest with SharedSparkSession {
 }
 
 
+@DataFrameSQLTest
 class DataFrameStatPerfSuite extends QueryTest with SharedSparkSession with Logging {
 
   // Turn on this test if you want to test the performance of approximate quantiles.

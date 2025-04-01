@@ -22,6 +22,7 @@ import java.io.File
 import org.apache.spark.{SparkConf, SparkException}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.DatasetSQLTest
 
 /**
  * Test suite to handle metadata cache related.
@@ -61,6 +62,7 @@ abstract class MetadataCacheSuite extends QueryTest with SharedSparkSession {
   }
 }
 
+@DatasetSQLTest
 class MetadataCacheV1Suite extends MetadataCacheSuite {
   override protected def sparkConf: SparkConf =
     super

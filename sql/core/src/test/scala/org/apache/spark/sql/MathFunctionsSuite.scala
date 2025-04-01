@@ -24,12 +24,14 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.functions.{log => logarithm}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.DatasetSQLTest
 
 private object MathFunctionsTestData {
   case class DoubleData(a: java.lang.Double, b: java.lang.Double)
   case class NullDoubles(a: java.lang.Double)
 }
 
+@DatasetSQLTest
 class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   import MathFunctionsTestData._
   import testImplicits._
