@@ -36,11 +36,11 @@ import org.apache.spark.sql.test.SQLTestData.DecimalData
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.types.DayTimeIntervalType.{DAY, HOUR, MINUTE, SECOND}
 import org.apache.spark.sql.types.YearMonthIntervalType.{MONTH, YEAR}
-import org.apache.spark.tags.DataFrameSQLTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
 case class Fact(date: Int, hour: Int, minute: Int, room_name: String, temp: Double)
 
-@DataFrameSQLTest
+@SplitSQLPartTwoTest
 class DataFrameAggregateSuite extends QueryTest
   with SharedSparkSession
   with AdaptiveSparkPlanHelper {

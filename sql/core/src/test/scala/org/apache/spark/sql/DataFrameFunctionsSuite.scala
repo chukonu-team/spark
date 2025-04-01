@@ -36,12 +36,12 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.DataFrameSQLTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
 /**
  * Test suite for functions in [[org.apache.spark.sql.functions]].
  */
-@DataFrameSQLTest
+@SplitSQLPartTwoTest
 class DataFrameFunctionsSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

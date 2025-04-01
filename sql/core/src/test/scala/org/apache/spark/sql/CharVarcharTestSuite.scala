@@ -30,6 +30,7 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.sources.SimpleInsertSource
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
 // The base trait for char/varchar tests that need to be run with different table implementations.
 trait CharVarcharTestSuite extends QueryTest with SQLTestUtils {
@@ -675,6 +676,7 @@ trait CharVarcharTestSuite extends QueryTest with SQLTestUtils {
 }
 
 // Some basic char/varchar tests which doesn't rely on table implementation.
+@SplitSQLPartThreeTest
 class BasicCharVarcharTestSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
@@ -787,6 +789,7 @@ class BasicCharVarcharTestSuite extends QueryTest with SharedSparkSession {
   }
 }
 
+@SplitSQLPartThreeTest
 class FileSourceCharVarcharTestSuite extends CharVarcharTestSuite with SharedSparkSession {
   override def format: String = "parquet"
   override protected def sparkConf: SparkConf = {
@@ -898,6 +901,7 @@ class FileSourceCharVarcharTestSuite extends CharVarcharTestSuite with SharedSpa
   }
 }
 
+@SplitSQLPartThreeTest
 class DSV2CharVarcharTestSuite extends CharVarcharTestSuite
   with SharedSparkSession {
   override def format: String = "foo"

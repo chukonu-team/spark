@@ -21,9 +21,9 @@ import org.apache.spark.SparkThrowable
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.DataFrameSQLTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
-@DataFrameSQLTest
+@SplitSQLPartTwoTest
 class DataFrameToSchemaSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

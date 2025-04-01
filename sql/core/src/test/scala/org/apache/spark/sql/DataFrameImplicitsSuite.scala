@@ -18,9 +18,9 @@
 package org.apache.spark.sql
 
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.DataFrameSQLTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
-@DataFrameSQLTest
+@SplitSQLPartTwoTest
 class DataFrameImplicitsSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

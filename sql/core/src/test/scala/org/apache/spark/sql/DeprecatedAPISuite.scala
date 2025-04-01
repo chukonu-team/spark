@@ -20,9 +20,9 @@ package org.apache.spark.sql
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-import org.apache.spark.tags.DatasetSQLTest
+import org.apache.spark.tags.SplitSQLPartOneTest
 
-@DatasetSQLTest
+@SplitSQLPartOneTest
 class DeprecatedAPISuite extends QueryTest with SharedSparkSession {
   import MathFunctionsTestData.DoubleData
   import testImplicits._

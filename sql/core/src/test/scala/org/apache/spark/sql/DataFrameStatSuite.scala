@@ -27,9 +27,9 @@ import org.apache.spark.sql.functions.{col, lit, struct, when}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{ArrayType, DoubleType, StringType, StructField, StructType}
-import org.apache.spark.tags.DataFrameSQLTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
-@DataFrameSQLTest
+@SplitSQLPartTwoTest
 class DataFrameStatSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
@@ -541,7 +541,7 @@ class DataFrameStatSuite extends QueryTest with SharedSparkSession {
 }
 
 
-@DataFrameSQLTest
+@SplitSQLPartTwoTest
 class DataFrameStatPerfSuite extends QueryTest with SharedSparkSession with Logging {
 
   // Turn on this test if you want to test the performance of approximate quantiles.

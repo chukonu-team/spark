@@ -24,7 +24,9 @@ import org.apache.spark.sql.catalyst.expressions.aggregate.ApproxCountDistinctFo
 import org.apache.spark.sql.catalyst.plans.logical.Aggregate
 import org.apache.spark.sql.execution.QueryExecution
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class ApproxCountDistinctForIntervalsQuerySuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
