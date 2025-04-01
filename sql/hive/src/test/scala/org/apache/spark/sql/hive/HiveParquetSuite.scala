@@ -24,9 +24,11 @@ import org.apache.spark.sql.{AnalysisException, QueryTest, Row}
 import org.apache.spark.sql.execution.datasources.parquet.ParquetTest
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.internal.SQLConf
+import org.apache.spark.tags.HivePartTwoTest
 
 case class Cases(lower: String, UPPER: String)
 
+@HivePartTwoTest
 class HiveParquetSuite extends QueryTest
   with ParquetTest
   with TestHiveSingleton {
