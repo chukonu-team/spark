@@ -46,11 +46,13 @@ import org.apache.spark.sql.internal.SQLConf.COLUMN_BATCH_SIZE
 import org.apache.spark.sql.internal.StaticSQLConf.SPARK_SESSION_EXTENSIONS
 import org.apache.spark.sql.types.{DataType, Decimal, IntegerType, LongType, Metadata, StructType}
 import org.apache.spark.sql.vectorized.{ColumnarArray, ColumnarBatch, ColumnarMap, ColumnVector}
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.unsafe.types.UTF8String
 
 /**
  * Test cases for the [[SparkSessionExtensions]].
  */
+@SplitSQLPartThreeTest
 class SparkSessionExtensionSuite extends SparkFunSuite with SQLHelper {
   private def create(
       builder: SparkSessionExtensionsProvider): Seq[SparkSessionExtensionsProvider] = Seq(builder)

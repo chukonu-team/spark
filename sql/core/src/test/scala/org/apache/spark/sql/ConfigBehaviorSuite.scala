@@ -25,9 +25,9 @@ import org.apache.spark.scheduler.{SparkListener, SparkListenerJobStart}
 import org.apache.spark.sql.execution.adaptive.DisableAdaptiveExecution
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.SplitSQLPartThreeTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
-@SplitSQLPartThreeTest
+@SplitSQLPartTwoTest
 class ConfigBehaviorSuite extends QueryTest with SharedSparkSession {
 
   import testImplicits._

@@ -23,9 +23,9 @@ import org.apache.spark.sql.catalyst.expressions.CreateNamedStruct
 import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{ArrayType, IntegerType, StructField, StructType}
-import org.apache.spark.tags.SplitSQLPartThreeTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
-@SplitSQLPartThreeTest
+@SplitSQLPartTwoTest
 class ComplexTypesSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
