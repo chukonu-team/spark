@@ -247,7 +247,7 @@ class SQLQueryTestPartTwoSuite extends QueryTest with SharedSparkSession with SQ
     } else testCase match {
       case udfTestCase: UDFTest =>
       case _ =>
-        if (math.abs(testCase.name.hashCode) % 3 == 1) {
+        if (math.abs(testCase.name.hashCode) % 5 == 1) {
           test(testCase.name) {
             runTest(testCase)
           }
