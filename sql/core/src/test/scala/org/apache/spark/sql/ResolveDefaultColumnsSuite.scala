@@ -22,7 +22,9 @@ import org.apache.spark.sql.catalyst.expressions.Literal
 import org.apache.spark.sql.catalyst.plans.logical.{LocalRelation, LogicalPlan}
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{StructField, StructType, TimestampType}
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class ResolveDefaultColumnsSuite extends QueryTest with SharedSparkSession {
   val rule = ResolveDefaultColumns(null)
   // This is the internal storage for the timestamp 2020-12-31 00:00:00.0.

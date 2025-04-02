@@ -22,7 +22,9 @@ import org.apache.spark.sql.catalyst.expressions.{GenericInternalRow, SpecificIn
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
 import org.apache.spark.unsafe.types.UTF8String
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class RowSuite extends SparkFunSuite with SharedSparkSession {
   import testImplicits._
 

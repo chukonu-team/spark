@@ -530,50 +530,50 @@ def main():
     changed_files = []
     included_tags = []
     excluded_tags = []
-    # if should_only_test_modules:
-    #     # We're likely in the forked repository
-    #     is_apache_spark_ref = os.environ.get("APACHE_SPARK_REF", "") != ""
-    #     # We're likely in the main repo build.
-    #     is_github_prev_sha = os.environ.get("GITHUB_PREV_SHA", "") != ""
-    #     # Otherwise, we're in either periodic job in Github Actions or somewhere else.
+    if should_only_test_modules:
+        # We're likely in the forked repository
+        is_apache_spark_ref = os.environ.get("APACHE_SPARK_REF", "") != ""
+        # We're likely in the main repo build.
+        is_github_prev_sha = os.environ.get("GITHUB_PREV_SHA", "") != ""
+        # Otherwise, we're in either periodic job in Github Actions or somewhere else.
 
-    #     # If we're running the tests in GitHub Actions, attempt to detect and test
-    #     # only the affected modules.
-    #     if test_env == "github_actions" and (is_apache_spark_ref or is_github_prev_sha):
-    #         if is_apache_spark_ref:
-    #             changed_files = identify_changed_files_from_git_commits(
-    #                 "HEAD", target_ref=os.environ["APACHE_SPARK_REF"]
-    #             )
-    #         elif is_github_prev_sha:
-    #             changed_files = identify_changed_files_from_git_commits(
-    #                 os.environ["GITHUB_SHA"], target_ref=os.environ["GITHUB_PREV_SHA"]
-    #             )
+        # If we're running the tests in GitHub Actions, attempt to detect and test
+        # only the affected modules.
+        if test_env == "github_actions" and (is_apache_spark_ref or is_github_prev_sha):
+            if is_apache_spark_ref:
+                changed_files = identify_changed_files_from_git_commits(
+                    "HEAD", target_ref=os.environ["APACHE_SPARK_REF"]
+                )
+            elif is_github_prev_sha:
+                changed_files = identify_changed_files_from_git_commits(
+                    os.environ["GITHUB_SHA"], target_ref=os.environ["GITHUB_PREV_SHA"]
+                )
 
-    #         modules_to_test = determine_modules_to_test(
-    #             determine_modules_for_files(changed_files), deduplicated=False
-    #         )
+            modules_to_test = determine_modules_to_test(
+                determine_modules_for_files(changed_files), deduplicated=False
+            )
 
-    #         if modules.root not in modules_to_test:
-    #             # If root module is not found, only test the intersected modules.
-    #             # If root module is found, just run the modules as specified initially.
-    #             test_modules = list(set(modules_to_test).intersection(test_modules))
+            if modules.root not in modules_to_test:
+                # If root module is not found, only test the intersected modules.
+                # If root module is found, just run the modules as specified initially.
+                test_modules = list(set(modules_to_test).intersection(test_modules))
 
-    #     changed_modules = test_modules
-    #     if len(changed_modules) == 0:
-    #         print("[info] There are no modules to test, exiting without testing.")
-    #         return
+        changed_modules = test_modules
+        if len(changed_modules) == 0:
+            print("[info] There are no modules to test, exiting without testing.")
+            return
 
-    # # If we're running the tests in Jenkins, calculate the diff from the targeted branch, and
-    # # detect modules to test.
-    # elif os.environ.get("SPARK_JENKINS_PRB"):
-    #     target_branch = os.environ["ghprbTargetBranch"]
-    #     changed_files = identify_changed_files_from_git_commits("HEAD", target_branch=target_branch)
-    #     changed_modules = determine_modules_for_files(changed_files)
-    #     test_modules = determine_modules_to_test(changed_modules)
-    #     excluded_tags = determine_tags_to_exclude(changed_modules)
+    # If we're running the tests in Jenkins, calculate the diff from the targeted branch, and
+    # detect modules to test.
+    elif os.environ.get("SPARK_JENKINS_PRB"):
+        target_branch = os.environ["ghprbTargetBranch"]
+        changed_files = identify_changed_files_from_git_commits("HEAD", target_branch=target_branch)
+        changed_modules = determine_modules_for_files(changed_files)
+        test_modules = determine_modules_to_test(changed_modules)
+        excluded_tags = determine_tags_to_exclude(changed_modules)
 
     # If there is no changed module found, tests all.
-    if True:
+    if not changed_modules:
         changed_modules = [modules.root]
     if not test_modules:
         test_modules = determine_modules_to_test(changed_modules)

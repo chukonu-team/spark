@@ -21,7 +21,9 @@ import org.apache.spark.sql.catalyst.parser.ParseException
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, TestSQLContext}
 import org.apache.spark.util.ResetSystemProperties
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class SetCommandSuite extends QueryTest with SharedSparkSession with ResetSystemProperties  {
   test("SET commands semantics using sql()") {
     spark.sessionState.conf.clear()

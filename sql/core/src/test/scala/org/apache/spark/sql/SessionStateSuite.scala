@@ -25,7 +25,9 @@ import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan
 import org.apache.spark.sql.catalyst.rules.Rule
 import org.apache.spark.sql.execution.QueryExecution
 import org.apache.spark.sql.util.QueryExecutionListener
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class SessionStateSuite extends SparkFunSuite {
 
   /**
