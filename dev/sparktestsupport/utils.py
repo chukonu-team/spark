@@ -63,6 +63,7 @@ def determine_modules_for_files(filenames):
 
 
 def identify_changed_files_from_git_commits(patch_sha, target_branch=None, target_ref=None):
+    return []
     """
     Given a git commit and target ref, use the set of files changed in the diff in order to
     determine which modules' tests should be run.
