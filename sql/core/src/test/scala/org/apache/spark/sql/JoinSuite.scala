@@ -39,6 +39,7 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, TestSparkSession}
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.tags.SlowSQLPartOneTest
+import org.apache.spark.tags.SplitSQLPartOneTest
 
 @SlowSQLPartOneTest
 class JoinSuite extends QueryTest with SharedSparkSession with AdaptiveSparkPlanHelper {
