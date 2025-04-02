@@ -1593,6 +1593,7 @@ class JoinSuite extends QueryTest with SharedSparkSession with AdaptiveSparkPlan
   }
 }
 
+@SplitSQLPartOneTest
 class ThreadLeakInSortMergeJoinSuite
   extends QueryTest
     with SharedSparkSession

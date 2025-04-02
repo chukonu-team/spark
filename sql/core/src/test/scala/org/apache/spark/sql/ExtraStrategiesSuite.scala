@@ -23,6 +23,7 @@ import org.apache.spark.sql.catalyst.expressions._
 import org.apache.spark.sql.catalyst.plans.logical.{LogicalPlan, Project}
 import org.apache.spark.sql.execution.{LeafExecNode, SparkPlan}
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
 case class FastOperator(output: Seq[Attribute]) extends LeafExecNode {
 
@@ -45,6 +46,7 @@ object TestStrategy extends Strategy {
   }
 }
 
+@SplitSQLPartTwoTest
 class ExtraStrategiesSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

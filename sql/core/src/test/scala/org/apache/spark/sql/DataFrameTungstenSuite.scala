@@ -20,7 +20,7 @@ package org.apache.spark.sql
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.SplitSQLPartTwoTest
+import org.apache.spark.tags.SplitSQLPartOneTest
 
 /**
  * An end-to-end test suite specifically for testing Tungsten (Unsafe/CodeGen) mode.
@@ -29,7 +29,7 @@ import org.apache.spark.tags.SplitSQLPartTwoTest
  * end-to-end test infra. In the long run this should just go away.
  */
 
-@SplitSQLPartTwoTest
+@SplitSQLPartOneTest
 class DataFrameTungstenSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

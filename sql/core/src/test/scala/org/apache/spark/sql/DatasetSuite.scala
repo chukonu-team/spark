@@ -2512,6 +2512,7 @@ class DatasetSuite extends QueryTest
   }
 }
 
+@SplitSQLPartOneTest
 class DatasetLargeResultCollectingSuite extends QueryTest
   with SharedSparkSession {
 

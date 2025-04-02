@@ -35,6 +35,7 @@ import org.apache.spark.sql.sources.Filter
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.util.CaseInsensitiveStringMap
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
 trait FileScanSuiteBase extends SharedSparkSession {
   private def newPartitioningAwareFileIndex() = {
@@ -351,6 +352,7 @@ trait FileScanSuiteBase extends SharedSparkSession {
   }
 }
 
+@SplitSQLPartTwoTest
 class FileScanSuite extends FileScanSuiteBase {
   val scanBuilders = Seq[(String, ScanBuilder, Seq[String])](
     ("ParquetScan",

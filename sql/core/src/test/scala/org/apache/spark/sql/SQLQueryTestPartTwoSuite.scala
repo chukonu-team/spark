@@ -244,8 +244,6 @@ class SQLQueryTestPartTwoSuite extends QueryTest with SharedSparkSession with SQ
   protected def createScalaTestCase(testCase: TestCase): Unit = {
     if (ignoreList.exists(t =>
         testCase.name.toLowerCase(Locale.ROOT).contains(t.toLowerCase(Locale.ROOT)))) {
-      // Create a test case to ignore this case.
-      ignore(testCase.name) { /* Do nothing */ }
     } else testCase match {
       case regularTestCase: RegularTestCase =>
         test(testCase.name) {
