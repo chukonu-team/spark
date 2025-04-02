@@ -33,9 +33,9 @@ import org.apache.spark.sql.internal.{HiveSerDe, SQLConf}
 import org.apache.spark.sql.internal.SQLConf.HiveCaseSensitiveInferenceMode.{Value => InferenceMode, _}
 import org.apache.spark.sql.test.SQLTestUtils
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.HivePartOneTest
 
-
-
+@HivePartOneTest
 class HiveSchemaInferenceSuite
   extends QueryTest with TestHiveSingleton with SQLTestUtils with BeforeAndAfterEach {
 
