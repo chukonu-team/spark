@@ -20,11 +20,13 @@ package org.apache.spark.sql.hive
 import java.net.URL
 
 import org.apache.spark.SparkFunSuite
+import org.apache.spark.tags.HivePartOneTest
 /**
  * Verify that some classes load and that others are not found on the classpath.
  *
  * This is used to detect classpath and shading conflicts.
  */
+@HivePartOneTest
 class ClasspathDependenciesSuite extends SparkFunSuite {
   private val classloader = this.getClass.getClassLoader
 

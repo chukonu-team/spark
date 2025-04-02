@@ -32,9 +32,9 @@ import org.apache.spark.sql.execution.datasources.parquet.{ParquetOptions, Parqu
 import org.apache.spark.sql.hive.orc.OrcFileOperator
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.internal.SQLConf
-import org.apache.spark.tags.HiveThriftServerPartOneTest
+import org.apache.spark.tags.HivePartOneTest
 
-@HiveThriftServerPartOneTest
+@HivePartOneTest
 class CompressionCodecSuite extends TestHiveSingleton with ParquetTest with BeforeAndAfterAll {
   import spark.implicits._
 
