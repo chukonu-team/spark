@@ -26,9 +26,9 @@ import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.internal.{HiveSerDe, SQLConf}
 import org.apache.spark.sql.test.{ExamplePointUDT, SQLTestUtils}
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.HivePartOneTest
 
-
-
+@HivePartOneTest
 class HiveMetastoreCatalogSuite extends TestHiveSingleton with SQLTestUtils {
   import spark.implicits._
 
