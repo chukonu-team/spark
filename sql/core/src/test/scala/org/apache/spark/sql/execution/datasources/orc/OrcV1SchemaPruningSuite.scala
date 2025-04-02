@@ -20,9 +20,9 @@ package org.apache.spark.sql.execution.datasources.orc
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.execution.datasources.SchemaPruningSuite
 import org.apache.spark.sql.internal.SQLConf
-import org.apache.spark.tags.ExtendedSQLPartFourTest
+import org.apache.spark.tags.ExtendedSQLPartOneTest
 
-@ExtendedSQLPartFourTest
+@ExtendedSQLPartOneTest
 class OrcV1SchemaPruningSuite extends SchemaPruningSuite {
   override protected val dataSourceName: String = "orc"
   override protected val vectorizedReaderEnabledKey: String =

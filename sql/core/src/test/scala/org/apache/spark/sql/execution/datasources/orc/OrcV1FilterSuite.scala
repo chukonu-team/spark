@@ -28,9 +28,9 @@ import org.apache.spark.sql.catalyst.planning.PhysicalOperation
 import org.apache.spark.sql.execution.datasources.{DataSourceStrategy, HadoopFsRelation, LogicalRelation}
 import org.apache.spark.sql.execution.datasources.orc.OrcShimUtils.{Operator, SearchArgument}
 import org.apache.spark.sql.internal.SQLConf
-import org.apache.spark.tags.ExtendedSQLPartFourTest
+import org.apache.spark.tags.ExtendedSQLPartOneTest
 
-@ExtendedSQLPartFourTest
+@ExtendedSQLPartOneTest
 class OrcV1FilterSuite extends OrcFilterSuite {
 
   override protected def sparkConf: SparkConf =

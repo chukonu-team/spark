@@ -33,7 +33,7 @@ import org.apache.spark.sql.execution.WholeStageCodegenExec
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf.TimestampTypes
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.ExtendedSQLPartThreeTest
+import org.apache.spark.tags.ExtendedSQLPartFiveTest
 import org.apache.spark.util.Utils
 
 // scalastyle:off line.size.limit
@@ -122,8 +122,8 @@ import org.apache.spark.util.Utils
  * different types of UDFs. See 'udf/udf-inner-join.sql' as an example.
  */
 // scalastyle:on line.size.limit
-@ExtendedSQLPartThreeTest
-class SQLQueryTestPartTwoSuite extends QueryTest with SharedSparkSession with SQLHelper
+@ExtendedSQLPartFiveTest
+class SQLQueryTestPartFourSuite extends QueryTest with SharedSparkSession with SQLHelper
     with SQLQueryTestHelper {
 
   import IntegratedUDFTestUtils._
@@ -247,7 +247,7 @@ class SQLQueryTestPartTwoSuite extends QueryTest with SharedSparkSession with SQ
     } else testCase match {
       case udfTestCase: UDFTest =>
       case _ =>
-        if (math.abs(testCase.name.hashCode) % 3 == 1) {
+        if (math.abs(testCase.name.hashCode) % 3 == 2) {
           test(testCase.name) {
             runTest(testCase)
           }
