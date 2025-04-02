@@ -33,7 +33,7 @@ import org.apache.spark.sql.execution.HiveResult.{getTimeFormatters, toHiveStrin
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf.TimestampTypes
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.HiveThriftServerPartOneTest
+import org.apache.spark.tags.HiveThriftServerPartThreeTest
 
 // scalastyle:off line.size.limit
 /**
@@ -69,8 +69,8 @@ import org.apache.spark.tags.HiveThriftServerPartOneTest
  *   4. Support UDAF testing.
  */
 // scalastyle:on line.size.limit
-@HiveThriftServerPartOneTest
-class ThriftServerQueryTestSuite extends SQLQueryTestPartOneSuite with SharedThriftServer {
+@HiveThriftServerPartThreeTest
+class ThriftServerQueryTestPartTwoSuite extends SQLQueryTestPartOneSuite with SharedThriftServer {
 
 
   override def mode: ServerMode.Value = ServerMode.binary
@@ -235,12 +235,11 @@ class ThriftServerQueryTestSuite extends SQLQueryTestPartOneSuite with SharedThr
   override def createScalaTestCase(testCase: TestCase): Unit = {
     if (ignoreList.exists(t =>
       testCase.name.toLowerCase(Locale.ROOT).contains(t.toLowerCase(Locale.ROOT)))) {
-      // Create a test case to ignore this case.
-      ignore(testCase.name) { /* Do nothing */ }
     } else {
-      // Create a test case to run this case.
-      test(testCase.name) {
-        runTest(testCase)
+      if (math.abs(testCase.name.hashCode) % 3 == 0) {
+        test(testCase.name) {
+          runTest(testCase)
+        }
       }
     }
   }
