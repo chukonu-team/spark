@@ -25,14 +25,12 @@ import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan
 import org.apache.spark.sql.execution.DataSourceScanExec
 import org.apache.spark.sql.execution.datasources.{HadoopFsRelation, InsertIntoHadoopFsRelationCommand, LogicalRelation}
 import org.apache.spark.sql.hive.execution.HiveTableScanExec
-import org.apache.spark.tags.HivePartOneTest
 
 /**
  * A suite to test the automatic conversion of metastore tables with parquet data to use the
  * built in parquet support.
  */
 
-@HivePartOneTest
 class HiveParquetMetastoreSuite extends ParquetPartitioningTest {
   import hiveContext._
   import spark.implicits._

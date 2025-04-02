@@ -26,12 +26,11 @@ import org.apache.spark.sql.execution.datasources.LogicalRelation
 import org.apache.spark.sql.execution.datasources.parquet.ParquetTest
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.HivePartOneTest
+
 /**
  * A suite of tests for the Parquet support through the data sources API.
  */
 
-@HivePartOneTest
 class HiveParquetSourceSuite extends ParquetPartitioningTest with ParquetTest {
   import testImplicits._
   import spark._
