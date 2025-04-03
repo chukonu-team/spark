@@ -24,7 +24,9 @@ import org.apache.hadoop.fs.Path
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.catalyst.catalog.CatalogUtils
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.HivePartTwoTest
 
+@HivePartTwoTest
 class JsonHadoopFsRelationSuite extends HadoopFsRelationTest {
   override val dataSourceName: String = "json"
 

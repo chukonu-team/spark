@@ -24,7 +24,9 @@ import org.apache.spark.deploy.SparkHadoopUtil
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.test.SQLTestUtils
+import org.apache.spark.tags.HivePartTwoTest
 
+@HivePartTwoTest
 class CommitFailureTestRelationSuite extends SQLTestUtils with TestHiveSingleton {
   // When committing a task, `CommitFailureTestSource` throws an exception for testing purpose.
   val dataSourceName: String = classOf[CommitFailureTestSource].getCanonicalName

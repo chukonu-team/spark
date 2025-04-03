@@ -31,7 +31,9 @@ import org.apache.spark.sql.execution.datasources.orc.OrcQueryTest
 import org.apache.spark.sql.hive.{HiveSessionCatalog, HiveUtils}
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.internal.SQLConf
+import org.apache.spark.tags.HivePartTwoTest
 
+@HivePartTwoTest
 class HiveOrcQuerySuite extends OrcQueryTest with TestHiveSingleton {
   import testImplicits._
 
