@@ -24,7 +24,9 @@ import org.apache.spark.sql.functions.expr
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSessionBase
 import org.apache.spark.storage.StorageLevel
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class InMemoryRelationSuite extends SparkFunSuite
   with SharedSparkSessionBase with AdaptiveSparkPlanHelper {
 

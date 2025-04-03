@@ -22,8 +22,10 @@ import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.catalyst.util._
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.vectorized._
+import org.apache.spark.tags.SplitSQLPartFourTest
 import org.apache.spark.unsafe.types.UTF8String
 
+@SplitSQLPartFourTest
 class ArrowWriterSuite extends SparkFunSuite {
 
   test("simple") {

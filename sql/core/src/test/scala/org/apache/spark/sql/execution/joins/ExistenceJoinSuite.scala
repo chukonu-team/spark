@@ -28,7 +28,9 @@ import org.apache.spark.sql.execution.exchange.EnsureRequirements
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{BooleanType, DoubleType, IntegerType, StructType}
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class ExistenceJoinSuite extends SparkPlanTest with SharedSparkSession {
 
   private val EnsureRequirements = new EnsureRequirements()

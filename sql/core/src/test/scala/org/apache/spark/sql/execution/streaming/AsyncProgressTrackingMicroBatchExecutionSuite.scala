@@ -35,8 +35,10 @@ import org.apache.spark.sql.functions.{column, window}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.streaming.{StreamingQuery, StreamingQueryException, StreamTest, Trigger}
 import org.apache.spark.sql.streaming.util.StreamManualClock
+import org.apache.spark.tags.SplitSQLPartFourTest
 import org.apache.spark.util.Utils
 
+@SplitSQLPartFourTest
 class AsyncProgressTrackingMicroBatchExecutionSuite
   extends StreamTest with BeforeAndAfter with Matchers {
 

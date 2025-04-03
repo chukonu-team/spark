@@ -22,7 +22,9 @@ import java.io.File
 import org.apache.spark.sql.catalyst.util.stringToFile
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class OffsetSeqLogSuite extends SharedSparkSession {
 
   /** test string offset type */

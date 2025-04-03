@@ -28,7 +28,9 @@ import org.apache.spark.sql.execution.joins.{BroadcastHashJoinExec, ShuffledHash
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
 import org.apache.spark.sql.types.{IntegerType, StructType}
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class CoalesceBucketsInJoinSuite extends SQLTestUtils with SharedSparkSession {
   private val SORT_MERGE_JOIN = "sortMergeJoin"
   private val SHUFFLED_HASH_JOIN = "shuffledHashJoin"
