@@ -26,10 +26,11 @@ import org.apache.spark.internal.config.UI
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.internal.StaticSQLConf
 import org.apache.spark.sql.internal.StaticSQLConf._
+import org.apache.spark.tags.HivePartOneTest
 import org.apache.spark.util.Utils
 
 
-
+@HivePartOneTest
 class HiveSharedStateSuite extends SparkFunSuite {
 
   override def beforeEach(): Unit = {

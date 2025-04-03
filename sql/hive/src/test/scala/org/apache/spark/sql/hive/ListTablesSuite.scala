@@ -24,7 +24,9 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.catalyst.TableIdentifier
 import org.apache.spark.sql.catalyst.analysis.AnalysisTest
 import org.apache.spark.sql.hive.test.TestHiveSingleton
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class ListTablesSuite extends QueryTest
   with AnalysisTest
   with TestHiveSingleton

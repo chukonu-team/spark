@@ -26,7 +26,9 @@ import org.apache.spark.sql.QueryTest
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.test.SQLTestUtils
 import org.apache.spark.util.ChildFirstURLClassLoader
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class HiveUtilsSuite extends QueryTest with SQLTestUtils with TestHiveSingleton {
 
   private def testFormatTimeVarsForHiveClient(key: String, value: String, expected: Long): Unit = {
