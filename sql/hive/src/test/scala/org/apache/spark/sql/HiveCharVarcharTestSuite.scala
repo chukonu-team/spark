@@ -20,9 +20,7 @@ package org.apache.spark.sql
 import org.apache.spark.SparkException
 import org.apache.spark.sql.execution.command.CharVarcharDDLTestBase
 import org.apache.spark.sql.hive.test.TestHiveSingleton
-import org.apache.spark.tags.HivePartTwoTest
 
-@HivePartTwoTest
 class HiveCharVarcharTestSuite extends CharVarcharTestSuite with TestHiveSingleton {
 
   // The default Hive serde doesn't support nested null values.
@@ -104,7 +102,6 @@ class HiveCharVarcharTestSuite extends CharVarcharTestSuite with TestHiveSinglet
   }
 }
 
-@HivePartTwoTest
 class HiveCharVarcharDDLTestSuite extends CharVarcharDDLTestBase with TestHiveSingleton {
 
   // The default Hive serde doesn't support nested null values.
