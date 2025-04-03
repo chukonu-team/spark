@@ -21,9 +21,9 @@ import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions.{col, lit, product}
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{ByteType, DoubleType, FloatType, IntegerType, ShortType}
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class ProductAggSuite extends QueryTest
   with SharedSparkSession {
 

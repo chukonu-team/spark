@@ -24,10 +24,13 @@ import java.util.Base64
 
 import org.apache.spark.sql.QueryTest
 import org.apache.spark.sql.hive.test.TestHiveSingleton
+import org.apache.spark.tags.HivePartOneTest
 
 /**
  * A test suite that tests parquet modular encryption usage.
  */
+
+@HivePartOneTest
 class ParquetEncryptionSuite extends QueryTest with TestHiveSingleton {
   import spark.implicits._
 

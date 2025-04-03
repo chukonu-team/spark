@@ -23,7 +23,9 @@ import org.apache.spark.sql.catalyst.expressions.TryToNumber
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class StringFunctionsSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 
