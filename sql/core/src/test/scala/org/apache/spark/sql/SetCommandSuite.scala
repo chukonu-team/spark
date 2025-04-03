@@ -20,8 +20,8 @@ package org.apache.spark.sql
 import org.apache.spark.sql.catalyst.parser.ParseException
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, TestSQLContext}
-import org.apache.spark.util.ResetSystemProperties
 import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.util.ResetSystemProperties
 
 @SplitSQLPartFourTest
 class SetCommandSuite extends QueryTest with SharedSparkSession with ResetSystemProperties  {

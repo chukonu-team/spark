@@ -22,8 +22,8 @@ import org.apache.spark.sql.catalyst.expressions.Hex
 import org.apache.spark.sql.connector.catalog.InMemoryPartitionTableCatalog
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
-import org.apache.spark.unsafe.types.UTF8String
 import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.unsafe.types.UTF8String
 
 /**
  * The base trait for SQL INSERT.
