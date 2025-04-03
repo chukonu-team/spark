@@ -74,7 +74,6 @@ def identify_changed_files_from_git_commits(patch_sha, target_branch=None, targe
          identify_changed_files_from_git_commits("50a0496a43", target_ref="6765ef9"))]
     True
     """
-    return []
     if target_branch is None and target_ref is None:
         raise AttributeError("must specify either target_branch or target_ref")
     elif target_branch is not None and target_ref is not None:
