@@ -28,9 +28,9 @@ import org.apache.spark.sql.execution.adaptive.{AdaptiveSparkPlanHelper, Disable
 import org.apache.spark.sql.execution.joins.{BaseJoinExec, BroadcastHashJoinExec, BroadcastNestedLoopJoinExec}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class SubquerySuite extends QueryTest
   with SharedSparkSession
   with AdaptiveSparkPlanHelper {

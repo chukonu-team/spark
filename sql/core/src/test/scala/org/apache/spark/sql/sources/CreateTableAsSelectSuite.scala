@@ -26,8 +26,10 @@ import org.apache.spark.sql.catalyst.catalog.{BucketSpec, CatalogTableType}
 import org.apache.spark.sql.catalyst.parser.ParseException
 import org.apache.spark.sql.internal.SQLConf.BUCKETING_MAX_BUCKETS
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartFourTest
 import org.apache.spark.util.Utils
 
+@SplitSQLPartFourTest
 class CreateTableAsSelectSuite extends DataSourceTest with SharedSparkSession {
   import testImplicits._
 
