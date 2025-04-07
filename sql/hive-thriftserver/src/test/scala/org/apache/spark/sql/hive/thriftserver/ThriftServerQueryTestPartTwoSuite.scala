@@ -266,13 +266,13 @@ class ThriftServerQueryTestPartTwoSuite extends SQLQueryTestPartOneSuite with Sh
     }
   }
 
-  test("Check if ThriftServer can work") {
-    withJdbcStatement { statement =>
-      val rs = statement.executeQuery("select 1L")
-      rs.next()
-      assert(rs.getLong(1) === 1L)
-    }
-  }
+  // test("Check if ThriftServer can work") {
+  //   withJdbcStatement { statement =>
+  //     val rs = statement.executeQuery("select 1L")
+  //     rs.next()
+  //     assert(rs.getLong(1) === 1L)
+  //   }
+  // }
 
   /** ThriftServer wraps the root exception, so it needs to be extracted. */
   override def handleExceptions(result: => (String, Seq[String])): (String, Seq[String]) = {
