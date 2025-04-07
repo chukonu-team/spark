@@ -21,12 +21,12 @@ import org.apache.spark.sql.catalyst.expressions.{Cast, EqualTo}
 import org.apache.spark.sql.execution.ProjectExec
 import org.apache.spark.sql.hive.test.TestHive
 import org.apache.spark.sql.internal.SQLConf
-import org.apache.spark.tags.SlowHiveTest
+import org.apache.spark.tags.HivePartTwoTest
 
 /**
  * A set of tests that validate type promotion and coercion rules.
  */
-@SlowHiveTest
+@HivePartTwoTest
 class HiveTypeCoercionSuite extends HiveComparisonTest {
   val baseTypes = if (SQLConf.get.ansiEnabled) {
     Seq(

@@ -29,6 +29,7 @@ import org.apache.spark.sql.execution.joins.HashedRelationBroadcastMode
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.vectorized.ColumnarBatch
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
 class RanColumnar extends RuntimeException
 class RanRowBased extends RuntimeException
@@ -45,6 +46,7 @@ case class ColumnarExchange(child: SparkPlan) extends Exchange {
     copy(child = newChild)
 }
 
+@SplitSQLPartThreeTest
 class ExchangeSuite extends SparkPlanTest with SharedSparkSession {
   import testImplicits._
 

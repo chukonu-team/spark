@@ -47,7 +47,7 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.sources._
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.util.QueryExecutionListener
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.util.Utils
 
 
@@ -142,7 +142,7 @@ class MessageCapturingCommitProtocol(jobId: String, path: String)
   }
 }
 
-@SplitSQLPartFourTest
+@SplitSQLPartTwoTest
 class DataFrameReaderWriterSuite extends QueryTest with SharedSparkSession with BeforeAndAfter {
   import testImplicits._
 

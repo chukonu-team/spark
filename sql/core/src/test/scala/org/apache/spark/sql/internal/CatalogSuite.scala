@@ -36,13 +36,13 @@ import org.apache.spark.sql.connector.catalog.functions._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
 import org.apache.spark.storage.StorageLevel
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
 /**
  * Tests for the user-facing [[org.apache.spark.sql.catalog.Catalog]].
  */
 
-@SplitSQLPartFourTest
+@SplitSQLPartTwoTest
 class CatalogSuite extends SharedSparkSession with AnalysisTest with BeforeAndAfter {
   import testImplicits._
 

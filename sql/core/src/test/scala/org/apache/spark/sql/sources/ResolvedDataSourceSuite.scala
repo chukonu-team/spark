@@ -24,9 +24,9 @@ import org.apache.spark.sql.AnalysisException
 import org.apache.spark.sql.catalyst.util.DateTimeUtils
 import org.apache.spark.sql.execution.datasources.DataSource
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
-@SplitSQLPartFourTest
+@SplitSQLPartTwoTest
 class ResolvedDataSourceSuite extends SharedSparkSession {
   private def getProvidingClass(name: String): Class[_] =
     DataSource(

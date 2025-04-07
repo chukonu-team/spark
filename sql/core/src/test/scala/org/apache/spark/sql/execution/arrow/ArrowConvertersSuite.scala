@@ -37,11 +37,11 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{ArrayType, BinaryType, Decimal, IntegerType, NullType, StringType, StructField, StructType}
 import org.apache.spark.sql.util.ArrowUtils
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartOneTest
 import org.apache.spark.unsafe.types.UTF8String
 import org.apache.spark.util.Utils
 
-@SplitSQLPartFourTest
+@SplitSQLPartOneTest
 class ArrowConvertersSuite extends SharedSparkSession {
   import testImplicits._
 

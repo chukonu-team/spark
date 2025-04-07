@@ -24,8 +24,10 @@ import org.apache.spark.scheduler.SparkListenerEvent
 import org.apache.spark.sql.LocalSparkSession
 import org.apache.spark.sql.execution.ui.{SparkListenerSQLExecutionEnd, SparkListenerSQLExecutionStart}
 import org.apache.spark.sql.test.TestSparkSession
+import org.apache.spark.tags.SplitSQLPartFourTest
 import org.apache.spark.util.JsonProtocol
 
+@SplitSQLPartFourTest
 class SQLJsonProtocolSuite extends SparkFunSuite with LocalSparkSession {
 
   test("SparkPlanGraph backward compatibility: metadata") {

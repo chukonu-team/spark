@@ -33,7 +33,9 @@ import org.apache.spark.sql.functions.broadcast
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.StructType
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class PruneFileSourcePartitionsSuite extends PrunePartitionSuiteBase with SharedSparkSession {
 
   override def format: String = "parquet"

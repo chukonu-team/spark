@@ -32,6 +32,7 @@ import org.apache.spark.sql.execution.datasources.{CreateTempViewUsing, RefreshR
 import org.apache.spark.sql.internal.StaticSQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.StringType
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
 /**
  * Parser test cases for rules defined in [[SparkSqlParser]].
@@ -39,6 +40,7 @@ import org.apache.spark.sql.types.StringType
  * See [[org.apache.spark.sql.catalyst.parser.PlanParserSuite]] for rules
  * defined in the Catalyst module.
  */
+@SplitSQLPartThreeTest
 class SparkSqlParserSuite extends AnalysisTest with SharedSparkSession {
   import org.apache.spark.sql.catalyst.dsl.expressions._
 

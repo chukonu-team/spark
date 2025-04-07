@@ -21,7 +21,9 @@ import org.apache.spark.TestUtils
 import org.apache.spark.sql.catalyst.expressions.Attribute
 import org.apache.spark.sql.catalyst.parser.ParseException
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class SparkScriptTransformationSuite extends BaseScriptTransformationSuite with SharedSparkSession {
   import testImplicits._
 

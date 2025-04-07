@@ -24,9 +24,9 @@ import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
 
 import org.apache.spark.sql.streaming.StreamTest
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
-@SplitSQLPartFourTest
+@SplitSQLPartTwoTest
 class StreamMetadataSuite extends StreamTest {
 
   test("writing and reading") {

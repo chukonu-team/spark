@@ -238,7 +238,7 @@ class ThriftServerQueryTestPartOneSuite extends SQLQueryTestPartOneSuite with Sh
       // Create a test case to ignore this case.
       ignore(testCase.name) { /* Do nothing */ }
     } else {
-      if (math.abs(testCase.name.hashCode) % 3 == 2) {
+      if (math.abs(testCase.name.hashCode) % 4 == 2) {
         test(testCase.name) {
           runTest(testCase)
         }

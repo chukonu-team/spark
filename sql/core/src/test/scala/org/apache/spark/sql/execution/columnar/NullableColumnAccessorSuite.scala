@@ -23,7 +23,7 @@ import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.CatalystTypeConverters
 import org.apache.spark.sql.catalyst.expressions.{GenericInternalRow, UnsafeProjection}
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartOneTest
 
 class TestNullableColumnAccessor[JvmType](
     buffer: ByteBuffer,
@@ -38,7 +38,7 @@ object TestNullableColumnAccessor {
   }
 }
 
-@SplitSQLPartFourTest
+@SplitSQLPartOneTest
 class NullableColumnAccessorSuite extends SparkFunSuite {
   import org.apache.spark.sql.execution.columnar.ColumnarTestUtils._
 

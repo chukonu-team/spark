@@ -32,7 +32,7 @@ import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, StructType}
 import org.apache.spark.sql.vectorized.{ColumnarBatch, ColumnVector}
 import org.apache.spark.storage.StorageLevel
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartOneTest
 
 case class SingleIntCachedBatch(data: Array[Int]) extends CachedBatch {
   override def numRows: Int = data.length
@@ -121,7 +121,7 @@ class TestSingleIntColumnarCachedBatchSerializer extends CachedBatchSerializer {
   }
 }
 
-@SplitSQLPartFourTest
+@SplitSQLPartOneTest
 class CachedBatchSerializerSuite  extends QueryTest with SharedSparkSession {
   import testImplicits._
 

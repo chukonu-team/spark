@@ -21,7 +21,9 @@ import org.apache.spark.sql.functions.{col, lit}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{LongType, StructField, StructType}
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class FileMetadataStructRowIndexSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

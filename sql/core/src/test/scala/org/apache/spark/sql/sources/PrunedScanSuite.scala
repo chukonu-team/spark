@@ -22,7 +22,7 @@ import org.apache.spark.sql._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
 class PrunedScanSource extends RelationProvider {
   override def createRelation(
@@ -54,7 +54,7 @@ case class SimplePrunedScan(from: Int, to: Int)(@transient val sparkSession: Spa
   }
 }
 
-@SplitSQLPartFourTest
+@SplitSQLPartTwoTest
 class PrunedScanSuite extends DataSourceTest with SharedSparkSession {
   protected override lazy val sql = spark.sql _
 

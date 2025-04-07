@@ -25,7 +25,7 @@ import org.apache.spark.sql.execution.datasources.LogicalRelation
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.unsafe.types.UTF8String
 
 class FilteredScanSource extends RelationProvider {
@@ -133,7 +133,7 @@ object ColumnsRequired {
   var set: Set[String] = Set.empty
 }
 
-@SplitSQLPartFourTest
+@SplitSQLPartTwoTest
 class FilteredScanSuite extends DataSourceTest with SharedSparkSession {
   protected override lazy val sql = spark.sql _
 

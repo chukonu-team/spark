@@ -21,10 +21,10 @@ import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.expressions.{GenericInternalRow, SpecificInternalRow}
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.SplitSQLPartThreeTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.unsafe.types.UTF8String
 
-@SplitSQLPartThreeTest
+@SplitSQLPartTwoTest
 class RowSuite extends SparkFunSuite with SharedSparkSession {
   import testImplicits._
 

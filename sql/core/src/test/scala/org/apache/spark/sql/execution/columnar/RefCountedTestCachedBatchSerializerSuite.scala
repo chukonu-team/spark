@@ -28,7 +28,7 @@ import org.apache.spark.sql.internal.{SQLConf, StaticSQLConf}
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.storage.StorageLevel
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartOneTest
 
 object DummyAllocator {
   private var allocated: Long = 0
@@ -98,7 +98,7 @@ class RefCountedTestCachedBatchSerializer extends DefaultCachedBatchSerializer {
   override def supportsColumnarInput(schema: Seq[Attribute]): Boolean = false
 }
 
-@SplitSQLPartFourTest
+@SplitSQLPartOneTest
 class RefCountedTestCachedBatchSerializerSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

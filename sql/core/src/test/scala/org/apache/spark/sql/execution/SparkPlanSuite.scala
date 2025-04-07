@@ -28,7 +28,9 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.IntegerType
 import org.apache.spark.sql.vectorized.ColumnarBatch
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class SparkPlanSuite extends QueryTest with SharedSparkSession {
 
   test("SPARK-21619 execution of a canonicalized plan should fail") {

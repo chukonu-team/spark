@@ -24,7 +24,9 @@ import org.apache.spark.sql.catalyst.plans.logical.{BROADCAST, HintInfo, Join, J
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.StructType
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class GlobalTempViewSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

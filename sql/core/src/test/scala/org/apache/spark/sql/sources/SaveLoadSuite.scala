@@ -27,10 +27,10 @@ import org.apache.spark.sql.{AnalysisException, DataFrame, SaveMode}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.util.Utils
 
-@SplitSQLPartFourTest
+@SplitSQLPartTwoTest
 class SaveLoadSuite extends DataSourceTest with SharedSparkSession with BeforeAndAfter {
   import testImplicits._
 

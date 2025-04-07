@@ -20,7 +20,9 @@ package org.apache.spark.sql.execution
 import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.expressions.ExpressionEvalHelper
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class CoGroupedIteratorSuite extends SparkFunSuite with ExpressionEvalHelper {
 
   test("basic") {

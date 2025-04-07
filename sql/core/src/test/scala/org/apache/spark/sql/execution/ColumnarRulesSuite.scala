@@ -22,7 +22,9 @@ import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.catalyst.expressions.Attribute
 import org.apache.spark.sql.catalyst.plans.PlanTest
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class ColumnarRulesSuite extends PlanTest with SharedSparkSession {
 
   test("Idempotency of columnar rules - RowToColumnar/ColumnarToRow") {

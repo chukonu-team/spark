@@ -24,8 +24,9 @@ import org.apache.spark.sql.catalyst.dsl.expressions._
 import org.apache.spark.sql.catalyst.expressions.Literal
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartFourTest
 
-
+@SplitSQLPartFourTest
 class TakeOrderedAndProjectSuite extends SparkPlanTest with SharedSparkSession {
 
   private var rand: Random = _

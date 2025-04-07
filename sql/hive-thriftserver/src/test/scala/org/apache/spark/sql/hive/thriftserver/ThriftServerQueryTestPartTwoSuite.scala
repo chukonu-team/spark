@@ -236,7 +236,7 @@ class ThriftServerQueryTestPartTwoSuite extends SQLQueryTestPartOneSuite with Sh
     if (ignoreList.exists(t =>
       testCase.name.toLowerCase(Locale.ROOT).contains(t.toLowerCase(Locale.ROOT)))) {
     } else {
-      if (math.abs(testCase.name.hashCode) % 3 == 0) {
+      if (math.abs(testCase.name.hashCode) % 4 == 0) {
         test(testCase.name) {
           runTest(testCase)
         }

@@ -25,7 +25,7 @@ import org.apache.spark.sql.catalyst.plans.logical.Aggregate
 import org.apache.spark.sql.catalyst.trees.TreePattern.OUTER_REFERENCE
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.SplitSQLPartThreeTest
+import org.apache.spark.tags.SplitSQLPartTwoTest
 /**
  * Lateral column alias base suite with LCA off, extended by LateralColumnAliasSuite with LCA on.
  * Should test behaviors remaining the same no matter LCA conf is on or off.
@@ -169,7 +169,7 @@ class LateralColumnAliasSuiteBase extends QueryTest with SharedSparkSession {
 /**
  * Lateral column alias base with LCA on.
  */
-@SplitSQLPartThreeTest
+@SplitSQLPartTwoTest
 class LateralColumnAliasSuite extends LateralColumnAliasSuiteBase {
   // by default the tests in this suites run with LCA on
   override val lcaEnabled: Boolean = true

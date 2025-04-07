@@ -28,6 +28,7 @@ import org.apache.spark.sql.execution.datasources.v2.BatchScanExec
 import org.apache.spark.sql.execution.datasources.v2.orc.OrcScan
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
 /**
  * Test suite base for testing the redaction of DataSourceScanExec/BatchScanExec.
@@ -71,6 +72,7 @@ abstract class DataSourceScanRedactionTest extends QueryTest with SharedSparkSes
 /**
  * Suite that tests the redaction of DataSourceScanExec
  */
+@SplitSQLPartThreeTest
 class DataSourceScanExecRedactionSuite extends DataSourceScanRedactionTest {
   override protected def sparkConf: SparkConf = super.sparkConf
     .set(SQLConf.USE_V1_SOURCE_LIST.key, "orc")

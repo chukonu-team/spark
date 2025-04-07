@@ -22,8 +22,10 @@ import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.catalyst.util.{ArrayBasedMapData, ArrayData, GenericArrayData}
 import org.apache.spark.sql.execution.vectorized.{OnHeapColumnVector, WritableColumnVector}
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.unsafe.types.UTF8String
 
+@SplitSQLPartThreeTest
 class RowToColumnConverterSuite extends SparkFunSuite {
   def convertRows(rows: Seq[InternalRow], schema: StructType): Seq[WritableColumnVector] = {
     val converter = new RowToColumnConverter(schema)

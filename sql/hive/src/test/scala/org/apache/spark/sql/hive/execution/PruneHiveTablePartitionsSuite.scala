@@ -29,9 +29,9 @@ import org.apache.spark.sql.execution.datasources.PrunePartitionSuiteBase
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.types.LongType
-import org.apache.spark.tags.SlowHiveTest
+import org.apache.spark.tags.HivePartTwoTest
 
-@SlowHiveTest
+@HivePartTwoTest
 class PruneHiveTablePartitionsSuite extends PrunePartitionSuiteBase with TestHiveSingleton {
 
   override def format(): String = "hive"

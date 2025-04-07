@@ -26,10 +26,10 @@ import org.apache.spark.memory.{TaskMemoryManager, TestMemoryManager}
 import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.catalyst.expressions.UnsafeRow
 import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartOneTest
 import org.apache.spark.unsafe.KVIterator
 
-@SplitSQLPartFourTest
+@SplitSQLPartOneTest
 class SortBasedAggregationStoreSuite  extends SparkFunSuite with LocalSparkContext {
 
   override def beforeAll(): Unit = {
