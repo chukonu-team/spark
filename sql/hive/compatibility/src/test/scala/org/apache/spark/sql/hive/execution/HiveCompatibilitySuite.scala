@@ -25,12 +25,12 @@ import org.apache.spark.sql.catalyst.rules.RuleExecutor
 import org.apache.spark.sql.hive.test.TestHive
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf.StoreAssignmentPolicy
-import org.apache.spark.tags.SlowHiveTest
+import org.apache.spark.tags.HivePartTwoTest
 
 /**
  * Runs the test cases that are included in the hive distribution.
  */
-@SlowHiveTest
+@HivePartTwoTest
 class HiveCompatibilitySuite extends HiveQueryFileTest with BeforeAndAfter {
   // TODO: bundle in jar files... get from classpath
   private lazy val hiveQueryDir = TestHive.getHiveFile(
