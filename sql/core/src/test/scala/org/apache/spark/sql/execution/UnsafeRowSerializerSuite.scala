@@ -31,7 +31,7 @@ import org.apache.spark.sql.catalyst.{CatalystTypeConverters, InternalRow}
 import org.apache.spark.sql.catalyst.expressions.{UnsafeProjection, UnsafeRow}
 import org.apache.spark.sql.execution.metric.SQLShuffleReadMetricsReporter
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.util.collection.ExternalSorter
 
 /**
@@ -45,7 +45,7 @@ class ClosableByteArrayInputStream(buf: Array[Byte]) extends ByteArrayInputStrea
   }
 }
 
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class UnsafeRowSerializerSuite extends SparkFunSuite with LocalSparkSession {
 
   private def toUnsafeRow(row: Row, schema: Array[DataType]): UnsafeRow = {

@@ -27,10 +27,10 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, StringType, StructType}
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
 // Disable AQE because the WholeStageCodegenExec is added when running QueryStageExec
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class WholeStageCodegenSuite extends QueryTest with SharedSparkSession
   with DisableAdaptiveExecutionSuite {
 

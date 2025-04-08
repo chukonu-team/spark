@@ -39,10 +39,10 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.sources._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, LongType, StructField, StructType}
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.util.Utils
 
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class FileSourceStrategySuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

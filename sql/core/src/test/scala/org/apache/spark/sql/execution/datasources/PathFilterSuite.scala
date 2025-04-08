@@ -27,9 +27,9 @@ import org.apache.spark.sql.{AnalysisException, QueryTest, Row}
 import org.apache.spark.sql.catalyst.util.{stringToFile, DateTimeUtils}
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class PathFilterSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

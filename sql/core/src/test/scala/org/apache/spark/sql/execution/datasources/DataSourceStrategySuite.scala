@@ -23,9 +23,9 @@ import org.apache.spark.sql.catalyst.plans.PlanTest
 import org.apache.spark.sql.sources
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class DataSourceStrategySuite extends PlanTest with SharedSparkSession {
   val attrInts = Seq(
     $"cint".int,

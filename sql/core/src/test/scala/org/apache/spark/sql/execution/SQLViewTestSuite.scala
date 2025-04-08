@@ -30,7 +30,7 @@ import org.apache.spark.sql.connector.catalog.CatalogManager.SESSION_CATALOG_NAM
 import org.apache.spark.sql.internal.SQLConf._
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
 import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
 /**
  * A base suite contains a set of view related test cases for different kind of views
@@ -477,7 +477,7 @@ abstract class TempViewTestSuite extends SQLViewTestSuite {
   }
 }
 
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class LocalTempViewTestSuite extends TempViewTestSuite with SharedSparkSession {
   override protected def viewTypeString: String = "TEMPORARY VIEW"
   override protected def formattedViewName(viewName: String): String = viewName
@@ -490,7 +490,7 @@ class LocalTempViewTestSuite extends TempViewTestSuite with SharedSparkSession {
   }
 }
 
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class GlobalTempViewTestSuite extends TempViewTestSuite with SharedSparkSession {
   private def db: String = spark.sharedState.globalTempViewManager.database
   override protected def viewTypeString: String = "GLOBAL TEMPORARY VIEW"

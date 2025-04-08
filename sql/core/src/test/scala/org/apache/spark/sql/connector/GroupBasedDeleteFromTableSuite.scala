@@ -23,8 +23,10 @@ import org.apache.spark.sql.execution.InSubqueryExec
 import org.apache.spark.sql.execution.datasources.v2.BatchScanExec
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.types.StructType
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.unsafe.types.UTF8String
 
+@SplitSQLPartThreeTest
 class GroupBasedDeleteFromTableSuite extends DeleteFromTableSuiteBase {
 
   import testImplicits._

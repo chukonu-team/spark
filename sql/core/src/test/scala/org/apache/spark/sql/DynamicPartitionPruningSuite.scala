@@ -32,6 +32,7 @@ import org.apache.spark.sql.execution.streaming.{MemoryStream, StreamingQueryWra
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
+import org.apache.spark.tags.SplitSQLPartFourTest
 /**
  * Test suite for the filtering ratio policy used to trigger dynamic partition pruning (DPP).
  */
@@ -1777,9 +1778,13 @@ abstract class DynamicPartitionPruningV1Suite extends DynamicPartitionPruningDat
   }
 }
 
+
+
+@SplitSQLPartFourTest
 class DynamicPartitionPruningV1SuiteAEOff extends DynamicPartitionPruningV1Suite
   with DisableAdaptiveExecutionSuite
 
+@SplitSQLPartFourTest
 class DynamicPartitionPruningV1SuiteAEOn extends DynamicPartitionPruningV1Suite
   with EnableAdaptiveExecutionSuite {
 
@@ -1829,9 +1834,11 @@ abstract class DynamicPartitionPruningV2Suite extends DynamicPartitionPruningDat
   }
 }
 
+@SplitSQLPartFourTest
 class DynamicPartitionPruningV2SuiteAEOff extends DynamicPartitionPruningV2Suite
   with DisableAdaptiveExecutionSuite
 
+@SplitSQLPartFourTest
 class DynamicPartitionPruningV2SuiteAEOn extends DynamicPartitionPruningV2Suite
   with EnableAdaptiveExecutionSuite
 
@@ -1844,10 +1851,12 @@ abstract class DynamicPartitionPruningV2FilterSuite
   }
 }
 
+@SplitSQLPartFourTest
 class DynamicPartitionPruningV2FilterSuiteAEOff
     extends DynamicPartitionPruningV2FilterSuite
   with DisableAdaptiveExecutionSuite
 
+@SplitSQLPartFourTest
 class DynamicPartitionPruningV2FilterSuiteAEOn
     extends DynamicPartitionPruningV2FilterSuite
   with EnableAdaptiveExecutionSuite

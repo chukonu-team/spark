@@ -21,7 +21,7 @@ import org.apache.spark.TestUtils.assertSpilled
 import org.apache.spark.sql.{AnalysisException, QueryTest, Row}
 import org.apache.spark.sql.internal.SQLConf.{WINDOW_EXEC_BUFFER_IN_MEMORY_THRESHOLD, WINDOW_EXEC_BUFFER_SPILL_THRESHOLD}
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.SplitSQLPartFourTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
 case class WindowData(month: Int, area: String, product: Int)
 
@@ -29,7 +29,7 @@ case class WindowData(month: Int, area: String, product: Int)
 /**
  * Test suite for SQL window functions.
  */
-@SplitSQLPartFourTest
+@SplitSQLPartThreeTest
 class SQLWindowFunctionSuite extends QueryTest with SharedSparkSession {
 
   import testImplicits._
