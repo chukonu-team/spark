@@ -239,9 +239,7 @@ class ThriftServerQueryTestPartFourSuite extends SQLQueryTestPartOneSuite with S
 
     if (!shouldIgnore) {
       val hashMod4 = math.abs(testCase.name.hashCode) % 4
-      val hashMod16 = math.abs(testCase.name.hashCode) % 16
-      val shouldRunTest = hashMod4 == 1 && hashMod16 != 1
-
+      val shouldRunTest = hashMod4 == 1 
       if (shouldRunTest) {
         test(testCase.name) {
           runTest(testCase)

@@ -240,7 +240,8 @@ class ThriftServerQueryTestPartOneSuite extends SQLQueryTestPartOneSuite with Sh
     } else {
       val hashMod4 = math.abs(testCase.name.hashCode) % 4
       val hashMod16 = math.abs(testCase.name.hashCode) % 16
-      if (hashMod4 == 2 || (hashMod4 == 1 && hashMod16 == 1)) {
+      val shouldRunTest = hashMod4 == 3 && hashMod16 == 3
+      if (hashMod4 == 2 || shouldRunTest) {
         test(testCase.name) {
           runTest(testCase)
         }
