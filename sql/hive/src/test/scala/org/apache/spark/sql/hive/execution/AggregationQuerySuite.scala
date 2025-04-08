@@ -32,7 +32,7 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SQLTestUtils
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.types.DataTypeTestUtils.dayTimeIntervalTypes
-import org.apache.spark.tags.SlowHiveTest
+import org.apache.spark.tags.HivePartTwoTest
 import org.apache.spark.unsafe.UnsafeAlignedOffset
 
 
@@ -1053,11 +1053,11 @@ abstract class AggregationQuerySuite extends QueryTest with SQLTestUtils with Te
 }
 
 
-@SlowHiveTest
+@HivePartTwoTest
 class HashAggregationQuerySuite extends AggregationQuerySuite
 
 
-@SlowHiveTest
+@HivePartTwoTest
 class HashAggregationQueryWithControlledFallbackSuite extends AggregationQuerySuite {
 
   override protected def checkAnswer(actual: => DataFrame, expectedAnswer: Seq[Row]): Unit = {
