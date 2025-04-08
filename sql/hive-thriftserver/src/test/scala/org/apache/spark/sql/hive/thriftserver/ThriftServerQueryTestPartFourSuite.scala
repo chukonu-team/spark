@@ -233,17 +233,22 @@ class ThriftServerQueryTestPartFourSuite extends SQLQueryTestPartOneSuite with S
   }
 
   override def createScalaTestCase(testCase: TestCase): Unit = {
-    if (ignoreList.exists(t =>
-      testCase.name.toLowerCase(Locale.ROOT).contains(t.toLowerCase(Locale.ROOT)))) {
-    } else {
-      if (math.abs(testCase.name.hashCode) % 4 == 1 && math.abs(testCase.name.hashCode) % 16 != 1) {
-          test(testCase.name) {
-            runTest(testCase)
-          }
+    val shouldIgnore = ignoreList.exists { t =>
+      testCase.name.toLowerCase(Locale.ROOT).contains(t.toLowerCase(Locale.ROOT))
+    }
+
+    if (!shouldIgnore) {
+      val hashMod4 = math.abs(testCase.name.hashCode) % 4
+      val hashMod16 = math.abs(testCase.name.hashCode) % 16
+      val shouldRunTest = hashMod4 == 1 && hashMod16 != 1
+
+      if (shouldRunTest) {
+        test(testCase.name) {
+          runTest(testCase)
+        }
       }
     }
   }
-
   override lazy val listTestCases: Seq[TestCase] = {
     listFilesRecursively(new File(inputFilePath)).flatMap { file =>
       val resultFile = file.getAbsolutePath.replace(inputFilePath, goldenFilePath) + ".out"
