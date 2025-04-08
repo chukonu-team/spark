@@ -247,7 +247,10 @@ class SQLQueryTestPartThreeSuite extends QueryTest with SharedSparkSession with 
     } else testCase match {
       case udfTestCase: UDFTest =>
       case _ =>
-        if (math.abs(testCase.name.hashCode) % 5 == 0) {
+        val hashMod5 = math.abs(testCase.name.hashCode) % 5
+        val hashMod20 = math.abs(testCase.name.hashCode) % 20
+        val shouldRunTest = hashMod5 == 0 && hashMod20 != 0
+        if (shouldRunTest) {
           test(testCase.name) {
             runTest(testCase)
           }
