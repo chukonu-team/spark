@@ -26,9 +26,9 @@ import org.apache.spark.sql.execution.exchange.ShuffleExchangeExec
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.StaticSQLConf.CATALOG_IMPLEMENTATION
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
-import org.apache.spark.tags.SlowSQLPartOneTest
+import org.apache.spark.tags.SlowSQLPartTwoTest
 
-@SlowSQLPartOneTest
+@SlowSQLPartTwoTest
 class DisableUnnecessaryBucketedScanWithoutHiveSupportSuite
   extends DisableUnnecessaryBucketedScanSuite
   with SharedSparkSession
@@ -40,7 +40,7 @@ class DisableUnnecessaryBucketedScanWithoutHiveSupportSuite
   }
 }
 
-@SlowSQLPartOneTest
+@SlowSQLPartTwoTest
 class DisableUnnecessaryBucketedScanWithoutHiveSupportSuiteAE
   extends DisableUnnecessaryBucketedScanSuite
   with SharedSparkSession
