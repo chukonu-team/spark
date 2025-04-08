@@ -20,9 +20,9 @@ package org.apache.spark.sql.execution.columnar
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.test.SQLTestData._
-import org.apache.spark.tags.SplitSQLPartOneTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
-@SplitSQLPartOneTest
+@SplitSQLPartThreeTest
 class PartitionBatchPruningSuite extends SharedSparkSession {
 
   import testImplicits._

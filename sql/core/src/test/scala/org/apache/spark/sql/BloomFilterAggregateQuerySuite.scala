@@ -26,11 +26,11 @@ import org.apache.spark.sql.execution.aggregate.BaseAggregateExec
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.LongType
-import org.apache.spark.tags.SplitSQLPartTwoTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 /**
  * Query tests for the Bloom filter aggregate and filter function.
  */
-@SplitSQLPartTwoTest
+@SplitSQLPartThreeTest
 class BloomFilterAggregateQuerySuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

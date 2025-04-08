@@ -43,7 +43,9 @@ import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, StructType}
 import org.apache.spark.sql.util.CaseInsensitiveStringMap
 import org.apache.spark.sql.vectorized.ColumnarBatch
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class DataSourceV2Suite extends QueryTest with SharedSparkSession with AdaptiveSparkPlanHelper {
   import testImplicits._
 

@@ -45,6 +45,7 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf.LegacyBehaviorPolicy
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartFourTest
 
 abstract class CSVSuite
   extends QueryTest
@@ -3232,6 +3233,7 @@ class CSVv2Suite extends CSVSuite {
   }
 }
 
+@SplitSQLPartFourTest
 class CSVLegacyTimeParserSuite extends CSVSuite {
   override protected def sparkConf: SparkConf =
     super
