@@ -24,10 +24,13 @@ import org.apache.spark.sql.QueryTest
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SQLTestUtils
+import org.apache.spark.tags.HivePartOneTest
 
 /**
  * Test suite to handle metadata cache related.
  */
+
+@HivePartOneTest
 class HiveMetadataCacheSuite extends QueryTest with SQLTestUtils with TestHiveSingleton {
 
   test("SPARK-16337 temporary view refresh") {

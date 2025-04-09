@@ -20,10 +20,12 @@ package org.apache.spark.sql
 import org.apache.spark.sql.functions.{length, struct, sum}
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartOneTest
 
 /**
  * Comprehensive tests for Dataset.unpivot.
  */
+@SplitSQLPartOneTest
 class DatasetUnpivotSuite extends QueryTest
   with SharedSparkSession {
 

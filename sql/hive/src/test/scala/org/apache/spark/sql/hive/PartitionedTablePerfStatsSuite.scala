@@ -28,7 +28,9 @@ import org.apache.spark.sql.execution.datasources.FileStatusCache
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SQLTestUtils
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class PartitionedTablePerfStatsSuite
   extends QueryTest with TestHiveSingleton with SQLTestUtils with BeforeAndAfterEach {
 

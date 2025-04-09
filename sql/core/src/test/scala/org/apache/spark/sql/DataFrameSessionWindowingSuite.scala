@@ -27,7 +27,9 @@ import org.apache.spark.sql.catalyst.plans.logical.{Aggregate, Expand, Filter, L
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartOneTest
 
+@SplitSQLPartOneTest
 class DataFrameSessionWindowingSuite extends QueryTest with SharedSparkSession
   with BeforeAndAfterEach {
 

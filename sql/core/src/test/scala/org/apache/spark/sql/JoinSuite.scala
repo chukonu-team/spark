@@ -38,9 +38,10 @@ import org.apache.spark.sql.execution.python.BatchEvalPythonExec
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, TestSparkSession}
 import org.apache.spark.sql.types.StructType
-import org.apache.spark.tags.SlowSQLTest
+import org.apache.spark.tags.SlowSQLPartOneTest
+import org.apache.spark.tags.SplitSQLPartOneTest
 
-@SlowSQLTest
+@SlowSQLPartOneTest
 class JoinSuite extends QueryTest with SharedSparkSession with AdaptiveSparkPlanHelper {
   import testImplicits._
 
@@ -1593,6 +1594,7 @@ class JoinSuite extends QueryTest with SharedSparkSession with AdaptiveSparkPlan
   }
 }
 
+@SplitSQLPartOneTest
 class ThreadLeakInSortMergeJoinSuite
   extends QueryTest
     with SharedSparkSession

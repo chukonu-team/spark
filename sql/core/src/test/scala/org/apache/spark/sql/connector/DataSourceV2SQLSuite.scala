@@ -48,6 +48,7 @@ import org.apache.spark.sql.internal.connector.SimpleTableProvider
 import org.apache.spark.sql.sources.SimpleScanSource
 import org.apache.spark.sql.types.{LongType, StringType, StructType}
 import org.apache.spark.sql.util.CaseInsensitiveStringMap
+import org.apache.spark.tags.SplitSQLPartFourTest
 import org.apache.spark.unsafe.types.UTF8String
 
 abstract class DataSourceV2SQLSuite
@@ -76,6 +77,7 @@ abstract class DataSourceV2SQLSuite
   }
 }
 
+@SplitSQLPartFourTest
 class DataSourceV2SQLSuiteV1Filter
   extends DataSourceV2SQLSuite
   with AlterTableTests
@@ -3265,6 +3267,7 @@ class DataSourceV2SQLSuiteV1Filter
   }
 }
 
+@SplitSQLPartFourTest
 class DataSourceV2SQLSuiteV2Filter extends DataSourceV2SQLSuite {
   override protected val catalogAndNamespace = "testv2filter.ns1.ns2."
 }

@@ -20,8 +20,10 @@ package org.apache.spark.sql
 import org.apache.spark.sql.expressions.scalalang.typed
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartOneTest
 
 @deprecated("This test suite will be removed.", "3.0.0")
+@SplitSQLPartOneTest
 class DeprecatedDatasetAggregatorSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

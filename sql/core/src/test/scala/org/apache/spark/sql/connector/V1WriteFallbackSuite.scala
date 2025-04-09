@@ -41,7 +41,9 @@ import org.apache.spark.sql.sources._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.util.CaseInsensitiveStringMap
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class V1WriteFallbackSuite extends QueryTest with SharedSparkSession with BeforeAndAfter {
 
   import testImplicits._

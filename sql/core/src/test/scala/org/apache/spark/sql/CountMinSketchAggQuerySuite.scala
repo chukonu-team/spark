@@ -18,11 +18,13 @@
 package org.apache.spark.sql
 
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.util.sketch.CountMinSketch
 
 /**
  * End-to-end test suite for count_min_sketch.
  */
+@SplitSQLPartThreeTest
 class CountMinSketchAggQuerySuite extends QueryTest with SharedSparkSession {
 
   test("count-min sketch") {

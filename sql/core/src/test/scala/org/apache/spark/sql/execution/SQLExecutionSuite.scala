@@ -30,9 +30,11 @@ import org.apache.spark.scheduler.{SparkListener, SparkListenerEvent, SparkListe
 import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.sql.execution.ui.SparkListenerSQLExecutionStart
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.util.ThreadUtils
 import org.apache.spark.util.Utils.REDACTION_REPLACEMENT_TEXT
 
+@SplitSQLPartThreeTest
 class SQLExecutionSuite extends SparkFunSuite {
 
   test("concurrent query execution (SPARK-10548)") {

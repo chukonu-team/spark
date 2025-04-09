@@ -22,7 +22,9 @@ import org.apache.spark.sql.catalyst.parser.ParseException
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.BinaryType
+import org.apache.spark.tags.SplitSQLPartOneTest
 
+@SplitSQLPartOneTest
 class MiscFunctionsSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

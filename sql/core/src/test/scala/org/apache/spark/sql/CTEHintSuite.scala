@@ -21,7 +21,9 @@ import org.apache.logging.log4j.Level
 
 import org.apache.spark.sql.catalyst.plans.logical._
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
+@SplitSQLPartTwoTest
 class CTEHintSuite extends QueryTest with SharedSparkSession {
 
   def verifyCoalesceOrRepartitionHint(df: DataFrame): Unit = {

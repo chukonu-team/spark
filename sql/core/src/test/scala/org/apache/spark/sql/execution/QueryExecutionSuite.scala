@@ -28,6 +28,7 @@ import org.apache.spark.sql.connector.catalog.CatalogManager.SESSION_CATALOG_NAM
 import org.apache.spark.sql.execution.datasources.v2.ShowTablesExec
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.util.Utils
 
 case class QueryExecutionTestRecord(
@@ -38,6 +39,7 @@ case class QueryExecutionTestRecord(
     c20: Int, c21: Int, c22: Int, c23: Int, c24: Int,
     c25: Int, c26: Int)
 
+@SplitSQLPartThreeTest
 class QueryExecutionSuite extends SharedSparkSession {
   import testImplicits._
 

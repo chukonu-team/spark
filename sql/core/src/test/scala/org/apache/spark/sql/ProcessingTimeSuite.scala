@@ -24,7 +24,9 @@ import scala.concurrent.duration._
 import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.execution.streaming.ProcessingTimeTrigger
 import org.apache.spark.sql.streaming.Trigger
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
+@SplitSQLPartTwoTest
 class ProcessingTimeSuite extends SparkFunSuite {
 
   test("create") {

@@ -21,7 +21,9 @@ import org.apache.spark.{LocalSparkContext, MapOutputStatistics, MapOutputTracke
 import org.apache.spark.scheduler.MapStatus
 import org.apache.spark.sql.execution.adaptive.ShufflePartitionsUtil
 import org.apache.spark.storage.BlockManagerId
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class ShufflePartitionsUtilSuite extends SparkFunSuite with LocalSparkContext {
 
   private def checkEstimation(

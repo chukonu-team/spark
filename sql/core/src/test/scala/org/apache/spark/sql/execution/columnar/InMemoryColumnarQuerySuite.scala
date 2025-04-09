@@ -35,6 +35,7 @@ import org.apache.spark.sql.test.SQLTestData._
 import org.apache.spark.sql.types._
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.storage.StorageLevel._
+import org.apache.spark.tags.SplitSQLPartOneTest
 
 class TestCachedBatchSerializer(
     useCompression: Boolean,
@@ -48,6 +49,7 @@ class TestCachedBatchSerializer(
   }
 }
 
+@SplitSQLPartOneTest
 class InMemoryColumnarQuerySuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

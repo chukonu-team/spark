@@ -22,7 +22,9 @@ import org.apache.hadoop.fs.Path
 import org.apache.spark.sql.{AnalysisException, QueryTest, SaveMode}
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.test.SQLTestUtils
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class MultiDatabaseSuite extends QueryTest with SQLTestUtils with TestHiveSingleton {
   private lazy val df = spark.range(10).coalesce(1).toDF()
 

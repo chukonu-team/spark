@@ -28,7 +28,9 @@ import org.apache.spark.sql.execution.exchange.EnsureRequirements
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, StringType, StructType}
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
+@SplitSQLPartTwoTest
 class InnerJoinSuite extends SparkPlanTest with SharedSparkSession {
   import testImplicits.newProductEncoder
   import testImplicits.localSeqToDatasetHolder

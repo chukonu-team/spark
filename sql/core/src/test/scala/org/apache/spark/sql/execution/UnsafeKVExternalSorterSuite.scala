@@ -29,11 +29,13 @@ import org.apache.spark.sql.catalyst.{CatalystTypeConverters, InternalRow}
 import org.apache.spark.sql.catalyst.expressions.{InterpretedOrdering, UnsafeProjection, UnsafeRow}
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.unsafe.map.BytesToBytesMap
 
 /**
  * Test suite for [[UnsafeKVExternalSorter]], with randomly generated test data.
  */
+@SplitSQLPartThreeTest
 class UnsafeKVExternalSorterSuite extends SparkFunSuite with SharedSparkSession {
   private val keyTypes = Seq(IntegerType, FloatType, DoubleType, StringType)
   private val valueTypes = Seq(IntegerType, FloatType, DoubleType, StringType)

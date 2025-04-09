@@ -19,7 +19,9 @@ package org.apache.spark.sql.connector
 
 import org.apache.spark.sql.{DataFrame, SaveMode}
 import org.apache.spark.sql.connector.catalog.{Identifier, InMemoryTable, Table, TableCatalog}
+import org.apache.spark.tags.SplitSQLPartFourTest
 
+@SplitSQLPartFourTest
 class DataSourceV2SQLSessionCatalogSuite
   extends InsertIntoTests(supportsDynamicOverwrite = true, includeSQLOnlyTests = true)
   with AlterTableTests

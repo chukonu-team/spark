@@ -27,7 +27,9 @@ import org.apache.spark.sql.execution.adaptive.AdaptiveSparkPlanHelper
 import org.apache.spark.sql.execution.joins._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
+@SplitSQLPartTwoTest
 class JoinHintSuite extends PlanTest with SharedSparkSession with AdaptiveSparkPlanHelper {
   import testImplicits._
 

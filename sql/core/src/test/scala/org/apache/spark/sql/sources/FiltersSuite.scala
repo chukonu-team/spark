@@ -18,10 +18,12 @@
 package org.apache.spark.sql.sources
 
 import org.apache.spark.SparkFunSuite
-
+import org.apache.spark.tags.SplitSQLPartTwoTest
 /**
  * Unit test suites for data source filters.
  */
+
+@SplitSQLPartTwoTest
 class FiltersSuite extends SparkFunSuite {
 
   private def withFieldNames(f: (String, Array[String]) => Unit): Unit = {

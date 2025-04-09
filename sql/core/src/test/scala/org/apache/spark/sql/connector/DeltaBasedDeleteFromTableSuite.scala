@@ -18,7 +18,9 @@
 package org.apache.spark.sql.connector
 
 import org.apache.spark.sql.AnalysisException
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class DeltaBasedDeleteFromTableSuite extends DeleteFromTableSuiteBase {
 
   override protected lazy val extraTableProps: java.util.Map[String, String] = {

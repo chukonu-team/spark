@@ -26,7 +26,9 @@ import org.apache.hadoop.conf.Configuration
 import org.apache.spark.paths.SparkPath
 import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class HadoopFileLinesReaderSuite extends SharedSparkSession {
   def getLines(
       path: File,

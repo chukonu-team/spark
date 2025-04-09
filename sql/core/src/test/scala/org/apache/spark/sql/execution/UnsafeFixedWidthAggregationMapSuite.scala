@@ -34,6 +34,7 @@ import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.catalyst.expressions.UnsafeRow
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.unsafe.types.UTF8String
 
 /**
@@ -41,6 +42,7 @@ import org.apache.spark.unsafe.types.UTF8String
  *
  * Use [[testWithMemoryLeakDetection]] rather than [[test]] to construct test cases.
  */
+@SplitSQLPartThreeTest
 class UnsafeFixedWidthAggregationMapSuite
   extends SparkFunSuite
   with Matchers

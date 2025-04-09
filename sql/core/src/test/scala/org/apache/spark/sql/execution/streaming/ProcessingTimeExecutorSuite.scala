@@ -25,7 +25,9 @@ import org.scalatest.time.SpanSugar._
 
 import org.apache.spark.SparkFunSuite
 import org.apache.spark.sql.streaming.util.StreamManualClock
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
+@SplitSQLPartTwoTest
 class ProcessingTimeExecutorSuite extends SparkFunSuite with TimeLimits {
 
   // Necessary to make ScalaTest 3.x interrupt a thread on the JVM like ScalaTest 2.2.x

@@ -23,8 +23,10 @@ import org.apache.spark.sql.hive.HiveShim.HiveFunctionWrapper
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.test.SQLTestUtils
 import org.apache.spark.sql.types.{IntegerType, StringType}
+import org.apache.spark.tags.HivePartOneTest
 import org.apache.spark.util.Utils
 
+@HivePartOneTest
 class HiveUDFDynamicLoadSuite extends QueryTest with SQLTestUtils with TestHiveSingleton {
 
   case class UDFTestInformation(

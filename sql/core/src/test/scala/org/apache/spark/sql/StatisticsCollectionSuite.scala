@@ -35,12 +35,14 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.test.SQLTestData.ArrayData
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.util.Utils
 
 
 /**
  * End-to-end suite testing statistics collection and use on both entire table and columns.
  */
+@SplitSQLPartTwoTest
 class StatisticsCollectionSuite extends StatisticsCollectionTestBase with SharedSparkSession {
   import testImplicits._
 

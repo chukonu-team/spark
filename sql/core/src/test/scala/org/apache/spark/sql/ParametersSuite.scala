@@ -22,7 +22,9 @@ import java.time.{Instant, LocalDate, LocalDateTime, ZoneId}
 import org.apache.spark.sql.functions.lit
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
+@SplitSQLPartTwoTest
 class ParametersSuite extends QueryTest with SharedSparkSession {
 
   test("bind parameters") {

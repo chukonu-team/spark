@@ -44,8 +44,9 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
-
+@SplitSQLPartTwoTest
 class FileBasedDataSourceSuite extends QueryTest
   with SharedSparkSession
   with AdaptiveSparkPlanHelper {

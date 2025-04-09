@@ -23,10 +23,13 @@ import org.apache.spark.sql.expressions.{Window, WindowSpec}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.CalendarIntervalType
+import org.apache.spark.tags.SplitSQLPartOneTest
 
 /**
  * Window frame testing for DataFrame API.
  */
+
+@SplitSQLPartOneTest
 class DataFrameWindowFramesSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

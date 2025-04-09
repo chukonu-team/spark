@@ -26,7 +26,9 @@ import org.apache.spark.sql.catalyst.catalog.CatalogUtils
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.sources.HadoopFsRelationTest
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.HivePartTwoTest
 
+@HivePartTwoTest
 class OrcHadoopFsRelationSuite extends HadoopFsRelationTest {
   import testImplicits._
 
@@ -118,6 +120,7 @@ class OrcHadoopFsRelationSuite extends HadoopFsRelationTest {
   }
 }
 
+@HivePartTwoTest
 class HiveOrcHadoopFsRelationSuite extends OrcHadoopFsRelationSuite {
   override val dataSourceName: String =
     classOf[org.apache.spark.sql.hive.orc.OrcFileFormat].getCanonicalName

@@ -37,8 +37,10 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.types.DayTimeIntervalType.DAY
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.unsafe.types.UTF8String
 
+@SplitSQLPartTwoTest
 class ColumnExpressionSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

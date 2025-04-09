@@ -26,6 +26,7 @@ import org.apache.spark.sql.catalyst.util.CharVarcharUtils
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
 class DefaultSource extends SimpleScanSource
 
@@ -122,6 +123,7 @@ class LegacyTimestampSource extends RelationProvider {
   }
 }
 
+@SplitSQLPartTwoTest
 class TableScanSuite extends DataSourceTest with SharedSparkSession {
   protected override lazy val sql = spark.sql _
 

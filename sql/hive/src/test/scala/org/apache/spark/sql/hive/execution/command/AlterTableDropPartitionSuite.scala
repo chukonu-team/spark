@@ -19,11 +19,13 @@ package org.apache.spark.sql.hive.execution.command
 
 import org.apache.spark.sql.execution.command.v1
 import org.apache.spark.sql.internal.SQLConf
+import org.apache.spark.tags.SplitSQLPartFourTest
 
 /**
  * The class contains tests for the `ALTER TABLE .. DROP PARTITION` command to check
  * V1 Hive external table catalog.
  */
+@SplitSQLPartFourTest
 class AlterTableDropPartitionSuite
   extends v1.AlterTableDropPartitionSuiteBase
   with CommandSuiteBase {

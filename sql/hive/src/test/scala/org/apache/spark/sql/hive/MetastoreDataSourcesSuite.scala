@@ -36,11 +36,14 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.StaticSQLConf._
 import org.apache.spark.sql.test.SQLTestUtils
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.HivePartOneTest
 import org.apache.spark.util.Utils
 
 /**
  * Tests for persisting tables created though the data sources API into the metastore.
  */
+
+@HivePartOneTest
 class MetastoreDataSourcesSuite extends QueryTest with SQLTestUtils with TestHiveSingleton {
   import hiveContext._
   import spark.implicits._

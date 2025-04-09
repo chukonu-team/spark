@@ -34,10 +34,10 @@ import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.types.DayTimeIntervalType._
 import org.apache.spark.sql.types.YearMonthIntervalType._
-import org.apache.spark.tags.SlowHiveTest
+import org.apache.spark.tags.HivePartTwoTest
 import org.apache.spark.unsafe.types.CalendarInterval
 
-@SlowHiveTest
+@HivePartTwoTest
 class HiveScriptTransformationSuite extends BaseScriptTransformationSuite with TestHiveSingleton {
   import testImplicits._
 

@@ -22,6 +22,7 @@ import org.apache.spark.sql.catalyst.expressions.Hex
 import org.apache.spark.sql.connector.catalog.InMemoryPartitionTableCatalog
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.unsafe.types.UTF8String
 
 /**
@@ -382,6 +383,7 @@ trait SQLInsertTestSuite extends QueryTest with SQLTestUtils {
   }
 }
 
+@SplitSQLPartTwoTest
 class FileSourceSQLInsertTestSuite extends SQLInsertTestSuite with SharedSparkSession {
   override def format: String = "parquet"
   override protected def sparkConf: SparkConf = {
@@ -389,6 +391,7 @@ class FileSourceSQLInsertTestSuite extends SQLInsertTestSuite with SharedSparkSe
   }
 }
 
+@SplitSQLPartTwoTest
 class DSV2SQLInsertTestSuite extends SQLInsertTestSuite with SharedSparkSession {
 
   override def format: String = "foo"

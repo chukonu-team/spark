@@ -33,7 +33,7 @@ import org.apache.spark.sql.execution.WholeStageCodegenExec
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf.TimestampTypes
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.ExtendedSQLTest
+import org.apache.spark.tags.ExtendedSQLPartThreeTest
 import org.apache.spark.util.Utils
 
 // scalastyle:off line.size.limit
@@ -45,22 +45,22 @@ import org.apache.spark.util.Utils
  *
  * To run the entire test suite:
  * {{{
- *   build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestSuite"
+ *   build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestPartOneSuite"
  * }}}
  *
  * To run a single test file upon change:
  * {{{
- *   build/sbt "~sql/testOnly org.apache.spark.sql.SQLQueryTestSuite -- -z inline-table.sql"
+ *   build/sbt "~sql/testOnly org.apache.spark.sql.SQLQueryTestPartOneSuite -- -z inline-table.sql"
  * }}}
  *
  * To re-generate golden files for entire suite, run:
  * {{{
- *   SPARK_GENERATE_GOLDEN_FILES=1 build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestSuite"
+ *   SPARK_GENERATE_GOLDEN_FILES=1 build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestPartOneSuite"
  * }}}
  *
  * To re-generate golden file for a single test, run:
  * {{{
- *   SPARK_GENERATE_GOLDEN_FILES=1 build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestSuite -- -z describe.sql"
+ *   SPARK_GENERATE_GOLDEN_FILES=1 build/sbt "sql/testOnly org.apache.spark.sql.SQLQueryTestPartOneSuite -- -z describe.sql"
  * }}}
  *
  * The format for input files is simple:
@@ -122,8 +122,8 @@ import org.apache.spark.util.Utils
  * different types of UDFs. See 'udf/udf-inner-join.sql' as an example.
  */
 // scalastyle:on line.size.limit
-@ExtendedSQLTest
-class SQLQueryTestSuite extends QueryTest with SharedSparkSession with SQLHelper
+@ExtendedSQLPartThreeTest
+class SQLQueryTestPartTwoSuite extends QueryTest with SharedSparkSession with SQLHelper
     with SQLQueryTestHelper {
 
   import IntegratedUDFTestUtils._
@@ -244,33 +244,15 @@ class SQLQueryTestSuite extends QueryTest with SharedSparkSession with SQLHelper
   protected def createScalaTestCase(testCase: TestCase): Unit = {
     if (ignoreList.exists(t =>
         testCase.name.toLowerCase(Locale.ROOT).contains(t.toLowerCase(Locale.ROOT)))) {
-      // Create a test case to ignore this case.
-      ignore(testCase.name) { /* Do nothing */ }
     } else testCase match {
-      case udfTestCase: UDFTest
-          if udfTestCase.udf.isInstanceOf[TestPythonUDF] && !shouldTestPythonUDFs =>
-        ignore(s"${testCase.name} is skipped because " +
-          s"[$pythonExec] and/or pyspark were not available.") {
-          /* Do nothing */
-        }
-      case udfTestCase: UDFTest
-          if udfTestCase.udf.isInstanceOf[TestScalarPandasUDF] && !shouldTestPandasUDFs =>
-        ignore(s"${testCase.name} is skipped because pyspark," +
-          s"pandas and/or pyarrow were not available in [$pythonExec].") {
-          /* Do nothing */
-        }
-      case udfTestCase: UDFTest
-          if udfTestCase.udf.isInstanceOf[TestGroupedAggPandasUDF] &&
-            !shouldTestPandasUDFs =>
-        ignore(s"${testCase.name} is skipped because pyspark," +
-          s"pandas and/or pyarrow were not available in [$pythonExec].") {
-          /* Do nothing */
-        }
+      case udfTestCase: UDFTest =>
       case _ =>
-        // Create a test case to run this case.
-        test(testCase.name) {
-          runTest(testCase)
+        if (math.abs(testCase.name.hashCode) % 5 == 1) {
+          test(testCase.name) {
+            runTest(testCase)
+          }
         }
+        // Create a test case to run this case.
     }
   }
 

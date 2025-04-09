@@ -27,7 +27,9 @@ import org.apache.spark.sql.catalyst.trees.Origin
 import org.apache.spark.sql.connector.catalog.CatalogManager.SESSION_CATALOG_NAME
 import org.apache.spark.sql.internal.SQLConf._
 import org.apache.spark.sql.test.{SharedSparkSession, SQLTestUtils}
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class SimpleSQLViewSuite extends SQLViewSuite with SharedSparkSession
 
 /**

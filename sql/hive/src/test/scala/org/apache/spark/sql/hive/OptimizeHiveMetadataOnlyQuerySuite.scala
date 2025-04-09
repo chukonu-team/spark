@@ -27,7 +27,9 @@ import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.internal.SQLConf.OPTIMIZER_METADATA_ONLY
 import org.apache.spark.sql.test.SQLTestUtils
 import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class OptimizeHiveMetadataOnlyQuerySuite extends QueryTest with TestHiveSingleton
     with BeforeAndAfter with SQLTestUtils {
 

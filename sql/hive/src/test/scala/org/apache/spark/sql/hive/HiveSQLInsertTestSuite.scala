@@ -19,7 +19,9 @@ package org.apache.spark.sql.hive
 
 import org.apache.spark.sql.SQLInsertTestSuite
 import org.apache.spark.sql.hive.test.TestHiveSingleton
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class HiveSQLInsertTestSuite extends SQLInsertTestSuite with TestHiveSingleton {
 
   private val originalPartitionMode = spark.conf.getOption("hive.exec.dynamic.partition.mode")

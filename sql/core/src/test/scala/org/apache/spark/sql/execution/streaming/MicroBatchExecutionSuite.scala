@@ -32,8 +32,10 @@ import org.apache.spark.sql.functions.{count, timestamp_seconds, window}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.streaming.{StreamingQueryException, StreamTest, Trigger}
 import org.apache.spark.sql.types.{LongType, StructType}
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.util.Utils
 
+@SplitSQLPartTwoTest
 class MicroBatchExecutionSuite extends StreamTest with BeforeAndAfter with Matchers {
 
   import testImplicits._

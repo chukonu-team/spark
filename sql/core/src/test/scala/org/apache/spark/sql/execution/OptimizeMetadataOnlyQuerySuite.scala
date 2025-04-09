@@ -24,9 +24,9 @@ import org.apache.spark.sql.catalyst.plans.logical.LocalRelation
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf.OPTIMIZER_METADATA_ONLY
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.SlowSQLTest
+import org.apache.spark.tags.SlowSQLPartOneTest
 
-@SlowSQLTest
+@SlowSQLPartOneTest
 class OptimizeMetadataOnlyQuerySuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

@@ -19,10 +19,12 @@ package org.apache.spark.sql.execution.command.v2
 
 import org.apache.spark.sql.{AnalysisException, Row}
 import org.apache.spark.sql.execution.command
-
+import org.apache.spark.tags.SplitSQLPartFourTest
 /**
  * The class contains tests for the `SHOW PARTITIONS` command to check V2 table catalogs.
  */
+
+@SplitSQLPartFourTest
 class ShowPartitionsSuite extends command.ShowPartitionsSuiteBase with CommandSuiteBase {
   test("a table does not support partitioning") {
     val table = s"non_part_$catalog.tab1"

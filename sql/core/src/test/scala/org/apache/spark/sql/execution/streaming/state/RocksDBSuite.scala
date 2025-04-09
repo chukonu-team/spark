@@ -29,10 +29,10 @@ import org.apache.spark._
 import org.apache.spark.sql.catalyst.util.quietly
 import org.apache.spark.sql.execution.streaming.CreateAtomicTestManager
 import org.apache.spark.sql.internal.SQLConf
-import org.apache.spark.tags.SlowSQLTest
+import org.apache.spark.tags.SlowSQLPartOneTest
 import org.apache.spark.util.{ThreadUtils, Utils}
 
-@SlowSQLTest
+@SlowSQLPartOneTest
 class RocksDBSuite extends SparkFunSuite {
 
   test("RocksDB: get, put, iterator, commit, load") {

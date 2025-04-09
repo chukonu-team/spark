@@ -26,6 +26,7 @@ import org.apache.spark.sql.functions.{array, from_json, grouping, grouping_id, 
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, MapType, StringType, StructField, StructType}
+import org.apache.spark.tags.SplitSQLPartFourTest
 
 case class StringLongClass(a: String, b: Long)
 
@@ -35,6 +36,7 @@ case class ComplexClass(a: Long, b: StringLongClass)
 
 case class ArrayClass(arr: Seq[StringIntClass])
 
+@SplitSQLPartFourTest
 class QueryCompilationErrorsSuite
   extends QueryTest
   with SharedSparkSession {

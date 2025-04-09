@@ -26,8 +26,10 @@ import scala.collection.mutable.ArrayBuffer
 import org.apache.spark._
 import org.apache.spark.memory.MemoryTestingUtils
 import org.apache.spark.sql.catalyst.expressions.UnsafeRow
+import org.apache.spark.tags.SplitSQLPartThreeTest
 import org.apache.spark.util.collection.unsafe.sort.{UnsafeSorterIterator, UnsafeSorterSpillReader}
 
+@SplitSQLPartThreeTest
 class ExternalAppendOnlyUnsafeRowArraySuite extends SparkFunSuite with LocalSparkContext {
   private val random = new java.util.Random()
 

@@ -28,7 +28,7 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.test.SQLTestUtils
 import org.apache.spark.sql.types._
-import org.apache.spark.tags.SlowHiveTest
+import org.apache.spark.tags.HivePartTwoTest
 
 class MyDoubleAvgAggBase extends Aggregator[jlDouble, (Double, Long), jlDouble] {
   def zero: (Double, Long) = (0.0, 0L)
@@ -384,10 +384,10 @@ abstract class UDAQuerySuite extends QueryTest with SQLTestUtils with TestHiveSi
   }
 }
 
-@SlowHiveTest
+@HivePartTwoTest
 class HashUDAQuerySuite extends UDAQuerySuite
 
-@SlowHiveTest
+@HivePartTwoTest
 class HashUDAQueryWithControlledFallbackSuite extends UDAQuerySuite {
 
   override protected def checkAnswer(actual: => DataFrame, expectedAnswer: Seq[Row]): Unit = {

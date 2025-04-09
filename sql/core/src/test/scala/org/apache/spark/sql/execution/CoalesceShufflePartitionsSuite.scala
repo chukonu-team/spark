@@ -26,7 +26,9 @@ import org.apache.spark.sql.execution.adaptive.AQEShuffleReadExec
 import org.apache.spark.sql.execution.exchange.ReusedExchangeExec
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class CoalesceShufflePartitionsSuite extends SparkFunSuite {
 
   private var originalActiveSparkSession: Option[SparkSession] = _

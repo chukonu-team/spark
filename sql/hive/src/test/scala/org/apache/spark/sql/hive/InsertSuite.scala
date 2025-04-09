@@ -32,12 +32,14 @@ import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SQLTestUtils
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.HivePartOneTest
 import org.apache.spark.util.Utils
 
 case class TestData(key: Int, value: String)
 
 case class ThreeColumnTable(key: Int, value: String, key1: String)
 
+@HivePartOneTest
 class InsertSuite extends QueryTest with TestHiveSingleton with BeforeAndAfter
     with SQLTestUtils  with PrivateMethodTester  {
   import spark.implicits._

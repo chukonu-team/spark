@@ -27,8 +27,10 @@ import org.apache.spark.sql.catalyst.expressions.codegen.GenerateUnsafeProjectio
 import org.apache.spark.sql.execution.aggregate.UpdatingSessionsIterator
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.unsafe.types.UTF8String
 
+@SplitSQLPartTwoTest
 class UpdatingSessionsIteratorSuite extends SharedSparkSession {
 
   private val rowSchema = new StructType().add("key1", StringType).add("key2", IntegerType)

@@ -24,6 +24,7 @@ import org.apache.spark.sql.catalyst.FunctionIdentifier
 import org.apache.spark.sql.connector.catalog.CatalogManager.SESSION_CATALOG_NAME
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.test.SQLTestUtils
+import org.apache.spark.tags.HivePartOneTest
 
 case class FunctionResult(f1: String, f2: String)
 
@@ -32,6 +33,8 @@ case class FunctionResult(f1: String, f2: String)
  * case insensitive, database names and function names have both upper case
  * letters and lower case letters.
  */
+
+@HivePartOneTest
 class UDFSuite
   extends QueryTest
   with SQLTestUtils

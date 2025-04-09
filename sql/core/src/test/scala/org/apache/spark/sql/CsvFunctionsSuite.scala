@@ -30,7 +30,9 @@ import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.types.DayTimeIntervalType.{DAY, HOUR, MINUTE, SECOND}
 import org.apache.spark.sql.types.YearMonthIntervalType.{MONTH, YEAR}
+import org.apache.spark.tags.SplitSQLPartOneTest
 
+@SplitSQLPartOneTest
 class CsvFunctionsSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

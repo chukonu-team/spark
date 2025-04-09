@@ -23,7 +23,9 @@ import org.apache.spark.sql.functions.{lit, when}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.BooleanType
+import org.apache.spark.tags.SplitSQLPartOneTest
 
+@SplitSQLPartOneTest
 class ReplaceNullWithFalseInPredicateEndToEndSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

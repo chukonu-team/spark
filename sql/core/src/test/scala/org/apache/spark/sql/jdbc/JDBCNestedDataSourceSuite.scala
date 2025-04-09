@@ -19,8 +19,10 @@ package org.apache.spark.sql.jdbc
 
 import org.apache.spark.sql.NestedDataSourceSuiteBase
 import org.apache.spark.sql.types.StructType
+import org.apache.spark.tags.SplitSQLPartTwoTest
 import org.apache.spark.util.Utils
 
+@SplitSQLPartTwoTest
 class JDBCNestedDataSourceSuite extends NestedDataSourceSuiteBase {
   override val nestedDataSources: Seq[String] = Seq("jdbc")
   private val tempDir = Utils.createTempDir()

@@ -26,13 +26,14 @@ import scala.util.control.NonFatal
 import org.apache.commons.lang3.exception.ExceptionUtils
 
 import org.apache.spark.SparkException
-import org.apache.spark.sql.SQLQueryTestSuite
+import org.apache.spark.sql.SQLQueryTestPartOneSuite
 import org.apache.spark.sql.catalyst.analysis.NoSuchTableException
 import org.apache.spark.sql.catalyst.util.fileToString
 import org.apache.spark.sql.execution.HiveResult.{getTimeFormatters, toHiveString, TimeFormatters}
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf.TimestampTypes
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.HiveThriftServerPartOneTest
 
 // scalastyle:off line.size.limit
 /**
@@ -68,7 +69,8 @@ import org.apache.spark.sql.types._
  *   4. Support UDAF testing.
  */
 // scalastyle:on line.size.limit
-class ThriftServerQueryTestSuite extends SQLQueryTestSuite with SharedThriftServer {
+@HiveThriftServerPartOneTest
+class ThriftServerQueryTestPartOneSuite extends SQLQueryTestPartOneSuite with SharedThriftServer {
 
 
   override def mode: ServerMode.Value = ServerMode.binary
@@ -236,9 +238,13 @@ class ThriftServerQueryTestSuite extends SQLQueryTestSuite with SharedThriftServ
       // Create a test case to ignore this case.
       ignore(testCase.name) { /* Do nothing */ }
     } else {
-      // Create a test case to run this case.
-      test(testCase.name) {
-        runTest(testCase)
+      val hashMod4 = math.abs(testCase.name.hashCode) % 4
+      val hashMod16 = math.abs(testCase.name.hashCode) % 16
+      val shouldRunTest = hashMod4 == 3 && hashMod16 == 3
+      if (hashMod4 == 2 || shouldRunTest) {
+        test(testCase.name) {
+          runTest(testCase)
+        }
       }
     }
   }

@@ -25,10 +25,12 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.IntegerType
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
 /**
  * Tests for the sameResult function for [[SparkPlan]]s.
  */
+@SplitSQLPartThreeTest
 class SameResultSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

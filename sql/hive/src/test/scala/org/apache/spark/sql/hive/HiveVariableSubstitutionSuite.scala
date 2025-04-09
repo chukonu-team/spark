@@ -19,7 +19,9 @@ package org.apache.spark.sql.hive
 
 import org.apache.spark.sql.{QueryTest, Row}
 import org.apache.spark.sql.hive.test.TestHiveSingleton
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class HiveVariableSubstitutionSuite extends QueryTest with TestHiveSingleton {
   test("SET hivevar with prefix") {
     spark.sql("SET hivevar:county=gram")

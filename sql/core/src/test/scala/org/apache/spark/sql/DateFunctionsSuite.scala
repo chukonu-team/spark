@@ -30,8 +30,10 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.DoubleType
+import org.apache.spark.tags.SplitSQLPartOneTest
 import org.apache.spark.unsafe.types.CalendarInterval
 
+@SplitSQLPartOneTest
 class DateFunctionsSuite extends QueryTest with SharedSparkSession {
   import testImplicits._
 

@@ -20,7 +20,9 @@ import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hive.serde2.ColumnProjectionUtils
 
 import org.apache.spark.SparkFunSuite
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class HiveShimSuite extends SparkFunSuite {
 
   test("appendReadColumns") {

@@ -27,7 +27,9 @@ import org.apache.spark.sql.execution.datasources.DataSourceAnalysis
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf.StoreAssignmentPolicy
 import org.apache.spark.sql.types.{DataType, IntegerType, StructType}
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
+@SplitSQLPartTwoTest
 class DataSourceAnalysisSuite extends SparkFunSuite with SQLHelper {
 
   private var targetAttributes: Seq[Attribute] = _

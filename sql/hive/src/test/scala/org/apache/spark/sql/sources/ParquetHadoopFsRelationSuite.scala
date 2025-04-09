@@ -29,7 +29,6 @@ import org.apache.spark.sql.execution.datasources.SQLHadoopMapReduceCommitProtoc
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.types._
 
-
 class ParquetHadoopFsRelationSuite extends HadoopFsRelationTest {
   import testImplicits._
 

@@ -28,7 +28,9 @@ import org.apache.spark.sql.catalyst.FunctionIdentifier
 import org.apache.spark.sql.hive.test.TestHiveSingleton
 import org.apache.spark.sql.test.{ExamplePoint, ExamplePointUDT}
 import org.apache.spark.sql.types.StructType
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class HiveUserDefinedTypeSuite extends QueryTest with TestHiveSingleton {
   private val functionClass = classOf[org.apache.spark.sql.hive.TestUDF].getCanonicalName
 

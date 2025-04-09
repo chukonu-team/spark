@@ -23,7 +23,7 @@ import scala.collection.mutable.ArrayBuffer
 
 import org.apache.spark.sql.catalyst.util.{fileToString, stringToFile}
 import org.apache.spark.sql.test.SharedSparkSession
-import org.apache.spark.tags.ExtendedSQLTest
+import org.apache.spark.tags.ExtendedSQLPartOneTest
 
 // scalastyle:off line.size.limit
 /**
@@ -63,7 +63,7 @@ import org.apache.spark.tags.ExtendedSQLTest
  * }}}
  */
 // scalastyle:on line.size.limit
-@ExtendedSQLTest
+@ExtendedSQLPartOneTest
 class ExpressionsSchemaSuite extends QueryTest with SharedSparkSession {
 
   private val baseResourcePath = {

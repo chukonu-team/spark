@@ -26,8 +26,10 @@ import org.apache.spark.SPARK_VERSION
 import org.apache.spark.sql.catalyst.analysis.FunctionRegistry
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.HiveThriftServerPartTwoTest
 import org.apache.spark.util.VersionUtils
 
+@HiveThriftServerPartTwoTest
 class SparkMetadataOperationSuite extends HiveThriftServer2TestBase {
 
   override def mode: ServerMode.Value = ServerMode.binary

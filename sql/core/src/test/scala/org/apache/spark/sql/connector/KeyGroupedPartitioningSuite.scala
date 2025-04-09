@@ -36,7 +36,9 @@ import org.apache.spark.sql.execution.joins.SortMergeJoinExec
 import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.internal.SQLConf._
 import org.apache.spark.sql.types._
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class KeyGroupedPartitioningSuite extends DistributionAndOrderingSuiteBase {
   private val functions = Seq(
     UnboundYearsFunction,

@@ -19,7 +19,9 @@ package org.apache.spark.sql.hive
 
 import org.apache.spark.sql.catalyst.catalog.{CatalogTestUtils, ExternalCatalog, SessionCatalogSuite}
 import org.apache.spark.sql.hive.test.TestHiveSingleton
+import org.apache.spark.tags.HivePartOneTest
 
+@HivePartOneTest
 class HiveExternalSessionCatalogSuite extends SessionCatalogSuite with TestHiveSingleton {
 
   protected override val isHiveExternalCatalog = true

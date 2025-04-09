@@ -22,7 +22,9 @@ import org.apache.spark.sql.catalyst.plans.{InnerLike, LeftSemi}
 import org.apache.spark.sql.catalyst.plans.logical.{BROADCAST, HintInfo, Join, JoinHint, LogicalPlan}
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.test.SharedSparkSession
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
+@SplitSQLPartTwoTest
 class SubqueryHintPropagationSuite extends QueryTest with SharedSparkSession {
 
   setupTestData()

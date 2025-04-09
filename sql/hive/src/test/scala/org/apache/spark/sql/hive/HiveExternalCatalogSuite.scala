@@ -25,10 +25,12 @@ import org.apache.spark.sql.catalyst.catalog._
 import org.apache.spark.sql.execution.QueryExecutionException
 import org.apache.spark.sql.execution.command.DDLUtils
 import org.apache.spark.sql.types.StructType
-
+import org.apache.spark.tags.HivePartOneTest
 /**
  * Test suite for the [[HiveExternalCatalog]].
  */
+
+@HivePartOneTest
 class HiveExternalCatalogSuite extends ExternalCatalogSuite {
 
   private val externalCatalog: HiveExternalCatalog = {

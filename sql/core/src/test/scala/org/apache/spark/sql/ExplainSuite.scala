@@ -25,6 +25,7 @@ import org.apache.spark.sql.internal.SQLConf
 import org.apache.spark.sql.sources.TestOptionsSource
 import org.apache.spark.sql.test.SharedSparkSession
 import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
+import org.apache.spark.tags.SplitSQLPartTwoTest
 
 trait ExplainSuiteHelper extends QueryTest with SharedSparkSession {
 
@@ -85,6 +86,7 @@ trait ExplainSuiteHelper extends QueryTest with SharedSparkSession {
   }
 }
 
+@SplitSQLPartTwoTest
 class ExplainSuite extends ExplainSuiteHelper with DisableAdaptiveExecutionSuite {
   import testImplicits._
 

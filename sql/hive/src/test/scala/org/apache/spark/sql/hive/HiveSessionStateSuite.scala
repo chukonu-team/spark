@@ -21,10 +21,13 @@ import org.apache.hadoop.hive.conf.HiveConf.ConfVars
 
 import org.apache.spark.sql._
 import org.apache.spark.sql.hive.test.TestHiveSingleton
+import org.apache.spark.tags.HivePartOneTest
 
 /**
  * Run all tests from `SessionStateSuite` with a Hive based `SessionState`.
  */
+
+@HivePartOneTest
 class HiveSessionStateSuite extends SessionStateSuite with TestHiveSingleton {
 
   override def beforeAll(): Unit = {

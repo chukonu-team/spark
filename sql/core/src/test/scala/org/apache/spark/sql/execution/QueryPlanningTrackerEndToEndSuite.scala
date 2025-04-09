@@ -19,7 +19,9 @@ package org.apache.spark.sql.execution
 
 import org.apache.spark.sql.execution.streaming.{MemoryStream, StreamExecution}
 import org.apache.spark.sql.streaming.StreamTest
+import org.apache.spark.tags.SplitSQLPartThreeTest
 
+@SplitSQLPartThreeTest
 class QueryPlanningTrackerEndToEndSuite extends StreamTest {
   import testImplicits._
 
