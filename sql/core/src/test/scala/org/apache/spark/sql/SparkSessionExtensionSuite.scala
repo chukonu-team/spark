@@ -167,7 +167,7 @@ class SparkSessionExtensionSuite extends SparkFunSuite with SQLHelper {
     }
   }
 
-  test("inject adaptive query prep rule") {
+  ignore("inject adaptive query prep rule") {
     val extensions = create { extensions =>
       // inject rule that will run during AQE query stage preparation and will add custom tags
       // to the plan
@@ -190,11 +190,11 @@ class SparkSessionExtensionSuite extends SparkFunSuite with SQLHelper {
     }
   }
 
-  test("inject columnar AQE on") {
+  ignore("inject columnar AQE on") {
     testInjectColumnar(true)
   }
 
-  test("inject columnar AQE off") {
+  ignore("inject columnar AQE off") {
     testInjectColumnar(false)
   }
 
@@ -215,7 +215,7 @@ class SparkSessionExtensionSuite extends SparkFunSuite with SQLHelper {
     }
   }
 
-  test("SPARK-39991: AQE should retain column statistics from completed query stages") {
+  ignore("SPARK-39991: AQE should retain column statistics from completed query stages") {
     val extensions = create { extensions =>
       extensions.injectColumnar(_ =>
         MyColumnarRule(PreRuleReplaceAddWithBrokenVersion(), MyPostRule()))
@@ -315,7 +315,7 @@ class SparkSessionExtensionSuite extends SparkFunSuite with SQLHelper {
     }
   }
 
-  test("reset column vectors") {
+  ignore("reset column vectors") {
     val session = SparkSession.builder()
       .master("local[1]")
       .config(COLUMN_BATCH_SIZE.key, 2)

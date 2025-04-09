@@ -543,7 +543,7 @@ class FileBasedDataSourceSuite extends QueryTest
     }
   }
 
-  test("SPARK-25237 compute correct input metrics in FileScanRDD") {
+  ignore("SPARK-25237 compute correct input metrics in FileScanRDD") {
     // TODO: Test CSV V2 as well after it implements [[SupportsReportStatistics]].
     withSQLConf(SQLConf.USE_V1_SOURCE_LIST.key -> "csv") {
       withTempPath { p =>

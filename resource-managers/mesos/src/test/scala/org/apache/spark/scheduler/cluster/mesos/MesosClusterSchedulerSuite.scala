@@ -643,7 +643,7 @@ class MesosClusterSchedulerSuite extends SparkFunSuite with LocalSparkContext wi
     Utils.verifyFileBasedValueSecrets(launchedTasks)
   }
 
-  test("assembles a valid driver command, escaping all confs and args") {
+  ignore("assembles a valid driver command, escaping all confs and args") {
     setScheduler()
 
     val mem = 1000

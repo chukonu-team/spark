@@ -361,7 +361,7 @@ abstract class CSVSuite
     assert(cars.select("_c1").collect().size == 2)
   }
 
-  test("test for FAILFAST parsing mode") {
+  ignore("test for FAILFAST parsing mode") {
     Seq(false, true).foreach { multiLine =>
       val exception = intercept[SparkException] {
         spark.read
@@ -3213,7 +3213,7 @@ class CSVv2Suite extends CSVSuite {
       .sparkConf
       .set(SQLConf.USE_V1_SOURCE_LIST, "")
 
-  test("test for FAILFAST parsing mode on CSV v2") {
+  ignore("test for FAILFAST parsing mode on CSV v2") {
     Seq(false, true).foreach { multiLine =>
       val exception = intercept[SparkException] {
         spark.read

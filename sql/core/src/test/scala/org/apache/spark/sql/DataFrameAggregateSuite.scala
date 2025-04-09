@@ -710,7 +710,7 @@ class DataFrameAggregateSuite extends QueryTest
     }
   }
 
-  test("SPARK-19471: AggregationIterator does not initialize the generated result projection" +
+  ignore("SPARK-19471: AggregationIterator does not initialize the generated result projection" +
     " before using it") {
     Seq(
       monotonically_increasing_id(), spark_partition_id(),

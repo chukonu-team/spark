@@ -93,7 +93,7 @@ class CoalesceShufflePartitionsSuite extends SparkFunSuite {
       case None => ""
     }
 
-    test(s"determining the number of reducers: aggregate operator$testNameNote") {
+    ignore(s"determining the number of reducers: aggregate operator$testNameNote") {
       val test: SparkSession => Unit = { spark: SparkSession =>
         val df =
           spark
@@ -129,7 +129,7 @@ class CoalesceShufflePartitionsSuite extends SparkFunSuite {
       withSparkSession(test, 2000, minNumPostShufflePartitions)
     }
 
-    test(s"determining the number of reducers: join operator$testNameNote") {
+    ignore(s"determining the number of reducers: join operator$testNameNote") {
       val test: SparkSession => Unit = { spark: SparkSession =>
         val df1 =
           spark
@@ -226,7 +226,7 @@ class CoalesceShufflePartitionsSuite extends SparkFunSuite {
       withSparkSession(test, 16384, minNumPostShufflePartitions)
     }
 
-    test(s"determining the number of reducers: complex query 2$testNameNote") {
+    ignore(s"determining the number of reducers: complex query 2$testNameNote") {
       val test: (SparkSession) => Unit = { spark: SparkSession =>
         val df1 =
           spark

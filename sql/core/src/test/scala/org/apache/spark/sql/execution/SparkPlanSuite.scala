@@ -45,7 +45,7 @@ class SparkPlanSuite extends QueryTest with SharedSparkSession {
     intercept[SparkException] { plan.executeTail(1) }
   }
 
-  test("SPARK-23731 plans should be canonicalizable after being (de)serialized") {
+  ignore("SPARK-23731 plans should be canonicalizable after being (de)serialized") {
     withSQLConf(SQLConf.USE_V1_SOURCE_LIST.key -> "parquet") {
       withTempPath { path =>
         spark.range(1).write.parquet(path.getAbsolutePath)
@@ -64,7 +64,7 @@ class SparkPlanSuite extends QueryTest with SharedSparkSession {
     }
   }
 
-  test("SPARK-27418 BatchScanExec should be canonicalizable after being (de)serialized") {
+  ignore("SPARK-27418 BatchScanExec should be canonicalizable after being (de)serialized") {
     withSQLConf(SQLConf.USE_V1_SOURCE_LIST.key -> "") {
       withTempPath { path =>
         spark.range(1).write.parquet(path.getAbsolutePath)

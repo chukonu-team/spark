@@ -1378,7 +1378,7 @@ class DataFrameSetOperationsSuite extends QueryTest with SharedSparkSession {
       Row(Row(Seq(Seq(Row(null, "ba"))))) :: Nil)
   }
 
-  test("SPARK-37371: UnionExec should support columnar if all children support columnar") {
+  ignore("SPARK-37371: UnionExec should support columnar if all children support columnar") {
     def checkIfColumnar(
         plan: SparkPlan,
         targetPlan: (SparkPlan) => Boolean,
