@@ -38,6 +38,7 @@ private[cluster] class ExecutorData(
     val executorAddress: RpcAddress,
     override val executorHost: String,
     var freeCores: Int,
+    var freeCoresReserved: Int,
     override val totalCores: Int,
     override val logUrlMap: Map[String, String],
     override val attributes: Map[String, String],
