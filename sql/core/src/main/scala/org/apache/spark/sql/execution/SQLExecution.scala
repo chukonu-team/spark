@@ -21,13 +21,14 @@ import java.util.concurrent.{ConcurrentHashMap, ExecutorService, Future => JFutu
 import java.util.concurrent.atomic.AtomicLong
 
 import org.apache.spark.{ErrorMessageFormat, SparkContext, SparkThrowable, SparkThrowableHelper}
+import org.apache.spark.internal.Logging
 import org.apache.spark.internal.config.Tests.IS_TESTING
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.execution.ui.{SparkListenerSQLExecutionEnd, SparkListenerSQLExecutionStart}
 import org.apache.spark.sql.internal.StaticSQLConf.SQL_EVENT_TRUNCATE_LENGTH
 import org.apache.spark.util.Utils
 
-object SQLExecution {
+object SQLExecution extends Logging {
 
   val EXECUTION_ID_KEY = "spark.sql.execution.id"
   val EXECUTION_ROOT_ID_KEY = "spark.sql.execution.root.id"
@@ -184,6 +185,10 @@ object SQLExecution {
     // Set all the specified SQL configs to local properties, so that they can be available at
     // the executor side.
     val allConfigs = sparkSession.sessionState.conf.getAllConfs
+    logInfo("Setting SQL configs to local properties: " + allConfigs.toString())
+    // val elements = (new Throwable).getStackTrace
+    // logInfo("withSQLConfPropagated stack trace: " +
+    //   elements.map(_.toString).mkString("\n"))
     val originalLocalProps = allConfigs.collect {
       case (key, value) if key.startsWith("spark") =>
         val originalValue = sc.getLocalProperty(key)

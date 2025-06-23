@@ -30,6 +30,7 @@ import org.apache.spark._
 import org.apache.spark.errors.SparkCoreErrors
 import org.apache.spark.internal.Logging
 import org.apache.spark.internal.config.Python._
+import org.apache.spark.io.SocketAccessor
 import org.apache.spark.security.SocketAuthHelper
 import org.apache.spark.util.{RedirectThread, Utils}
 
@@ -119,6 +120,20 @@ private[spark] class PythonWorkerFactory(pythonExec: String, envVars: Map[String
 
     def createSocket(): (Socket, Option[Int]) = {
       val socket = new Socket(daemonHost, daemonPort)
+      /* val clazz = socket.getClass
+      val impl = SocketAccessor.getImpl(socket)
+      val impl_clazz = if (impl != null) impl.getClass else null
+      logInfo(
+        s"Connecting to Python worker daemon at $daemonHost:$daemonPort " +
+        s"using socket class: ${clazz.getName}, impl class: ${impl_clazz.getName}")
+      val stream = socket.getOutputStream
+      logInfo(
+        s"Output stream class: ${stream.getClass.getName}"
+      )
+      val usePlainSocket = SocketAccessor.usePlainSocketImpl()
+      logInfo(
+        s"Using plain socket impl: $usePlainSocket"
+      ) */
       val pid = new DataInputStream(socket.getInputStream).readInt()
       if (pid < 0) {
         throw new IllegalStateException("Python daemon failed to launch worker with code " + pid)

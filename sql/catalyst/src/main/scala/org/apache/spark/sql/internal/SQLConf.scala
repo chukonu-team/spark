@@ -198,11 +198,14 @@ object SQLConf {
    * run unit tests (that does not involve SparkSession) in serial order.
    */
   def get: SQLConf = {
+    // val tmpConf = new SQLConf()
     if (Utils.isInRunningSparkTask) {
       val conf = existingConf.get()
       if (conf != null) {
+        // tmpConf.logInfo("SQLConf.get branch-1.1")
         conf
       } else {
+        // tmpConf.logInfo("SQLConf.get branch-1.2")
         new ReadOnlySQLConf(TaskContext.get())
       }
     } else {
@@ -216,17 +219,22 @@ object SQLConf {
         // conf within `withExistingConf`, otherwise fail the query.
         val conf = existingConf.get()
         if (conf != null) {
+          // tmpConf.logInfo("SQLConf.get branch-2.1.1")
           conf
         } else if (Utils.isTesting) {
+          // tmpConf.logInfo("SQLConf.get branch-2.1.2")
           throw QueryExecutionErrors.cannotGetSQLConfInSchedulerEventLoopThreadError()
         } else {
+          // tmpConf.logInfo("SQLConf.get branch-2.1.3")
           confGetter.get()()
         }
       } else {
         val conf = existingConf.get()
         if (conf != null) {
+          // tmpConf.logInfo("SQLConf.get branch-2.2.1")
           conf
         } else {
+          // tmpConf.logInfo("SQLConf.get branch-2.2.2")
           confGetter.get()()
         }
       }

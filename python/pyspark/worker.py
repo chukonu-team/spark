@@ -28,42 +28,6 @@ import json
 import threading
 from typing import List
 
-
-def print_traces(
-    boot_time: float,
-    names: List[str],
-    timestamps: List[float],
-    stage_id: int,
-    partition_id: int,
-):
-    msg = ""
-    last_ts = boot_time
-    for name, ts in zip(names, timestamps):
-        duration = ts - last_ts
-        msg += f"[TRACE] Thread {threading.get_native_id()} Task{stage_id}.{partition_id} {name} {duration:.2f} {last_ts:.2f} {ts:.2f} ;\n"
-        last_ts = ts
-    sys.stderr.flush()
-    sys.stderr.write(msg)
-    sys.stderr.flush()
-
-
-def print_log(
-    msg: str, base_time: float, stage_id: int = None, partition_id: int = None
-):
-    if True:
-        delta = time.time() - base_time
-        if stage_id is not None:
-            sys.stderr.write(
-                f"[Thread-{threading.get_native_id()} / Task{stage_id}.{partition_id} / {msg}] {delta:.2f} {base_time:.2f} ;\n"
-            )
-            sys.stderr.flush()
-        else:
-            sys.stderr.write(
-                f"[Thread-{threading.get_native_id()} / {msg}] {delta:.2f} {base_time:.2f} ;\n"
-            )
-            sys.stderr.flush()
-
-
 # 'resource' is a Unix specific module.
 has_resource_module = True
 try:
@@ -101,7 +65,7 @@ from pyspark.sql.pandas.serializers import (
 )
 from pyspark.sql.pandas.types import to_arrow_type
 from pyspark.sql.types import StructType
-from pyspark.util import fail_on_stopiteration, try_simplify_traceback
+from pyspark.util import fail_on_stopiteration, try_simplify_traceback, print_traces, print_log
 from pyspark import shuffle
 
 pickleSer = CPickleSerializer()
@@ -548,7 +512,7 @@ def read_udfs(pickleSer, infile, eval_type):
             )
     else:
         ser = BatchedSerializer(CPickleSerializer(), 100)
-
+    print_log("ReadUDFs " + ser.__class__.__name__, time.time())
     num_udfs = read_int(infile)
 
     is_scalar_iter = eval_type == PythonEvalType.SQL_SCALAR_PANDAS_ITER_UDF
@@ -973,9 +937,12 @@ def main(infile, outfile):
 
         def process():
             iterator = deserializer.load_stream(infile)
+            append_event("LoadInputStream")
             out_iter = func(split_index, iterator)
+            append_event("CallFunction")
             try:
                 serializer.dump_stream(out_iter, outfile)
+                append_event("DumpOutputStream")
             finally:
                 if hasattr(out_iter, "close"):
                     out_iter.close()
