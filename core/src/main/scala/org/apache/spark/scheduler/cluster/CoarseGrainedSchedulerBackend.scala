@@ -153,11 +153,26 @@ class CoarseGrainedSchedulerBackend(scheduler: TaskSchedulerImpl, val rpcEnv: Rp
 
     override def receive: PartialFunction[Any, Unit] = {
       case StatusUpdate(executorId, taskId, state, data, taskCpus, resources) =>
+        // check if this task is special and should reserve the released cores
+        var ifReserve = false
+        if (TaskState.isFinished(state)) {
+          val taskSetManager = scheduler.taskIdToTaskSetManager.get(taskId)
+          val runningTaskIds = scheduler.executorIdToRunningTaskIds
+            .getOrElse(executorId, Set.empty[Long])
+            .intersect(taskSetManager.taskInfos.keySet)
+          val isLastTaskPerExecutor = taskSetManager.pendingTasks.all.isEmpty &&
+            (runningTaskIds.size == 1)
+          ifReserve = isLastTaskPerExecutor && taskSetManager.stageId == 4
+        }
         scheduler.statusUpdate(taskId, state, data.value)
         if (TaskState.isFinished(state)) {
           executorDataMap.get(executorId) match {
             case Some(executorInfo) =>
               executorInfo.freeCores += taskCpus
+              // if this task is special, mark these freed cores as reserved
+              if (ifReserve) {
+                executorInfo.freeCoresReserved += taskCpus
+              }
               resources.foreach { case (k, v) =>
                 executorInfo.resourcesInfo.get(k).foreach { r =>
                   r.release(v.addresses)
@@ -218,6 +233,7 @@ class CoarseGrainedSchedulerBackend(scheduler: TaskSchedulerImpl, val rpcEnv: Rp
       case LaunchedExecutor(executorId) =>
         executorDataMap.get(executorId).foreach { data =>
           data.freeCores = data.totalCores
+          data.freeCoresReserved = 0
         }
         makeOffers(executorId)
 
@@ -281,7 +297,7 @@ class CoarseGrainedSchedulerBackend(scheduler: TaskSchedulerImpl, val rpcEnv: Rp
           }
 
           val data = new ExecutorData(executorRef, executorAddress, hostname,
-            0, cores, logUrlHandler.applyPattern(logUrls, attributes), attributes,
+            0, 0, cores, logUrlHandler.applyPattern(logUrls, attributes), attributes,
             resourcesInfo, resourceProfileId, registrationTs = System.currentTimeMillis(),
             requestTs = reqTs)
           // This must be synchronized because variables mutated
@@ -362,6 +378,7 @@ class CoarseGrainedSchedulerBackend(scheduler: TaskSchedulerImpl, val rpcEnv: Rp
         executorId,
         executorData.executorHost,
         executorData.freeCores,
+        executorData.freeCoresReserved,
         Some(executorData.executorAddress.hostPort),
         resources,
         executorData.resourceProfileId)
@@ -416,6 +433,11 @@ class CoarseGrainedSchedulerBackend(scheduler: TaskSchedulerImpl, val rpcEnv: Rp
           // Do resources allocation here. The allocated resources will get released after the task
           // finishes.
           executorData.freeCores -= task.cpus
+          // if this task uses gpu, unmark reserved cores if there are some
+          if (task.resources.keys.toSet.contains("gpu")
+            && executorData.freeCoresReserved > task.cpus) {
+            executorData.freeCoresReserved -= task.cpus
+          }
           task.resources.foreach { case (rName, rInfo) =>
             assert(executorData.resourcesInfo.contains(rName))
             executorData.resourcesInfo(rName).acquire(rInfo.addresses)

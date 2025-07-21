@@ -741,8 +741,10 @@ class SparkContext(config: SparkConf) extends Logging {
    */
   def setLocalProperty(key: String, value: String): Unit = {
     if (value == null) {
+      // logInfo("Removing local property for this thread: " + key)
       localProperties.get.remove(key)
     } else {
+      // logInfo(s"Setting local property for this thread: $key = $value")
       localProperties.get.setProperty(key, value)
     }
   }

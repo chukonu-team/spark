@@ -141,7 +141,7 @@ private[spark] class TaskSchedulerImpl(
   val nextTaskId = new AtomicLong(0)
 
   // IDs of the tasks running on each executor
-  private val executorIdToRunningTaskIds = new HashMap[String, HashSet[Long]]
+  val executorIdToRunningTaskIds = new HashMap[String, HashSet[Long]]
 
   // We add executors here when we first get decommission notification for them. Executors can
   // continue to run even after being asked to decommission, but they will eventually exit.
@@ -386,6 +386,7 @@ private[spark] class TaskSchedulerImpl(
       maxLocality: TaskLocality,
       shuffledOffers: Seq[WorkerOffer],
       availableCpus: Array[Int],
+      availableCpusReserved: Array[Int],
       availableResources: Array[Map[String, Buffer[String]]],
       tasks: IndexedSeq[ArrayBuffer[TaskDescription]])
     : (Boolean, Option[TaskLocality]) = {
@@ -402,7 +403,7 @@ private[spark] class TaskSchedulerImpl(
       if (sc.resourceProfileManager
         .canBeScheduled(taskSetRpID, shuffledOffers(i).resourceProfileId)) {
         val taskResAssignmentsOpt = resourcesMeetTaskRequirements(taskSet, availableCpus(i),
-          availableResources(i))
+          availableCpusReserved(i), availableResources(i))
         taskResAssignmentsOpt.foreach { taskResAssignments =>
           try {
             val prof = sc.resourceProfileManager.resourceProfileFromId(taskSetRpID)
@@ -425,6 +426,11 @@ private[spark] class TaskSchedulerImpl(
 
               minLaunchedLocality = minTaskLocality(minLaunchedLocality, Some(locality))
               availableCpus(i) -= taskCpus
+              if (prof.getCustomTaskResources().keys.toSet.contains("gpu")
+              && availableCpusReserved(i) > 0) {
+                availableCpusReserved(i) -= taskCpus
+              }
+
               assert(availableCpus(i) >= 0)
               resources.foreach { case (rName, rInfo) =>
                 // Remove the first n elements from availableResources addresses, these removed
@@ -465,13 +471,22 @@ private[spark] class TaskSchedulerImpl(
   private def resourcesMeetTaskRequirements(
       taskSet: TaskSetManager,
       availCpus: Int,
+      availCpusReserved: Int,
       availWorkerResources: Map[String, Buffer[String]]
       ): Option[Map[String, ResourceInformation]] = {
     val rpId = taskSet.taskSet.resourceProfileId
     val taskSetProf = sc.resourceProfileManager.resourceProfileFromId(rpId)
     val taskCpus = ResourceProfile.getTaskCpusOrDefaultForProfile(taskSetProf, conf)
     // check if the ResourceProfile has cpus first since that is common case
-    if (availCpus < taskCpus) return None
+    // if "gpu" is not required by the taskSet, reserved cpus cannot be used
+    // to run the task, so we need to check if the available cpus are enough
+    // to run the task
+    if (taskSetProf.getCustomTaskResources().keys.toSet.contains("gpu")) {
+      if (availCpus < taskCpus) return None
+    }
+    else {
+      if ((availCpus - availCpusReserved) < taskCpus) return None
+    }
     // only look at the resource other than cpus
     val tsResources = taskSetProf.getCustomTaskResources()
     if (tsResources.isEmpty) return Some(Map.empty)
@@ -554,6 +569,7 @@ private[spark] class TaskSchedulerImpl(
     // close estimate
     val tasks = shuffledOffers.map(o => new ArrayBuffer[TaskDescription](o.cores / CPUS_PER_TASK))
     val availableResources = shuffledOffers.map(_.resources).toArray
+    val availableCpusReserved = shuffledOffers.map(o => o.coresReserved).toArray
     val availableCpus = shuffledOffers.map(o => o.cores).toArray
     val resourceProfileIds = shuffledOffers.map(o => o.resourceProfileId).toArray
     val sortedTaskSets = rootPool.getSortedTaskSetQueue
@@ -600,7 +616,7 @@ private[spark] class TaskSchedulerImpl(
           do {
             val (noDelayScheduleReject, minLocality) = resourceOfferSingleTaskSet(
               taskSet, currentMaxLocality, shuffledOffers, availableCpus,
-              availableResources, tasks)
+              availableCpusReserved, availableResources, tasks)
             launchedTaskAtCurrentMaxLocality = minLocality.isDefined
             launchedAnyTask |= launchedTaskAtCurrentMaxLocality
             noDelaySchedulingRejects &= noDelayScheduleReject
@@ -827,10 +843,28 @@ private[spark] class TaskSchedulerImpl(
               }
             }
             if (TaskState.isFinished(state)) {
+              // val executorId = taskIdToExecutorId.getOrElse(tid, "")
               cleanupTaskState(tid)
               taskSet.removeRunningTask(tid)
               if (state == TaskState.FINISHED) {
                 taskResultGetter.enqueueSuccessfulTask(taskSet, tid, serializedData)
+                /* val stageId = taskSet.stageId
+                val runningTaskIds = executorIdToRunningTaskIds
+                  .getOrElse(executorId, Set.empty[Long])
+                  .intersect(taskSet.taskInfos.keys.toSet)
+                val isLastTaskPerExecutor = taskSet.pendingTasks.all.isEmpty &&
+                  (runningTaskIds.size < 1)
+                logInfo("TaskScheImpl statusUpdate, taskId: " +
+                  tid + ", executorId: " + executorId + ", stageId: " + stageId +
+                  ", pending tasks: " + taskSet.pendingTasks.all.toString() +
+                  ", running tasks on this executor: " + runningTaskIds.toString())
+                if (isLastTaskPerExecutor && (stageId == 2 || stageId == 4 ||
+                  stageId == 6 || stageId == 8)) {
+                  // sleep for a while to allow subsequent tasks to be scheduled
+                  logInfo("Sleeping for 500ms to allow subsequent tasks to be scheduled, taskId: " +
+                    tid + ", executorId: " + executorId + ", stageId: " + stageId)
+                  Thread.sleep(500) // sleep for 500ms
+                } */
               } else if (Set(TaskState.FAILED, TaskState.KILLED, TaskState.LOST).contains(state)) {
                 taskResultGetter.enqueueFailedTask(taskSet, tid, state, serializedData)
               }

@@ -16,30 +16,40 @@
 #
 
 import time
+
 daemon_begin_time = time.time()
 
 # 在daemon进程中预先加载相关的依赖
-from pyspark.sql import SparkSession, DataFrame
-from pyspark.resource import ResourceProfileBuilder, TaskResourceRequests
-from pyspark.context import TaskContext
 import time
-import torch
 import pandas
-from torchvision import transforms
-from torchvision.models import resnet50, ResNet50_Weights
 import numpy
-import torch
-import time
 import pyarrow
 from pyarrow import RecordBatch, Array
+import torch
+from torchvision import transforms
+from torchvision.models import resnet50, ResNet50_Weights
+from cachetools import cached, LRUCache
 from typing import Iterator, Dict, Union
+from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql.pandas.functions import pandas_udf
+from pyspark.sql.types import ArrayType, FloatType, StructType, StructField
+from pyspark.resource import ResourceProfileBuilder, TaskResourceRequests
+from pyspark.context import TaskContext
+from pyspark.rdd import PythonEvalType
+import os
+
+
 import threading
+
 
 def print_trace(name: str, bt: float, et: float, stage_id: int, partition_id: int):
     duration = et - bt
     sys.stderr.flush()
-    sys.stderr.write(f"[TRACE] Thread {threading.get_native_id()} Task{stage_id}.{partition_id} {name} {duration:.2f} {bt:.2f} {et:.2f} ;\n")
+    sys.stderr.write(
+        f"[TRACE] Thread {threading.get_native_id()} Task{stage_id}.{partition_id} {name} {duration:.2f} {bt:.2f} {et:.2f} ;\n"
+    )
     sys.stderr.flush()
+
 
 import numbers
 import os
@@ -57,6 +67,7 @@ from signal import SIGHUP, SIGTERM, SIGCHLD, SIG_DFL, SIG_IGN, SIGINT
 from pyspark.worker import main as worker_main
 from pyspark import worker as pyspark_worker
 from pyspark.serializers import read_int, write_int, write_with_length, UTF8Deserializer
+
 
 def compute_real_exit_code(exit_code):
     # SystemExit's code can be integer or string, but os._exit only accepts integers

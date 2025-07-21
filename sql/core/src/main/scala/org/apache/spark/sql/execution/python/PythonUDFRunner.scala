@@ -59,6 +59,7 @@ class PythonUDFRunner(
 
         val deltaData = dataOut.size() - startData
         pythonMetrics("pythonDataSent") += deltaData
+        logDebug(s"PythonUDF data sent: ${deltaData / 1024} KB")
       }
     }
   }

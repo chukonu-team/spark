@@ -26,6 +26,7 @@ import threading
 import traceback
 from types import TracebackType
 from typing import Any, Callable, Iterator, List, Optional, TextIO, Tuple
+import time
 
 from py4j.clientserver import ClientServer
 
@@ -33,6 +34,39 @@ __all__: List[str] = []
 
 from py4j.java_gateway import JavaObject
 
+def print_traces(
+    boot_time: float,
+    names: List[str],
+    timestamps: List[float],
+    stage_id: int,
+    partition_id: int,
+):
+    msg = ""
+    last_ts = boot_time
+    for name, ts in zip(names, timestamps):
+        duration = ts - last_ts
+        msg += f"[TRACE] Thread {threading.get_native_id()} Task{stage_id}.{partition_id} {name} {duration:.2f} {last_ts:.2f} {ts:.2f} ;\n"
+        last_ts = ts
+    sys.stderr.flush()
+    sys.stderr.write(msg)
+    sys.stderr.flush()
+
+
+def print_log(
+    msg: str, base_time: float, stage_id: int = None, partition_id: int = None
+):
+    if True:
+        delta = time.time() - base_time
+        if stage_id is not None:
+            sys.stderr.write(
+                f"[Thread-{threading.get_native_id()} / Task{stage_id}.{partition_id} / {msg}] {delta:.2f} {base_time:.2f} ;\n"
+            )
+            sys.stderr.flush()
+        else:
+            sys.stderr.write(
+                f"[Thread-{threading.get_native_id()} / {msg}] {delta:.2f} {base_time:.2f} ;\n"
+            )
+            sys.stderr.flush()
 
 def print_exec(stream: TextIO) -> None:
     ei = sys.exc_info()

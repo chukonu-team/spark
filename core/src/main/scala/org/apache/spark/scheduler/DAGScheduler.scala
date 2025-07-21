@@ -1443,6 +1443,8 @@ private[spark] class DAGScheduler(
     // with this Stage
     val properties = jobIdToActiveJob(jobId).properties
     addPySparkConfigsToProperties(stage, properties)
+    // logInfo(s"Submitting missing tasks for $stage (${stage.name})" +
+      // s" with properties: ${properties.toString}")
 
     runningStages += stage
     // SparkListenerStageSubmitted should be posted before testing whether tasks are
