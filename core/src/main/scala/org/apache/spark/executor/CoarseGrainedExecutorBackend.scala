@@ -487,32 +487,36 @@ private[spark] object CoarseGrainedExecutorBackend extends Logging {
           new WorkerWatcher(env.rpcEnv, url, isChildProcessStopping = backend.stopping))
       }
 
+      val pythonExec = driverConf.get(PYSPARK_DRIVER_PYTHON)
+        .orElse(driverConf.get(PYSPARK_PYTHON))
+        .orElse(sys.env.get("PYSPARK_DRIVER_PYTHON"))
+        .orElse(sys.env.get("PYSPARK_PYTHON"))
+        .getOrElse("python3")
+      val bufferSize = driverConf.get(BUFFER_SIZE)
       val localdir = env.blockManager.diskBlockManager.localDirs.map(f => f.getPath()).mkString(",")
-      logInfo("initializing python deamons with local dir: " + localdir)
+      logInfo(s"driverConf.executorEnv: ${driverConf.getExecutorEnv.mkString(",")}")
+      val preloadLib = driverConf.getExecutorEnv.find(_._1 == "LD_PRELOAD").map(_._2)
+
+      val basicEnvVars = mutable.Map(
+        "SPARK_BUFFER_SIZE" -> bufferSize.toString,
+        "SPARK_REUSE_WORKER" -> "1",
+        "PYTHONHASHSEED" -> "0",
+        "SPARK_AUTH_SOCKET_TIMEOUT" -> "15",
+        "OMP_NUM_THREADS" -> arguments.cores.toString,
+        "SPARK_SIMPLIFIED_TRACEBACK" -> "1",
+        "SPARK_LOCAL_DIRS" -> localdir
+      )
+      preloadLib.foreach { lib =>
+        basicEnvVars += ("LD_PRELOAD" -> lib)
+      }
+
       env.initializePythonDeamons(
-        "/home/ubuntu/pyvenv3-ray/bin/python",
+        pythonExec,
         List(
-          Map(
-            "SPARK_BUFFER_SIZE" -> "65536",
-            "SPARK_REUSE_WORKER" -> "1",
-            "PYTHONHASHSEED" -> "0",
-            "SPARK_AUTH_SOCKET_TIMEOUT" -> "15",
-            "OMP_NUM_THREADS" -> arguments.cores.toString,
-            "SPARK_SIMPLIFIED_TRACEBACK" -> "1",
-            "SPARK_LOCAL_DIRS" -> localdir,
-            "LD_PRELOAD" -> "/lib/x86_64-linux-gnu/libjemalloc.so.2"
-          ),
-          Map(
-            "SPARK_BUFFER_SIZE" -> "65536",
-            "SPARK_REUSE_WORKER" -> "1",
-            "PYTHONHASHSEED" -> "0",
-            "SPARK_AUTH_SOCKET_TIMEOUT" -> "15",
-            "OMP_NUM_THREADS" -> arguments.cores.toString,
-            "SPARK_SIMPLIFIED_TRACEBACK" -> "1",
-            "SPARK_LOCAL_DIRS" -> localdir,
-            "LD_PRELOAD" -> "/lib/x86_64-linux-gnu/libjemalloc.so.2",
+          basicEnvVars.toMap,
+          (basicEnvVars ++ Map(
             "CHUKONU_UDF_TAG" -> "1"
-          )
+          )).toMap
         ))
 
       env.rpcEnv.awaitTermination()
