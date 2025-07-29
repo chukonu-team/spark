@@ -74,7 +74,7 @@ class SparkConf(loadDefaults: Boolean) extends Cloneable with Logging with Seria
 
   private[spark] def loadForChukonu(): SparkConf = {
     def getEnvOrThrow(key: String): String = {
-      sys.env.getOrElse(key, 
+      sys.env.getOrElse(key,
         throw new RuntimeException(s"Required environment variable $key is not set"))
     }
 

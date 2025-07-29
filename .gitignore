@@ -18,7 +18,6 @@
 .ensime_cache/
 .ensime_lucene
 .generated-mima*
-.idea/
 .idea_modules/
 .metals
 .project

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaSbtSettings">
+    <option name="customLauncherPath" />
+    <option name="customVMEnabled" value="true" />
+    <option name="customVMPath" value="/usr/lib/jvm/java-11-openjdk-amd64" />
+    <option name="linkedExternalProjectsSettings">
+      <SbtProjectSettings>
+        <option name="converterVersion" value="2" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/assembly" />
+            <option value="$PROJECT_DIR$/common/kvstore" />
+            <option value="$PROJECT_DIR$/common/network-common" />
+            <option value="$PROJECT_DIR$/common/network-shuffle" />
+            <option value="$PROJECT_DIR$/common/network-yarn" />
+            <option value="$PROJECT_DIR$/common/sketch" />
+            <option value="$PROJECT_DIR$/common/tags" />
+            <option value="$PROJECT_DIR$/common/unsafe" />
+            <option value="$PROJECT_DIR$/connector/avro" />
+            <option value="$PROJECT_DIR$/connector/connect/client/jvm" />
+            <option value="$PROJECT_DIR$/connector/connect/common" />
+            <option value="$PROJECT_DIR$/connector/connect/server" />
+            <option value="$PROJECT_DIR$/connector/kafka-0-10" />
+            <option value="$PROJECT_DIR$/connector/kafka-0-10-assembly" />
+            <option value="$PROJECT_DIR$/connector/kafka-0-10-sql" />
+            <option value="$PROJECT_DIR$/connector/kafka-0-10-token-provider" />
+            <option value="$PROJECT_DIR$/connector/protobuf" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/dev" />
+            <option value="$PROJECT_DIR$/examples" />
+            <option value="$PROJECT_DIR$/graphx" />
+            <option value="$PROJECT_DIR$/launcher" />
+            <option value="$PROJECT_DIR$/mllib" />
+            <option value="$PROJECT_DIR$/mllib-local" />
+            <option value="$PROJECT_DIR$/project" />
+            <option value="$PROJECT_DIR$/repl" />
+            <option value="$PROJECT_DIR$/resource-managers/yarn" />
+            <option value="$PROJECT_DIR$/sql/catalyst" />
+            <option value="$PROJECT_DIR$/sql/core" />
+            <option value="$PROJECT_DIR$/sql/hive" />
+            <option value="$PROJECT_DIR$/sql/hive-thriftserver" />
+            <option value="$PROJECT_DIR$/streaming" />
+            <option value="$PROJECT_DIR$/tools" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="1.8.2" />
+      </SbtProjectSettings>
+    </option>
+    <option name="sbtEnvironment">
+      <map>
+        <entry key="CHUKONU_HOME" value="/opt/chukonu_intall" />
+        <entry key="CHUKONU_CACHE" value="/opt/cache" />
+        <entry key="CHUKONU_STAING" value="/opt/staging" />
+        <entry key="JAVA_HOME" value="/usr/lib/jvm/java-11-openjdk-amd64" />
+        <entry key="LD_LIBRARY_PATH" value="/opt/cache:/opt/chukonu_install/lib:/usr/lib/jvm/java-11-installopenjdk-amd64/lib:/usr/lib/jvm/java-11-openjdk-amd64/lib:/usr/lib/jvm/java-11-openjdk-amd64/lib/server" />
+        <entry key="SBT_MAVEN_PROFILES" value="yarn,hive,hive-thriftserver" />
+      </map>
+    </option>
+  </component>
+</project>
