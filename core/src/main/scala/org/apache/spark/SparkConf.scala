@@ -73,15 +73,21 @@ class SparkConf(loadDefaults: Boolean) extends Cloneable with Logging with Seria
   loadForChukonu()
 
   private[spark] def loadForChukonu(): SparkConf = {
-    val chukonuHome = sys.env.get("CHUKONU_HOME")
-    val chukonuTemp = sys.env.get("CHUKONU_TEMP")
+    def getEnvOrThrow(key: String): String = {
+      sys.env.getOrElse(key, 
+        throw new RuntimeException(s"Required environment variable $key is not set"))
+    }
+
+    val chukonuHome = getEnvOrThrow("CHUKONU_HOME")
+    val chukonuCache = getEnvOrThrow("CHUKONU_CACHE")
+    val chukonuStaging = getEnvOrThrow("CHUKONU_STAGING")
 
     set("spark.kryo.unsafe", "true")
     set("spark.memory.offHeap.size", "5g")
     set("spark.plugins", "org.pacman.chukonu.ChukonuPlugin")
-    set("spark.chukonu.root", chukonuHome.getOrElse("/opt/marvin/chukonu"))
-    set("spark.chukonu.stagingdir", s"${chukonuTemp.getOrElse("/tmp")}/staging")
-    set("spark.chukonu.compileCacheDir", s"${chukonuTemp.getOrElse("/tmp")}/cache")
+    set("spark.chukonu.root", chukonuHome)
+    set("spark.chukonu.stagingdir", chukonuStaging)
+    set("spark.chukonu.compileCacheDir", chukonuCache)
     set("spark.chukonu.cxx", "/usr/bin/g++")
     set("spark.chukonu.buildType", "ReleaseWithAssert")
     // set("spark.chukonu.buildOptionEx", "-fsanitize=address")
