@@ -51,9 +51,8 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
       @specialized(Int, Long, Float, Double) U
   ](c: Column => Column, f: T => U, precision: Int = 6): Unit = {
 
-    // 单独定义近似比较函数
     def approxEquals(a: Any, b: Any): Boolean = (a, b) match {
-      case (null, null)          => true
+      case (null, null) => true
       case (null, _) | (_, null) => false
       case (d1: Double, d2: Double) =>
         if (d1.isNaN && d2.isNaN) true
@@ -70,7 +69,6 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
       case (a, b) => a == b
     }
 
-    // 测试列a
     val actualA = doubleData.select(c($"a")).collect()
     val expectedA = (1 to 10).map(n => Row(f((n * 0.2 - 1).asInstanceOf[T])))
     actualA.zip(expectedA).foreach { case (actual, expected) =>
@@ -82,7 +80,6 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
       )
     }
 
-    // 测试列b
     val actualB = doubleData.select(c($"b")).collect()
     val expectedB = (1 to 10).map(n => Row(f((-n * 0.2 + 1).asInstanceOf[T])))
     actualB.zip(expectedB).foreach { case (actual, expected) =>
@@ -94,7 +91,6 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
       )
     }
 
-    // 测试null
     checkAnswer(
       doubleData.select(c(lit(null))),
       (1 to 10).map(_ => Row(null))
