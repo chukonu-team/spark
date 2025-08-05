@@ -36,15 +36,12 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   import MathFunctionsTestData._
   import testImplicits._
 
-  private lazy val doubleData =
-    (1 to 10).map(i => DoubleData(i * 0.2 - 1, i * -0.2 + 1)).toDF()
+  private lazy val doubleData = (1 to 10).map(i => DoubleData(i * 0.2 - 1, i * -0.2 + 1)).toDF()
 
-  private lazy val nnDoubleData =
-    (1 to 10).map(i => DoubleData(i * 0.1, i * -0.1)).toDF()
+  private lazy val nnDoubleData = (1 to 10).map(i => DoubleData(i * 0.1, i * -0.1)).toDF()
 
   private lazy val nullDoubles =
-    Seq(NullDoubles(1.0), NullDoubles(2.0), NullDoubles(3.0), NullDoubles(null))
-      .toDF()
+    Seq(NullDoubles(1.0), NullDoubles(2.0), NullDoubles(3.0), NullDoubles(null)).toDF()
 
   private def testOneToOneMathFunctionApprox[
       @specialized(Int, Long, Float, Double) T,
@@ -97,10 +94,12 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
     )
   }
 
+
   private def testOneToOneMathFunction[
-      @specialized(Int, Long, Float, Double) T,
-      @specialized(Int, Long, Float, Double) U
-  ](c: Column => Column, f: T => U): Unit = {
+  @specialized(Int, Long, Float, Double) T,
+  @specialized(Int, Long, Float, Double) U](
+      c: Column => Column,
+      f: T => U): Unit = {
     checkAnswer(
       doubleData.select(c($"a")),
       (1 to 10).map(n => Row(f((n * 0.2 - 1).asInstanceOf[T])))
@@ -117,10 +116,8 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
     )
   }
 
-  private def testOneToOneNonNegativeMathFunction(
-      c: Column => Column,
-      f: Double => Double
-  ): Unit = {
+  private def testOneToOneNonNegativeMathFunction(c: Column => Column, f: Double => Double): Unit =
+  {
     checkAnswer(
       nnDoubleData.select(c($"a")),
       (1 to 10).map(n => Row(f(n * 0.1)))
@@ -142,22 +139,15 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   private def testTwoToOneMathFunction(
       c: (Column, Column) => Column,
       d: (Column, Double) => Column,
-      f: (Double, Double) => Double
-  ): Unit = {
+      f: (Double, Double) => Double): Unit = {
     checkAnswer(
       nnDoubleData.select(c($"a", $"a")),
-      nnDoubleData
-        .collect()
-        .toSeq
-        .map(r => Row(f(r.getDouble(0), r.getDouble(0))))
+      nnDoubleData.collect().toSeq.map(r => Row(f(r.getDouble(0), r.getDouble(0))))
     )
 
     checkAnswer(
       nnDoubleData.select(c($"a", $"b")),
-      nnDoubleData
-        .collect()
-        .toSeq
-        .map(r => Row(f(r.getDouble(0), r.getDouble(1))))
+      nnDoubleData.collect().toSeq.map(r => Row(f(r.getDouble(0), r.getDouble(1))))
     )
 
     checkAnswer(
@@ -183,7 +173,8 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("csc") {
-    testOneToOneMathFunction(csc, (x: Double) => (1 / math.sin(x)))
+    testOneToOneMathFunction(csc,
+      (x: Double) => (1 / math.sin(x)) )
   }
 
   test("asin") {
@@ -207,7 +198,8 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("sec") {
-    testOneToOneMathFunction(sec, (x: Double) => (1 / math.cos(x)))
+    testOneToOneMathFunction(sec,
+      (x: Double) => (1 / math.cos(x)) )
   }
 
   test("acos") {
@@ -219,10 +211,8 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("acosh") {
-    testOneToOneMathFunction(
-      acosh,
-      (x: Double) => math.log(x + math.sqrt(x * x - 1))
-    )
+    testOneToOneMathFunction(acosh,
+      (x: Double) => math.log(x + math.sqrt(x * x - 1)) )
   }
 
   test("tan") {
@@ -253,9 +243,7 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
     testOneToOneMathFunction(degrees, math.toDegrees)
     checkAnswer(
       sql("SELECT degrees(0), degrees(1), degrees(1.5)"),
-      Seq((1, 2))
-        .toDF()
-        .select(degrees(lit(0)), degrees(lit(1)), degrees(lit(1.5)))
+      Seq((1, 2)).toDF().select(degrees(lit(0)), degrees(lit(1)), degrees(lit(1.5)))
     )
   }
 
@@ -263,9 +251,7 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
     testOneToOneMathFunction(radians, math.toRadians)
     checkAnswer(
       sql("SELECT radians(0), radians(1), radians(1.5)"),
-      Seq((1, 2))
-        .toDF()
-        .select(radians(lit(0)), radians(lit(1)), radians(lit(1.5)))
+      Seq((1, 2)).toDF().select(radians(lit(0)), radians(lit(1)), radians(lit(1.5)))
     )
   }
 
@@ -278,16 +264,13 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
     // testOneToOneMathFunction does not validate the resulting data type
     assert(
       spark.range(1).select(ceil(col("id")).alias("a")).schema ==
-        types.StructType(Seq(types.StructField("a", types.LongType)))
-    )
+          types.StructType(Seq(types.StructField("a", types.LongType))))
     assert(
       spark.range(1).select(ceil(col("id"), lit(0)).alias("a")).schema ==
-        types.StructType(Seq(types.StructField("a", types.DecimalType(21, 0))))
-    )
+          types.StructType(Seq(types.StructField("a", types.DecimalType(21, 0)))))
     checkAnswer(
       sql("SELECT ceiling(0), ceiling(1), ceiling(1.5)"),
-      Row(0L, 1L, 2L)
-    )
+      Row(0L, 1L, 2L))
   }
 
   test("conv") {
@@ -302,35 +285,24 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
 
   test("SPARK-33428 conv function should trim input string") {
     val df = Seq(("abc"), ("  abc"), ("abc  "), ("  abc  ")).toDF("num")
-    checkAnswer(
-      df.select(conv($"num", 16, 10)),
-      Seq(Row("2748"), Row("2748"), Row("2748"), Row("2748"))
-    )
-    checkAnswer(
-      df.select(conv($"num", 16, -10)),
-      Seq(Row("2748"), Row("2748"), Row("2748"), Row("2748"))
-    )
+    checkAnswer(df.select(conv($"num", 16, 10)),
+      Seq(Row("2748"), Row("2748"), Row("2748"), Row("2748")))
+    checkAnswer(df.select(conv($"num", 16, -10)),
+      Seq(Row("2748"), Row("2748"), Row("2748"), Row("2748")))
   }
 
-  test(
-    "SPARK-33428 conv function shouldn't raise error if input string is too big"
-  ) {
+  test("SPARK-33428 conv function shouldn't raise error if input string is too big") {
     withSQLConf(SQLConf.ANSI_ENABLED.key -> false.toString) {
-      val df = Seq(
-        ("aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0")
-      ).toDF("num")
+      val df = Seq((
+        "aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0aaaaaaa0")).toDF("num")
       checkAnswer(df.select(conv($"num", 16, 10)), Row("18446744073709551615"))
       checkAnswer(df.select(conv($"num", 16, -10)), Row("-1"))
     }
   }
 
-  test(
-    "SPARK-36229 inconsistently behaviour where returned value is above the 64 char threshold"
-  ) {
+  test("SPARK-36229 inconsistently behaviour where returned value is above the 64 char threshold") {
     withSQLConf(SQLConf.ANSI_ENABLED.key -> false.toString) {
-      val df =
-        Seq(("?" * 64), ("?" * 65), ("a" * 4 + "?" * 60), ("a" * 4 + "?" * 61))
-          .toDF("num")
+      val df = Seq(("?" * 64), ("?" * 65), ("a" * 4 + "?" * 60), ("a" * 4 + "?" * 61)).toDF("num")
       val expectedResult = Seq(Row("0"), Row("0"), Row("43690"), Row("43690"))
       checkAnswer(df.select(conv($"num", 16, 10)), expectedResult)
       checkAnswer(df.select(conv($"num", 16, -10)), expectedResult)
@@ -340,32 +312,20 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   test("SPARK-36229 conv should return result equal to -1 in base of toBase") {
     withSQLConf(SQLConf.ANSI_ENABLED.key -> false.toString) {
       val df = Seq(("aaaaaaa0aaaaaaa0a"), ("aaaaaaa0aaaaaaa0")).toDF("num")
-      checkAnswer(
-        df.select(conv($"num", 16, 10)),
-        Seq(Row("18446744073709551615"), Row("12297829339523361440"))
-      )
-      checkAnswer(
-        df.select(conv($"num", 16, -10)),
-        Seq(Row("-1"), Row("-6148914734186190176"))
-      )
+      checkAnswer(df.select(conv($"num", 16, 10)),
+        Seq(Row("18446744073709551615"), Row("12297829339523361440")))
+      checkAnswer(df.select(conv($"num", 16, -10)), Seq(Row("-1"), Row("-6148914734186190176")))
     }
   }
 
-  test(
-    "SPARK-44973: conv must allocate enough space for all digits plus negative sign"
-  ) {
+  test("SPARK-44973: conv must allocate enough space for all digits plus negative sign") {
     withSQLConf(SQLConf.ANSI_ENABLED.key -> false.toString) {
       val df = Seq(
         ((BigInt(Long.MaxValue) + 1).toString(16)),
         (BigInt(Long.MinValue).toString(16))
       ).toDF("num")
-      checkAnswer(
-        df.select(conv($"num", 16, -2)),
-        Seq(
-          Row(BigInt(Long.MinValue).toString(2)),
-          Row(BigInt(Long.MinValue).toString(2))
-        )
-      )
+      checkAnswer(df.select(conv($"num", 16, -2)),
+        Seq(Row(BigInt(Long.MinValue).toString(2)), Row(BigInt(Long.MinValue).toString(2))))
     }
   }
 
@@ -374,12 +334,10 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
     // testOneToOneMathFunction does not validate the resulting data type
     assert(
       spark.range(1).select(floor(col("id")).alias("a")).schema ==
-        types.StructType(Seq(types.StructField("a", types.LongType)))
-    )
+          types.StructType(Seq(types.StructField("a", types.LongType))))
     assert(
       spark.range(1).select(floor(col("id"), lit(0)).alias("a")).schema ==
-        types.StructType(Seq(types.StructField("a", types.DecimalType(21, 0))))
-    )
+          types.StructType(Seq(types.StructField("a", types.DecimalType(21, 0)))))
   }
 
   test("factorial") {
@@ -417,111 +375,55 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
       Seq(Row(5, 0, 0), Row(55, 50, 0), Row(555, 550, 500))
     )
 
-    withSQLConf(
-      SQLConf.LEGACY_ALLOW_NEGATIVE_SCALE_OF_DECIMAL_ENABLED.key -> "true"
-    ) {
+    withSQLConf(SQLConf.LEGACY_ALLOW_NEGATIVE_SCALE_OF_DECIMAL_ENABLED.key -> "true") {
       val pi = "3.1415"
       checkAnswer(
-        sql(
-          s"SELECT round($pi, -3), round($pi, -2), round($pi, -1), " +
-            s"round($pi, 0), round($pi, 1), round($pi, 2), round($pi, 3)"
-        ),
-        Seq(
-          Row(
-            BigDecimal("0E3"),
-            BigDecimal("0E2"),
-            BigDecimal("0E1"),
-            BigDecimal(3),
-            BigDecimal("3.1"),
-            BigDecimal("3.14"),
-            BigDecimal("3.142")
-          )
-        )
+        sql(s"SELECT round($pi, -3), round($pi, -2), round($pi, -1), " +
+          s"round($pi, 0), round($pi, 1), round($pi, 2), round($pi, 3)"),
+        Seq(Row(BigDecimal("0E3"), BigDecimal("0E2"), BigDecimal("0E1"), BigDecimal(3),
+          BigDecimal("3.1"), BigDecimal("3.14"), BigDecimal("3.142")))
       )
       checkAnswer(
-        sql(
-          s"SELECT bround($pi, -3), bround($pi, -2), bround($pi, -1), " +
-            s"bround($pi, 0), bround($pi, 1), bround($pi, 2), bround($pi, 3)"
-        ),
-        Seq(
-          Row(
-            BigDecimal("0E3"),
-            BigDecimal("0E2"),
-            BigDecimal("0E1"),
-            BigDecimal(3),
-            BigDecimal("3.1"),
-            BigDecimal("3.14"),
-            BigDecimal("3.142")
-          )
-        )
+        sql(s"SELECT bround($pi, -3), bround($pi, -2), bround($pi, -1), " +
+          s"bround($pi, 0), bround($pi, 1), bround($pi, 2), bround($pi, 3)"),
+        Seq(Row(BigDecimal("0E3"), BigDecimal("0E2"), BigDecimal("0E1"), BigDecimal(3),
+          BigDecimal("3.1"), BigDecimal("3.14"), BigDecimal("3.142")))
       )
       checkAnswer(
-        sql(
-          s"SELECT ceil($pi), ceil($pi, -3), ceil($pi, -2), ceil($pi, -1), " +
-            s"ceil($pi, 0), ceil($pi, 1), ceil($pi, 2), ceil($pi, 3)"
-        ),
-        Seq(
-          Row(
-            BigDecimal(4),
-            BigDecimal("1E3"),
-            BigDecimal("1E2"),
-            BigDecimal("1E1"),
-            BigDecimal(4),
-            BigDecimal("3.2"),
-            BigDecimal("3.15"),
-            BigDecimal("3.142")
-          )
-        )
+        sql(s"SELECT ceil($pi), ceil($pi, -3), ceil($pi, -2), ceil($pi, -1), " +
+          s"ceil($pi, 0), ceil($pi, 1), ceil($pi, 2), ceil($pi, 3)"),
+        Seq(Row(BigDecimal(4), BigDecimal("1E3"), BigDecimal("1E2"), BigDecimal("1E1"),
+          BigDecimal(4), BigDecimal("3.2"), BigDecimal("3.15"), BigDecimal("3.142")))
       )
       checkAnswer(
-        sql(
-          s"SELECT floor($pi), floor($pi, -3), floor($pi, -2), floor($pi, -1), " +
-            s"floor($pi, 0), floor($pi, 1), floor($pi, 2), floor($pi, 3)"
-        ),
-        Seq(
-          Row(
-            BigDecimal(3),
-            BigDecimal("0E3"),
-            BigDecimal("0E2"),
-            BigDecimal("0E1"),
-            BigDecimal(3),
-            BigDecimal("3.1"),
-            BigDecimal("3.14"),
-            BigDecimal("3.141")
-          )
-        )
+        sql(s"SELECT floor($pi), floor($pi, -3), floor($pi, -2), floor($pi, -1), " +
+          s"floor($pi, 0), floor($pi, 1), floor($pi, 2), floor($pi, 3)"),
+        Seq(Row(BigDecimal(3), BigDecimal("0E3"), BigDecimal("0E2"), BigDecimal("0E1"),
+          BigDecimal(3), BigDecimal("3.1"), BigDecimal("3.14"), BigDecimal("3.141")))
       )
     }
 
     val bdPi: BigDecimal = BigDecimal(31415925L, 7)
     checkAnswer(
-      sql(
-        s"SELECT round($bdPi, 7), round($bdPi, 8), round($bdPi, 9), round($bdPi, 10), " +
-          s"round($bdPi, 100), round($bdPi, 6), round(null, 8)"
-      ),
+      sql(s"SELECT round($bdPi, 7), round($bdPi, 8), round($bdPi, 9), round($bdPi, 10), " +
+        s"round($bdPi, 100), round($bdPi, 6), round(null, 8)"),
       Seq(Row(bdPi, bdPi, bdPi, bdPi, bdPi, BigDecimal("3.141593"), null))
     )
 
     checkAnswer(
-      sql(
-        s"SELECT bround($bdPi, 7), bround($bdPi, 8), bround($bdPi, 9), bround($bdPi, 10), " +
-          s"bround($bdPi, 100), bround($bdPi, 6), bround(null, 8)"
-      ),
+      sql(s"SELECT bround($bdPi, 7), bround($bdPi, 8), bround($bdPi, 9), bround($bdPi, 10), " +
+        s"bround($bdPi, 100), bround($bdPi, 6), bround(null, 8)"),
       Seq(Row(bdPi, bdPi, bdPi, bdPi, bdPi, BigDecimal("3.141592"), null))
     )
     checkAnswer(
-      sql(
-        s"SELECT ceil($bdPi, 7), ceil($bdPi, 8), ceil($bdPi, 9), ceil($bdPi, 10), " +
-          s"ceil($bdPi, 100), ceil($bdPi, 6), ceil(null, 8)"
-      ),
+      sql(s"SELECT ceil($bdPi, 7), ceil($bdPi, 8), ceil($bdPi, 9), ceil($bdPi, 10), " +
+        s"ceil($bdPi, 100), ceil($bdPi, 6), ceil(null, 8)"),
       Seq(Row(bdPi, bdPi, bdPi, bdPi, bdPi, BigDecimal("3.141593"), null))
     )
 
     checkAnswer(
-      sql(
-        s"SELECT floor($bdPi, 7), floor($bdPi, 8), floor($bdPi, 9), floor($bdPi, 10), " +
-          s"floor($bdPi, 100), floor($bdPi, 6), floor(null, 8)"
-      ),
+      sql(s"SELECT floor($bdPi, 7), floor($bdPi, 8), floor($bdPi, 9), floor($bdPi, 10), " +
+        s"floor($bdPi, 100), floor($bdPi, 6), floor(null, 8)"),
       Seq(Row(bdPi, bdPi, bdPi, bdPi, bdPi, BigDecimal("3.141592"), null))
     )
   }
@@ -541,28 +443,14 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
         .withColumn("value_ceil", ceil($"value"))
         .withColumn("value_ceil1", ceil($"value", lit(0)))
         .withColumn("value_ceil2", ceil($"value", lit(1))),
-      Seq(
-        Row(
-          BigDecimal("5.9"),
-          BigDecimal("6"),
-          BigDecimal("6"),
-          BigDecimal("5.9")
-        )
-      )
+      Seq(Row(BigDecimal("5.9"), BigDecimal("6"), BigDecimal("6"), BigDecimal("5.9")))
     )
     checkAnswer(
       df
         .withColumn("value_floor", floor($"value"))
         .withColumn("value_floor1", floor($"value", lit(0)))
         .withColumn("value_floor2", floor($"value", lit(1))),
-      Seq(
-        Row(
-          BigDecimal("5.9"),
-          BigDecimal("5"),
-          BigDecimal("5"),
-          BigDecimal("5.9")
-        )
-      )
+      Seq(Row(BigDecimal("5.9"), BigDecimal("5"), BigDecimal("5"), BigDecimal("5.9")))
     )
   }
 
@@ -571,36 +459,28 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
       Seq(BigDecimal("5.9")).toDF("i").write.saveAsTable("t")
       checkAnswer(
         sql("select i, round(i) from t"),
-        Seq(Row(BigDecimal("5.9"), BigDecimal("6")))
-      )
+        Seq(Row(BigDecimal("5.9"), BigDecimal("6"))))
       checkAnswer(
         sql("select i, bround(i) from t"),
-        Seq(Row(BigDecimal("5.9"), BigDecimal("6")))
-      )
+        Seq(Row(BigDecimal("5.9"), BigDecimal("6"))))
       checkAnswer(
         sql("select i, ceil(i) from t"),
-        Seq(Row(BigDecimal("5.9"), BigDecimal("6")))
-      )
+        Seq(Row(BigDecimal("5.9"), BigDecimal("6"))))
       checkAnswer(
         sql("select i, ceil(i, 0) from t"),
-        Seq(Row(BigDecimal("5.9"), BigDecimal("6")))
-      )
+        Seq(Row(BigDecimal("5.9"), BigDecimal("6"))))
       checkAnswer(
         sql("select i, ceil(i, 1) from t"),
-        Seq(Row(BigDecimal("5.9"), BigDecimal("5.9")))
-      )
+        Seq(Row(BigDecimal("5.9"), BigDecimal("5.9"))))
       checkAnswer(
         sql("select i, floor(i) from t"),
-        Seq(Row(BigDecimal("5.9"), BigDecimal("5")))
-      )
+        Seq(Row(BigDecimal("5.9"), BigDecimal("5"))))
       checkAnswer(
         sql("select i, floor(i, 0) from t"),
-        Seq(Row(BigDecimal("5.9"), BigDecimal("5")))
-      )
+        Seq(Row(BigDecimal("5.9"), BigDecimal("5"))))
       checkAnswer(
         sql("select i, floor(i, 1) from t"),
-        Seq(Row(BigDecimal("5.9"), BigDecimal("5.9")))
-      )
+        Seq(Row(BigDecimal("5.9"), BigDecimal("5.9"))))
     }
   }
 
@@ -615,7 +495,9 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   test("signum / sign") {
     testOneToOneMathFunction[Double, Double](signum, math.signum)
 
-    checkAnswer(sql("SELECT sign(10), signum(-11)"), Row(1, -1))
+    checkAnswer(
+      sql("SELECT sign(10), signum(-11)"),
+      Row(1, -1))
   }
 
   test("pow / power") {
@@ -637,24 +519,15 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
     checkAnswer(data.selectExpr("hex(b)"), Seq(Row("FFFFFFFFFFFFFFE4")))
     checkAnswer(data.selectExpr("hex(c)"), Seq(Row("177828FED4")))
     checkAnswer(data.selectExpr("hex(d)"), Seq(Row("68656C6C6F")))
-    checkAnswer(
-      data.selectExpr("hex(cast(d as binary))"),
-      Seq(Row("68656C6C6F"))
-    )
+    checkAnswer(data.selectExpr("hex(cast(d as binary))"), Seq(Row("68656C6C6F")))
   }
 
   test("unhex") {
     val data = Seq(("1C", "737472696E67")).toDF("a", "b")
     checkAnswer(data.select(unhex($"a")), Row(Array[Byte](28.toByte)))
-    checkAnswer(
-      data.select(unhex($"b")),
-      Row("string".getBytes(StandardCharsets.UTF_8))
-    )
+    checkAnswer(data.select(unhex($"b")), Row("string".getBytes(StandardCharsets.UTF_8)))
     checkAnswer(data.selectExpr("unhex(a)"), Row(Array[Byte](28.toByte)))
-    checkAnswer(
-      data.selectExpr("unhex(b)"),
-      Row("string".getBytes(StandardCharsets.UTF_8))
-    )
+    checkAnswer(data.selectExpr("unhex(b)"), Row("string".getBytes(StandardCharsets.UTF_8)))
     checkAnswer(data.selectExpr("""unhex("##")"""), Row(null))
     checkAnswer(data.selectExpr("""unhex("G123")"""), Row(null))
   }
@@ -668,15 +541,10 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("log / ln") {
-    testOneToOneNonNegativeMathFunction(
-      org.apache.spark.sql.functions.log,
-      StrictMath.log
-    )
+    testOneToOneNonNegativeMathFunction(org.apache.spark.sql.functions.log, StrictMath.log)
     checkAnswer(
       sql("SELECT ln(0), ln(1), ln(1.5)"),
-      Seq((1, 2))
-        .toDF()
-        .select(logarithm(lit(0)), logarithm(lit(1)), logarithm(lit(1.5)))
+      Seq((1, 2)).toDF().select(logarithm(lit(0)), logarithm(lit(1)), logarithm(lit(1.5)))
     )
   }
 
@@ -689,131 +557,82 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("shift left") {
-    val df = Seq[(Long, Integer, Short, Byte, Integer, Integer)](
-      (21, 21, 21, 21, 21, null)
-    )
+    val df = Seq[(Long, Integer, Short, Byte, Integer, Integer)]((21, 21, 21, 21, 21, null))
       .toDF("a", "b", "c", "d", "e", "f")
 
     checkAnswer(
       df.select(
-        shiftleft($"a", 1),
-        shiftleft($"b", 1),
-        shiftleft($"c", 1),
-        shiftleft($"d", 1),
-        shiftLeft($"f", 1)
-      ), // test deprecated one.
-      Row(42.toLong, 42, 42.toShort, 42.toByte, null)
-    )
+        shiftleft($"a", 1), shiftleft($"b", 1), shiftleft($"c", 1), shiftleft($"d", 1),
+        shiftLeft($"f", 1)), // test deprecated one.
+        Row(42.toLong, 42, 42.toShort, 42.toByte, null))
 
     checkAnswer(
       df.selectExpr(
-        "shiftleft(a, 1)",
-        "shiftleft(b, 1)",
-        "shiftleft(b, 1)",
-        "shiftleft(d, 1)",
-        "shiftleft(f, 1)"
-      ),
-      Row(42.toLong, 42, 42.toShort, 42.toByte, null)
-    )
+        "shiftleft(a, 1)", "shiftleft(b, 1)", "shiftleft(b, 1)", "shiftleft(d, 1)",
+        "shiftleft(f, 1)"),
+      Row(42.toLong, 42, 42.toShort, 42.toByte, null))
   }
 
   test("shift right") {
-    val df = Seq[(Long, Integer, Short, Byte, Integer, Integer)](
-      (42, 42, 42, 42, 42, null)
-    )
+    val df = Seq[(Long, Integer, Short, Byte, Integer, Integer)]((42, 42, 42, 42, 42, null))
       .toDF("a", "b", "c", "d", "e", "f")
 
     checkAnswer(
       df.select(
-        shiftright($"a", 1),
-        shiftright($"b", 1),
-        shiftright($"c", 1),
-        shiftright($"d", 1),
-        shiftRight($"f", 1)
-      ), // test deprecated one.
-      Row(21.toLong, 21, 21.toShort, 21.toByte, null)
-    )
+        shiftright($"a", 1), shiftright($"b", 1), shiftright($"c", 1), shiftright($"d", 1),
+        shiftRight($"f", 1)), // test deprecated one.
+      Row(21.toLong, 21, 21.toShort, 21.toByte, null))
 
     checkAnswer(
       df.selectExpr(
-        "shiftright(a, 1)",
-        "shiftright(b, 1)",
-        "shiftright(c, 1)",
-        "shiftright(d, 1)",
-        "shiftright(f, 1)"
-      ),
-      Row(21.toLong, 21, 21.toShort, 21.toByte, null)
-    )
+        "shiftright(a, 1)", "shiftright(b, 1)", "shiftright(c, 1)", "shiftright(d, 1)",
+        "shiftright(f, 1)"),
+      Row(21.toLong, 21, 21.toShort, 21.toByte, null))
   }
 
   test("shift right unsigned") {
-    val df = Seq[(Long, Integer, Short, Byte, Integer, Integer)](
-      (-42, 42, 42, 42, 42, null)
-    )
+    val df = Seq[(Long, Integer, Short, Byte, Integer, Integer)]((-42, 42, 42, 42, 42, null))
       .toDF("a", "b", "c", "d", "e", "f")
 
     checkAnswer(
       df.select(
-        shiftrightunsigned($"a", 1),
-        shiftrightunsigned($"b", 1),
-        shiftrightunsigned($"c", 1),
-        shiftrightunsigned($"d", 1),
-        shiftRightUnsigned($"f", 1)
-      ), // test deprecated one.
-      Row(9223372036854775787L, 21, 21.toShort, 21.toByte, null)
-    )
+        shiftrightunsigned($"a", 1), shiftrightunsigned($"b", 1), shiftrightunsigned($"c", 1),
+        shiftrightunsigned($"d", 1), shiftRightUnsigned($"f", 1)), // test deprecated one.
+      Row(9223372036854775787L, 21, 21.toShort, 21.toByte, null))
 
     checkAnswer(
       df.selectExpr(
-        "shiftrightunsigned(a, 1)",
-        "shiftrightunsigned(b, 1)",
-        "shiftrightunsigned(c, 1)",
-        "shiftrightunsigned(d, 1)",
-        "shiftrightunsigned(f, 1)"
-      ),
-      Row(9223372036854775787L, 21, 21.toShort, 21.toByte, null)
-    )
+        "shiftrightunsigned(a, 1)", "shiftrightunsigned(b, 1)", "shiftrightunsigned(c, 1)",
+        "shiftrightunsigned(d, 1)", "shiftrightunsigned(f, 1)"),
+      Row(9223372036854775787L, 21, 21.toShort, 21.toByte, null))
   }
 
   test("binary log") {
     val df = Seq[(Integer, Integer)]((123, null)).toDF("a", "b")
     checkAnswer(
-      df.select(
-        org.apache.spark.sql.functions.log("a"),
+      df.select(org.apache.spark.sql.functions.log("a"),
         org.apache.spark.sql.functions.log(2.0, "a"),
-        org.apache.spark.sql.functions.log("b")
-      ),
-      Row(StrictMath.log(123), StrictMath.log(123) / StrictMath.log(2), null)
-    )
+        org.apache.spark.sql.functions.log("b")),
+      Row(StrictMath.log(123), StrictMath.log(123) / StrictMath.log(2), null))
 
     checkAnswer(
       df.selectExpr("log(a)", "log(2.0, a)", "log(b)"),
-      Row(StrictMath.log(123), StrictMath.log(123) / StrictMath.log(2), null)
-    )
+      Row(StrictMath.log(123), StrictMath.log(123) / StrictMath.log(2), null))
   }
 
   test("abs") {
     val input =
-      Seq[(java.lang.Double, java.lang.Double)](
-        (null, null),
-        (0.0, 0.0),
-        (1.5, 1.5),
-        (-2.5, 2.5)
-      )
+      Seq[(java.lang.Double, java.lang.Double)]((null, null), (0.0, 0.0), (1.5, 1.5), (-2.5, 2.5))
     checkAnswer(
       input.toDF("key", "value").select(abs($"key").alias("a")).sort("a"),
-      input.map(pair => Row(pair._2))
-    )
+      input.map(pair => Row(pair._2)))
 
     checkAnswer(
       input.toDF("key", "value").selectExpr("abs(key) a").sort("a"),
-      input.map(pair => Row(pair._2))
-    )
+      input.map(pair => Row(pair._2)))
 
     checkAnswer(
-      sql(
-        "select abs(0), abs(-1), abs(123), abs(-9223372036854775807), abs(9223372036854775807)"
-      ),
+      sql("select abs(0), abs(-1), abs(123), abs(-9223372036854775807), abs(9223372036854775807)"),
       Row(0, 1, 123, 9223372036854775807L, 9223372036854775807L)
     )
 
@@ -825,27 +644,27 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
 
   test("log2") {
     val df = Seq((1, 2)).toDF("a", "b")
-    checkAnswer(df.select(log2("b") + log2("a")), Row(1))
+    checkAnswer(
+      df.select(log2("b") + log2("a")),
+      Row(1))
 
     checkAnswer(sql("SELECT LOG2(8), LOG2(null)"), Row(3, null))
   }
 
   test("sqrt") {
     val df = Seq((1, 4)).toDF("a", "b")
-    checkAnswer(df.select(sqrt("a"), sqrt("b")), Row(1.0, 2.0))
+    checkAnswer(
+      df.select(sqrt("a"), sqrt("b")),
+      Row(1.0, 2.0))
 
     checkAnswer(sql("SELECT SQRT(4.0), SQRT(null)"), Row(2.0, null))
-    checkAnswer(
-      df.selectExpr("sqrt(a)", "sqrt(b)", "sqrt(null)"),
-      Row(1.0, 2.0, null)
-    )
+    checkAnswer(df.selectExpr("sqrt(a)", "sqrt(b)", "sqrt(null)"), Row(1.0, 2.0, null))
   }
 
   test("negative") {
     checkAnswer(
       sql("SELECT negative(1), negative(0), negative(-1)"),
-      Row(-1, 0, 1)
-    )
+      Row(-1, 0, 1))
   }
 
   test("positive") {
@@ -861,24 +680,9 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
       (Period.ofMonths(13), Period.ofYears(0), Period.ofYears(10), 10) -> 2,
       (Period.ofYears(1), Period.ofYears(0), Period.ofYears(10), 10) -> 2,
       (Period.ofYears(1), Period.ofYears(0), Period.ofYears(1), 10) -> 11,
-      (
-        Period.ofMonths(Int.MaxValue),
-        Period.ofYears(0),
-        Period.ofYears(1),
-        10
-      ) -> 11,
-      (
-        Period.ofMonths(0),
-        Period.ofMonths(Int.MinValue),
-        Period.ofMonths(Int.MaxValue),
-        10
-      ) -> 6,
-      (
-        Period.ofMonths(-1),
-        Period.ofMonths(Int.MinValue),
-        Period.ofMonths(Int.MaxValue),
-        10
-      ) -> 5
+      (Period.ofMonths(Int.MaxValue), Period.ofYears(0), Period.ofYears(1), 10) -> 11,
+      (Period.ofMonths(0), Period.ofMonths(Int.MinValue), Period.ofMonths(Int.MaxValue), 10) -> 6,
+      (Period.ofMonths(-1), Period.ofMonths(Int.MinValue), Period.ofMonths(Int.MaxValue), 10) -> 5
     ).foreach { case ((value, start, end, num), expected) =>
       val df = Seq((value, start, end, num)).toDF("v", "s", "e", "n")
       checkAnswer(df.selectExpr("width_bucket(v, s, e, n)"), Row(expected))
