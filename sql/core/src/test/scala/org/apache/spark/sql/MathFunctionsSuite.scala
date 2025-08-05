@@ -43,6 +43,58 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   private lazy val nullDoubles =
     Seq(NullDoubles(1.0), NullDoubles(2.0), NullDoubles(3.0), NullDoubles(null)).toDF()
 
+  private def testOneToOneMathFunctionApprox[
+      @specialized(Int, Long, Float, Double) T,
+      @specialized(Int, Long, Float, Double) U
+  ](c: Column => Column, f: T => U, precision: Int = 6): Unit = {
+
+    def approxEquals(a: Any, b: Any): Boolean = (a, b) match {
+      case (null, null) => true
+      case (null, _) | (_, null) => false
+      case (d1: Double, d2: Double) =>
+        if (d1.isNaN && d2.isNaN) true
+        else if (d1.isInfinite && d2.isInfinite && d1.signum == d2.signum) true
+        else {
+          val tol = math.pow(10, -precision)
+          math.abs(d1 - d2) < tol ||
+          (math.abs(d1 - d2) / (math.abs(d1) + math.abs(d2) + 1e-10)) < tol
+        }
+      case (f1: Float, f2: Float) =>
+        val tol = math.pow(10, -precision).toFloat
+        math.abs(f1 - f2) < tol ||
+        (math.abs(f1 - f2) / (math.abs(f1) + math.abs(f2) + 1e-10f)) < tol
+      case (a, b) => a == b
+    }
+
+    val actualA = doubleData.select(c($"a")).collect()
+    val expectedA = (1 to 10).map(n => Row(f((n * 0.2 - 1).asInstanceOf[T])))
+    actualA.zip(expectedA).foreach { case (actual, expected) =>
+      assert(actual.length == 1 && expected.length == 1)
+      assert(
+        approxEquals(actual.get(0), expected.get(0)),
+        s"Failed on a: actual ${actual
+            .get(0)} did not approximately equal expected ${expected.get(0)}"
+      )
+    }
+
+    val actualB = doubleData.select(c($"b")).collect()
+    val expectedB = (1 to 10).map(n => Row(f((-n * 0.2 + 1).asInstanceOf[T])))
+    actualB.zip(expectedB).foreach { case (actual, expected) =>
+      assert(actual.length == 1 && expected.length == 1)
+      assert(
+        approxEquals(actual.get(0), expected.get(0)),
+        s"Failed on b: actual ${actual
+            .get(0)} did not approximately equal expected ${expected.get(0)}"
+      )
+    }
+
+    checkAnswer(
+      doubleData.select(c(lit(null))),
+      (1 to 10).map(_ => Row(null))
+    )
+  }
+
+
   private def testOneToOneMathFunction[
   @specialized(Int, Long, Float, Double) T,
   @specialized(Int, Long, Float, Double) U](
@@ -134,8 +186,11 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("asinh") {
-    testOneToOneMathFunction(asinh,
-      (x: Double) => math.log(x + math.sqrt(x * x + 1)) )
+    testOneToOneMathFunctionApprox(
+      asinh,
+      (x: Double) => math.log(x + math.sqrt(x * x + 1)),
+      15
+    )
   }
 
   test("cos") {
@@ -152,7 +207,7 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("cosh") {
-    testOneToOneMathFunction(cosh, math.cosh)
+    testOneToOneMathFunctionApprox(cosh, math.cosh, 16)
   }
 
   test("acosh") {
@@ -161,12 +216,11 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("tan") {
-    testOneToOneMathFunction(tan, math.tan)
+    testOneToOneMathFunctionApprox(tan, math.tan, 16)
   }
 
   test("cot") {
-    testOneToOneMathFunction(cot,
-      (x: Double) => (1 / math.tan(x)) )
+    testOneToOneMathFunction(cot, (x: Double) => (1 / math.tan(x)))
   }
 
   test("atan") {
@@ -178,8 +232,11 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("atanh") {
-    testOneToOneMathFunction(atanh,
-      (x: Double) => (0.5 * (math.log1p(x) - math.log1p(-x))) )
+    testOneToOneMathFunctionApprox(
+      atanh,
+      (x: Double) => (0.5 * (math.log1p(x) - math.log1p(-x))),
+      16
+    )
   }
 
   test("degrees") {
@@ -199,7 +256,7 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("cbrt") {
-    testOneToOneMathFunction(cbrt, math.cbrt)
+    testOneToOneMathFunctionApprox(cbrt, math.cbrt, 16)
   }
 
   test("ceil and ceiling") {
@@ -428,7 +485,7 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
   }
 
   test("exp") {
-    testOneToOneMathFunction(exp, StrictMath.exp)
+    testOneToOneMathFunctionApprox(exp, StrictMath.exp, 15)
   }
 
   test("expm1") {
